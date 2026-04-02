@@ -1,0 +1,42 @@
+{
+  "name": "my-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next start",
+    "start": "next start",
+    "lint": "eslint",
+    "package:deploy": "powershell -ExecutionPolicy Bypass -File scripts/create-deploy-zip.ps1"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/three": "^0.182.0",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.29.2",
+    "lucide-react": "^0.563.0",
+    "next": "^16.2.2",
+    "next-themes": "^0.4.6",
+    "nodemailer": "^8.0.4",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "tailwind-merge": "^3.4.0",
+    "three": "^0.182.0",
+    "typewriter-effect": "^2.22.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/nodemailer": "^7.0.11",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "baseline-browser-mapping": "^2.9.19",
+    "eslint": "^9",
+    "eslint-config-next": "^16.2.2",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5"
+  }
+}
