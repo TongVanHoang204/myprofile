@@ -1,36 +1,152 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tong Van Hoang Portfolio
 
-## Getting Started
+Portfolio cá nhân được xây dựng bằng Next.js 16, React 19 và Tailwind CSS 4 để giới thiệu hồ sơ, dự án FeShenShop, CV, kỹ năng, FAQ AI và form liên hệ.
 
-First, run the development server:
+## Tính năng chính
+
+- Giao diện portfolio đa ngôn ngữ `VI / EN`
+- Trang chủ, giới thiệu, dự án, năng lực, FAQ, CV và liên hệ
+- Avatar và ảnh dự án cá nhân đã được map trực tiếp từ asset thật
+- Loading page dùng video
+- FAQ AI gọi qua API nội bộ, hỗ trợ `Gemini` và fallback `Ollama`
+- Form liên hệ gửi mail qua `SMTP` hoặc `Resend`
+- Route công khai đã có kiểm tra same-origin, JSON content-type và rate limit cơ bản
+- Script đóng gói deploy `.zip` không kèm `.env`
+
+## Công nghệ sử dụng
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Framer Motion
+- Three.js / React Three Fiber / Drei
+- Nodemailer
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
+npm run start
+npm run package:deploy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Chạy local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Cài dependency:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+```
 
-## Learn More
+2. Tạo file môi trường:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+copy .env.example .env
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Điền các biến cần thiết trong `.env`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Chạy project:
 
-## Deploy on Vercel
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Mở `http://localhost:3000`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Biến môi trường
+
+Các biến mẫu nằm trong [`.env.example`](./.env.example).
+
+Nhóm chính:
+
+- `FAQ_AI_PROVIDER`
+- `GEMINI_API_KEY`
+- `GEMINI_MODEL`
+- `OLLAMA_BASE_URL`
+- `OLLAMA_MODEL`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_SECURE`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `SMTP_FROM_EMAIL`
+- `CONTACT_TO_EMAIL`
+- `RESEND_API_KEY`
+- `CONTACT_FROM_EMAIL`
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_OG_IMAGE`
+- `NEXT_PUBLIC_CONTACT_EMAIL`
+- `NEXT_PUBLIC_CONTACT_PHONE`
+- `NEXT_PUBLIC_CONTACT_LOCATION`
+- `NEXT_PUBLIC_GITHUB_URL`
+
+## Cấu trúc chính
+
+```text
+app/
+  api/
+    contact/
+    faq-ai/
+  components/
+  context/
+  data/
+  lib/
+  about/
+  certificates/
+  contact/
+  cv/
+  faq/
+  projects/
+public/
+  documents/
+  profile/
+  projects/
+  videos/
+scripts/
+  create-deploy-zip.ps1
+```
+
+## Deploy an toàn
+
+Để tạo file `.zip` deploy mà không lộ secret local:
+
+```bash
+npm run package:deploy
+```
+
+File zip sẽ nằm trong thư mục `dist/` và không chứa:
+
+- `.env`
+- các file `.env.*` chứa secret
+- `.next`
+- `node_modules`
+- log và build artifact local
+
+Sau khi upload lên server:
+
+1. Giải nén file zip
+2. Copy `.env.example` thành `.env`
+3. Điền key thật trực tiếp trên server
+4. Chạy:
+
+```bash
+npm install
+npm run build
+npm run start
+```
+
+Chi tiết thêm xem tại [DEPLOY.md](./DEPLOY.md).
+
+## Lưu ý bảo mật
+
+- Không commit `.env`
+- Không nhét secret vào file `.zip` deploy
+- Nếu key đã từng bị lộ qua chat hoặc log, hãy tạo key mới trước khi deploy production
+
+## Ghi chú
+
+Repo này là source code cho portfolio cá nhân của Tống Văn Hoàng, không còn dùng phần admin/auth cũ.

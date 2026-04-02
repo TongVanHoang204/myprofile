@@ -17,7 +17,11 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const vercelUrl =
+  process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (vercelUrl ? `https://${vercelUrl}` : "http://localhost:3000");
 const ogImage =
   process.env.NEXT_PUBLIC_OG_IMAGE || "/profile/tong-van-hoang-avatar.jpg";
 const ogImageUrl = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`;
