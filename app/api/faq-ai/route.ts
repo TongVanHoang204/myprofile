@@ -33,6 +33,11 @@ type GeminiResponse = {
 const MAX_REQUESTS_PER_WINDOW = 12;
 const WINDOW_MS = 10 * 60 * 1000;
 const AI_TIMEOUT_MS = 15_000;
+const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_FALLBACK_MODELS = [
+  DEFAULT_GEMINI_MODEL,
+  "gemini-2.5-flash-lite",
+] as const;
 
 function buildPrompt(
   question: string,
@@ -129,59 +134,83 @@ function extractGeminiText(data: GeminiResponse) {
   );
 }
 
+function getGeminiModelCandidates() {
+  const configuredModel =
+    process.env.GEMINI_MODEL?.trim() || DEFAULT_GEMINI_MODEL;
+
+  return [
+    configuredModel,
+    ...GEMINI_FALLBACK_MODELS.filter((model) => model !== configuredModel),
+  ];
+}
+
 async function callGemini(prompt: string) {
   const apiKey = process.env.GEMINI_API_KEY;
-  const model = process.env.GEMINI_MODEL || "gemini-3-flash-preview";
 
   if (!apiKey) {
     throw new Error("GEMINI_NOT_CONFIGURED");
   }
 
-  let response: Response;
-  try {
-    response = await fetchWithTimeout(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey,
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [{ text: prompt }],
-            },
-          ],
-          generationConfig: {
-            candidateCount: 1,
-            maxOutputTokens: 384,
-            temperature: 0.6,
+  const models = getGeminiModelCandidates();
+  let lastError = "GEMINI_REQUEST_FAILED";
+
+  for (const model of models) {
+    let response: Response;
+
+    try {
+      response = await fetchWithTimeout(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey,
           },
-        }),
-      },
-      AI_TIMEOUT_MS
-    );
-  } catch (error) {
-    console.error("Gemini request failed:", error);
-    throw new Error("GEMINI_UNREACHABLE");
+          body: JSON.stringify({
+            contents: [
+              {
+                role: "user",
+                parts: [{ text: prompt }],
+              },
+            ],
+            generationConfig: {
+              candidateCount: 1,
+              maxOutputTokens: 384,
+              temperature: 0.6,
+            },
+          }),
+        },
+        AI_TIMEOUT_MS
+      );
+    } catch (error) {
+      console.error(`Gemini request failed for model ${model}:`, error);
+      lastError = "GEMINI_UNREACHABLE";
+      continue;
+    }
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Gemini upstream error for model ${model}:`, errorText);
+      lastError =
+        response.status >= 500 || response.status === 429
+          ? "GEMINI_UNAVAILABLE"
+          : "GEMINI_REQUEST_FAILED";
+      continue;
+    }
+
+    const data = (await response.json()) as GeminiResponse;
+    const answer = extractGeminiText(data);
+
+    if (!answer) {
+      console.error(`Gemini empty response for model ${model}:`, data);
+      lastError = "GEMINI_EMPTY_RESPONSE";
+      continue;
+    }
+
+    return { answer, model };
   }
 
-  if (!response.ok) {
-    console.error("Gemini upstream error:", await response.text());
-    throw new Error("GEMINI_REQUEST_FAILED");
-  }
-
-  const data = (await response.json()) as GeminiResponse;
-  const answer = extractGeminiText(data);
-
-  if (!answer) {
-    console.error("Gemini empty response:", data);
-    throw new Error("GEMINI_EMPTY_RESPONSE");
-  }
-
-  return { answer, model };
+  throw new Error(lastError);
 }
 
 async function callOllama(prompt: string) {
