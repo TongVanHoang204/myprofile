@@ -33,9 +33,10 @@ type GeminiResponse = {
 const MAX_REQUESTS_PER_WINDOW = 12;
 const WINDOW_MS = 10 * 60 * 1000;
 const AI_TIMEOUT_MS = 15_000;
-const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
+const DEFAULT_GEMINI_MODEL = "gemini-3-flash-preview";
 const GEMINI_FALLBACK_MODELS = [
   DEFAULT_GEMINI_MODEL,
+  "gemini-2.5-flash",
   "gemini-2.5-flash-lite",
 ] as const;
 
