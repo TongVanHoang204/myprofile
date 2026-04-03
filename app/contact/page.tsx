@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { contactInfo, socialLinks } from "@/app/data/contact";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { getContactErrorMessage } from "@/app/lib/contact-form-feedback";
+import ContactSuccessPopup from "@/app/components/ContactSuccessPopup";
 
 type ContactForm = {
   name: string;
@@ -23,18 +24,12 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  const [toast, setToast] = useState<{
-    show: boolean;
-    type: "success" | "error";
-    message: string;
-  }>({ show: false, type: "success", message: "" });
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [errorToast, setErrorToast] = useState("");
 
-  const showToast = (type: "success" | "error", message: string) => {
-    setToast({ show: true, type, message });
-    setTimeout(
-      () => setToast({ show: false, type: "success", message: "" }),
-      4000
-    );
+  const showErrorToast = (message: string) => {
+    setErrorToast(message);
+    setTimeout(() => setErrorToast(""), 4000);
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -45,15 +40,15 @@ export default function ContactPage() {
     const trimmedMessage = formData.message.trim();
 
     if (!trimmedName) {
-      showToast("error", dict.contact.name_required);
+      showErrorToast(dict.contact.name_required);
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
-      showToast("error", dict.contact.email_invalid);
+      showErrorToast(dict.contact.email_invalid);
       return;
     }
     if (!trimmedMessage) {
-      showToast("error", dict.contact.message_required);
+      showErrorToast(dict.contact.message_required);
       return;
     }
 
@@ -76,14 +71,14 @@ export default function ContactPage() {
       };
 
       if (!response.ok) {
-        showToast("error", getContactErrorMessage(payload.error, dict.contact));
+        showErrorToast(getContactErrorMessage(payload.error, dict.contact));
         return;
       }
 
-      showToast("success", dict.contact.success_msg);
+      setShowSuccessPopup(true);
       setFormData({ name: "", email: "", message: "", company: "" });
     } catch {
-      showToast("error", dict.contact.network_error);
+      showErrorToast(dict.contact.network_error);
     } finally {
       setIsSubmitting(false);
     }
@@ -91,20 +86,23 @@ export default function ContactPage() {
 
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 pb-12 pt-24 sm:gap-12 sm:pt-28 md:grid-cols-[1fr,1.25fr]">
+      <ContactSuccessPopup
+        open={showSuccessPopup}
+        title={dict.contact.success_title}
+        message={dict.contact.success_msg}
+        onClose={() => setShowSuccessPopup(false)}
+      />
+
       <motion.div
         initial={{ opacity: 0, y: -20, x: 20 }}
         animate={{
-          opacity: toast.show ? 1 : 0,
-          y: toast.show ? 0 : -20,
-          pointerEvents: toast.show ? "auto" : "none",
+          opacity: errorToast ? 1 : 0,
+          y: errorToast ? 0 : -20,
+          pointerEvents: errorToast ? "auto" : "none",
         }}
-        className={`fixed left-4 right-4 top-20 z-50 flex items-center gap-3 rounded-xl border border-white/10 px-4 py-3 shadow-xl backdrop-blur-md sm:left-auto sm:right-4 sm:top-24 sm:px-5 sm:py-4 ${
-          toast.type === "success"
-            ? "bg-green-500/90 text-white"
-            : "bg-red-500/90 text-white"
-        }`}
+        className="fixed left-4 right-4 top-20 z-50 flex items-center gap-3 rounded-xl border border-white/10 bg-red-500/90 px-4 py-3 text-white shadow-xl backdrop-blur-md sm:left-auto sm:right-4 sm:top-24 sm:px-5 sm:py-4"
       >
-        <span className="text-sm font-semibold">{toast.message}</span>
+        <span className="text-sm font-semibold">{errorToast}</span>
       </motion.div>
 
       <motion.section

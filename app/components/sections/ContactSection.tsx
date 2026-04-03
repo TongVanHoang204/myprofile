@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { contactInfo, socialLinks } from "@/app/data/contact";
 import { getContactErrorMessage } from "@/app/lib/contact-form-feedback";
+import ContactSuccessPopup from "@/app/components/ContactSuccessPopup";
 
 type FormState = {
   name: string;
@@ -96,7 +97,6 @@ export default function ContactSection() {
         colors: ["#0ea5e9", "#a855f7", "#ec4899"],
       });
 
-      setTimeout(() => setIsSuccess(false), 5000);
     } catch {
       setSubmitError(dict.contact.network_error);
     } finally {
@@ -106,6 +106,13 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="px-4 py-16 sm:px-6 sm:py-20">
+      <ContactSuccessPopup
+        open={isSuccess}
+        title={dict.contact.success_title}
+        message={dict.contact.success_msg}
+        onClose={() => setIsSuccess(false)}
+      />
+
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
           <motion.h2
@@ -307,39 +314,6 @@ export default function ContactSection() {
                 {isSubmitting ? dict.contact.sending : dict.contact.send_btn}
               </motion.button>
             </form>
-
-            <AnimatePresence>
-              {isSuccess && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                  className="absolute left-1/2 top-1/2 z-20 flex w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2 rounded-xl border border-green-500 bg-white p-4 text-center shadow-2xl dark:bg-slate-800"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-500 dark:bg-green-900/30">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <h4 className="text-lg font-bold text-slate-900 dark:text-white">
-                    {dict.contact.success_title}
-                  </h4>
-                  <p className="text-sm text-slate-600 dark:text-slate-300">
-                    {dict.contact.success_msg}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </motion.div>
         </div>
       </div>

@@ -24,8 +24,8 @@ type FAQItem = {
   answer: string;
 };
 
-function renderAnswer(answer: string) {
-  const segments = answer.split(/(\*\*.*?\*\*)/g);
+function renderInlineText(text: string) {
+  const segments = text.split(/(\*\*.*?\*\*|`.*?`)/g);
 
   return segments.map((segment, index) => {
     if (segment.startsWith("**") && segment.endsWith("**")) {
@@ -39,7 +39,66 @@ function renderAnswer(answer: string) {
       );
     }
 
+    if (segment.startsWith("`") && segment.endsWith("`")) {
+      return (
+        <code
+          key={`${segment}-${index}`}
+          className="rounded-md bg-slate-900/10 px-1.5 py-0.5 text-[0.95em] font-semibold text-slate-800 dark:bg-slate-100/10 dark:text-slate-100"
+        >
+          {segment.slice(1, -1)}
+        </code>
+      );
+    }
+
     return <span key={`${segment}-${index}`}>{segment}</span>;
+  });
+}
+
+function renderRichText(content: string) {
+  const normalized = content.replace(/\r\n/g, "\n").trim();
+  if (!normalized) {
+    return null;
+  }
+
+  const blocks = normalized.split(/\n{2,}/).filter(Boolean);
+
+  return blocks.map((block, blockIndex) => {
+    const lines = block
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    const isBulletList = lines.every((line) => /^[-*•]\s+/.test(line));
+    const isOrderedList = lines.every((line) => /^\d+\.\s+/.test(line));
+
+    if (isBulletList || isOrderedList) {
+      const ListTag = isOrderedList ? "ol" : "ul";
+
+      return (
+        <ListTag
+          key={`block-${blockIndex}`}
+          className={`space-y-2 pl-5 ${
+            isOrderedList ? "list-decimal" : "list-disc"
+          }`}
+        >
+          {lines.map((line, lineIndex) => (
+            <li key={`line-${blockIndex}-${lineIndex}`} className="pl-1">
+              {renderInlineText(line.replace(/^([-*•]|\d+\.)\s+/, ""))}
+            </li>
+          ))}
+        </ListTag>
+      );
+    }
+
+    return (
+      <div key={`block-${blockIndex}`} className="space-y-2">
+        {lines.map((line, lineIndex) => (
+          <p key={`line-${blockIndex}-${lineIndex}`}>
+            {renderInlineText(line)}
+          </p>
+        ))}
+      </div>
+    );
   });
 }
 
@@ -52,6 +111,10 @@ export default function FAQPage() {
   const [aiAnswer, setAiAnswer] = useState("");
   const [aiError, setAiError] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
+  const [aiMeta, setAiMeta] = useState<{
+    provider?: string;
+    model?: string;
+  }>({});
 
   const faqData = dict.faq;
   const filters = [
@@ -86,6 +149,7 @@ export default function FAQPage() {
     setAiLoading(true);
     setAiError("");
     setAiAnswer("");
+    setAiMeta({});
 
     try {
       const response = await fetch("/api/faq-ai", {
@@ -104,6 +168,8 @@ export default function FAQPage() {
       const payload = (await response.json().catch(() => ({}))) as {
         answer?: string;
         error?: string;
+        provider?: string;
+        model?: string;
       };
 
       if (!response.ok) {
@@ -117,6 +183,10 @@ export default function FAQPage() {
       }
 
       setAiAnswer(payload.answer || "");
+      setAiMeta({
+        provider: payload.provider,
+        model: payload.model,
+      });
     } catch {
       setAiError(
         language === "vi"
@@ -201,8 +271,43 @@ export default function FAQPage() {
             {aiError && <p className="mt-3 text-sm text-red-500">{aiError}</p>}
 
             {aiAnswer && (
-              <div className="mt-4 rounded-2xl border border-sky-200 bg-sky-50/70 p-4 text-sm leading-relaxed text-slate-700 dark:border-sky-900/60 dark:bg-slate-950/70 dark:text-slate-200">
-                {aiAnswer}
+              <div className="mt-5 overflow-hidden rounded-3xl border border-sky-500/20 bg-gradient-to-br from-sky-50/80 via-white to-blue-50/80 shadow-lg shadow-sky-500/5 dark:from-slate-950/90 dark:via-slate-900/85 dark:to-slate-950/90">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-sky-500/10 px-4 py-3 dark:border-sky-500/15">
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-full bg-sky-500/10 p-2 text-sky-500">
+                      <Sparkles size={16} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                        {language === "vi" ? "AI trả lời" : "AI answer"}
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
+                        {language === "vi"
+                          ? "Tóm tắt ngắn từ hồ sơ và FAQ"
+                          : "Short summary from the profile and FAQ"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {(aiMeta.provider || aiMeta.model) && (
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
+                      {aiMeta.provider && (
+                        <span className="rounded-full border border-sky-500/20 bg-sky-500/10 px-3 py-1 font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">
+                          {aiMeta.provider}
+                        </span>
+                      )}
+                      {aiMeta.model && (
+                        <span className="rounded-full border border-slate-300/70 bg-white/70 px-3 py-1 font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
+                          {aiMeta.model}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-4 px-4 py-4 text-sm leading-7 text-slate-700 dark:text-slate-200 sm:px-5">
+                  {renderRichText(aiAnswer)}
+                </div>
               </div>
             )}
           </motion.section>
@@ -306,7 +411,9 @@ export default function FAQPage() {
                           className="overflow-hidden"
                         >
                           <div className="px-6 pb-6 pl-[4.5rem] leading-relaxed text-slate-600 dark:text-slate-400">
-                            <div>{renderAnswer(item.answer)}</div>
+                            <div className="space-y-3">
+                              {renderRichText(item.answer)}
+                            </div>
                           </div>
                         </motion.div>
                       )}

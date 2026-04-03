@@ -55,6 +55,11 @@ function buildPrompt(
       ? "Trả lời ngắn gọn, rõ ràng, thân thiện. Nếu thiếu thông tin, hãy nói rõ và khuyên người dùng liên hệ trực tiếp."
       : "Answer clearly and concisely. If information is missing, say so and suggest contacting directly.";
 
+  const formatHint =
+    language === "vi"
+      ? "Äá»‹nh dáº¡ng cáº§n trÃ¡nh: khÃ´ng dÃ¹ng markdown nhÆ° **in Ä‘áº­m**, # heading hoáº·c báº£ng. Náº¿u cáº§n liá»‡t kÃª, hÃ£y dÃ¹ng gáº¡ch Ä‘áº§u dÃ²ng Ä‘Æ¡n giáº£n hoáº·c 1-3 Ä‘oáº¡n ngáº¯n."
+      : "Formatting rules: do not use markdown such as **bold**, # headings, or tables. If listing items, use simple bullet points or 1-3 short paragraphs.";
+
   const contextText =
     context.length > 0
       ? context
@@ -70,6 +75,8 @@ function buildPrompt(
   return `${header}
 
 ${rules}
+
+${formatHint}
 
 FAQ context:
 ${contextText}
