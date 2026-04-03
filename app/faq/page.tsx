@@ -13,7 +13,6 @@ import {
   Search,
   Sparkles,
 } from "lucide-react";
-import Link from "next/link";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { contactInfo } from "@/app/data/contact";
 
@@ -450,17 +449,21 @@ export default function FAQPage() {
               </p>
 
               <div className="flex flex-wrap justify-center gap-4 pt-4">
-                <Link href={`mailto:${contactInfo.email}`}>
-                  <button className="flex items-center gap-2 rounded-xl bg-blue-600 px-8 py-3 font-bold text-white transition-all hover:-translate-y-1 hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/25">
-                    <MessageCircle size={20} />
-                    {faqData.cta.email_btn}
-                  </button>
-                </Link>
-                <Link href="/documents/tong-van-hoang-cv.pdf" target="_blank">
-                  <button className="rounded-xl border border-slate-700 bg-slate-800 px-8 py-3 font-medium text-white transition-all hover:-translate-y-1 hover:border-slate-600 hover:bg-slate-700">
-                    {faqData.cta.cv_btn}
-                  </button>
-                </Link>
+                <a
+                  href={`mailto:${contactInfo.email}`}
+                  className="flex items-center gap-2 rounded-xl bg-blue-600 px-8 py-3 font-bold text-white transition-all hover:-translate-y-1 hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/25"
+                >
+                  <MessageCircle size={20} />
+                  {faqData.cta.email_btn}
+                </a>
+                <a
+                  href="/documents/tong-van-hoang-cv.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-slate-700 bg-slate-800 px-8 py-3 font-medium text-white transition-all hover:-translate-y-1 hover:border-slate-600 hover:bg-slate-700"
+                >
+                  {faqData.cta.cv_btn}
+                </a>
               </div>
             </div>
           </motion.div>
