@@ -31,9 +31,6 @@ export default function BlogSection() {
             <h2 className="max-w-3xl text-2xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
               {copy.sectionTitle}
             </h2>
-            <p className="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300 sm:text-base">
-              {copy.sectionSubtitle}
-            </p>
           </motion.div>
 
           <motion.div
