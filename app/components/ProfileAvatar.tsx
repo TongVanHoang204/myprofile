@@ -29,7 +29,7 @@ export default function ProfileAvatar() {
         onClick={() => setIsOpen(true)}
         className="group relative cursor-pointer"
       >
-        <div className="relative h-56 w-56 sm:h-72 sm:w-72 md:h-96 md:w-96">
+        <div className="relative h-52 w-52 sm:h-72 sm:w-72 md:h-96 md:w-96">
           <div className="absolute inset-0 overflow-hidden rounded-full p-[4px]">
             <div className="absolute inset-[-100%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_240deg,#0ea5e9_300deg,#a855f7_330deg,#ffffff_360deg)] opacity-100 blur-sm" />
             <div className="absolute inset-[-100%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_240deg,#0ea5e9_300deg,#a855f7_330deg,#ffffff_360deg)] opacity-60 blur-xl" />
@@ -74,7 +74,7 @@ export default function ProfileAvatar() {
         </div>
       </motion.div>
 
-      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 md:hidden dark:text-slate-400">
+      <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 md:hidden dark:text-slate-400">
         {language === "vi" ? "Nhấn để xem" : "Tap for details"}
       </p>
 
@@ -93,7 +93,7 @@ export default function ProfileAvatar() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="fixed left-1/2 top-1/2 z-50 max-h-[85svh] w-[calc(100vw-1.5rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-slate-700 bg-slate-900/90 shadow-2xl backdrop-blur-xl"
+              className="fixed left-1/2 top-1/2 z-50 max-h-[88svh] w-[calc(100vw-1rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-slate-700 bg-slate-900/90 shadow-2xl backdrop-blur-xl"
             >
               <div className="relative h-28 w-full bg-gradient-to-r from-sky-500 to-purple-600 sm:h-32">
                 <button
@@ -117,7 +117,7 @@ export default function ProfileAvatar() {
                 </button>
               </div>
 
-              <div className="relative px-5 pb-5 sm:px-6 sm:pb-6">
+              <div className="relative px-4 pb-4 sm:px-6 sm:pb-6">
                 <div className="relative mb-4 -mt-12 inline-block sm:-mt-16">
                   <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-slate-900 bg-slate-800 shadow-lg sm:h-32 sm:w-32">
                     <Image

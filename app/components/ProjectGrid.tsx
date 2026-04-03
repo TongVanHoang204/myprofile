@@ -63,13 +63,13 @@ export default function ProjectGrid({ filter }: ProjectGridProps) {
       : projects.filter((project) => project.category === filter);
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
       {filteredProjects.length > 0 ? (
         filteredProjects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))
       ) : (
-        <div className="col-span-full flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white/60 px-6 py-16 text-center text-slate-500 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-400">
+        <div className="col-span-full flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white/60 px-6 py-14 text-center text-slate-500 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-400 sm:py-16">
           <svg
             className="mb-4 h-14 w-14 text-slate-400 dark:text-slate-600"
             fill="none"

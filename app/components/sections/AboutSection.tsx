@@ -12,9 +12,9 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="bg-slate-50/50 px-4 py-16 backdrop-blur-sm dark:bg-slate-900/20 sm:px-6 sm:py-20"
+      className="bg-slate-50/50 px-4 py-14 backdrop-blur-sm dark:bg-slate-900/20 sm:px-6 sm:py-20"
     >
-      <div className="mx-auto max-w-6xl space-y-14 sm:space-y-20">
+      <div className="mx-auto max-w-6xl space-y-12 sm:space-y-20">
         <div className="text-center md:text-left">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -32,7 +32,7 @@ export default function AboutSection() {
           >
             <TextReveal
               text={dict.about.summary}
-              className="max-w-3xl text-slate-600 dark:text-slate-300"
+              className="max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300 sm:text-base"
             />
           </motion.div>
         </div>

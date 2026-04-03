@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import {
   consumeRateLimit,
   getClientIp,
+  hasAllowedFetchMetadata,
+  hasValidProtectionToken,
   isJsonRequest,
   isSameOriginRequest,
 } from "@/app/lib/request-security";
@@ -47,17 +49,17 @@ function buildPrompt(
 ) {
   const header =
     language === "vi"
-      ? "Bạn là trợ lý FAQ cho portfolio của Tống Văn Hoàng."
+      ? "B\u1ea1n l\u00e0 tr\u1ee3 l\u00fd FAQ cho portfolio c\u1ee7a T\u1ed1ng V\u0103n Ho\u00e0ng."
       : "You are an FAQ assistant for Tong Van Hoang's portfolio.";
 
   const rules =
     language === "vi"
-      ? "Trả lời ngắn gọn, rõ ràng, thân thiện. Nếu thiếu thông tin, hãy nói rõ và khuyên người dùng liên hệ trực tiếp."
+      ? "Tr\u1ea3 l\u1eddi ng\u1eafn g\u1ecdn, r\u00f5 r\u00e0ng, th\u00e2n thi\u1ec7n. N\u1ebfu thi\u1ebfu th\u00f4ng tin, h\u00e3y n\u00f3i r\u00f5 v\u00e0 khuy\u00ean ng\u01b0\u1eddi d\u00f9ng li\u00ean h\u1ec7 tr\u1ef1c ti\u1ebfp."
       : "Answer clearly and concisely. If information is missing, say so and suggest contacting directly.";
 
   const formatHint =
     language === "vi"
-      ? "Äá»‹nh dáº¡ng cáº§n trÃ¡nh: khÃ´ng dÃ¹ng markdown nhÆ° **in Ä‘áº­m**, # heading hoáº·c báº£ng. Náº¿u cáº§n liá»‡t kÃª, hÃ£y dÃ¹ng gáº¡ch Ä‘áº§u dÃ²ng Ä‘Æ¡n giáº£n hoáº·c 1-3 Ä‘oáº¡n ngáº¯n."
+      ? "Tr\u00e1nh d\u00f9ng markdown nh\u01b0 **in \u0111\u1eadm**, # heading ho\u1eb7c b\u1ea3ng. N\u1ebfu c\u1ea7n li\u1ec7t k\u00ea, h\u00e3y d\u00f9ng g\u1ea1ch \u0111\u1ea7u d\u00f2ng \u0111\u01a1n gi\u1ea3n ho\u1eb7c 1-3 \u0111o\u1ea1n ng\u1eafn."
       : "Formatting rules: do not use markdown such as **bold**, # headings, or tables. If listing items, use simple bullet points or 1-3 short paragraphs.";
 
   const contextText =
@@ -69,7 +71,7 @@ function buildPrompt(
           )
           .join("\n\n")
       : language === "vi"
-        ? "Không có dữ liệu FAQ bổ sung."
+        ? "Kh\u00f4ng c\u00f3 d\u1eef li\u1ec7u FAQ b\u1ed5 sung."
         : "No additional FAQ context.";
 
   return `${header}
@@ -269,7 +271,11 @@ async function callOllama(prompt: string) {
 
 export async function POST(request: Request) {
   try {
-    if (!isSameOriginRequest(request)) {
+    if (
+      !isSameOriginRequest(request) ||
+      !hasAllowedFetchMetadata(request) ||
+      !hasValidProtectionToken(request)
+    ) {
       return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }
 
@@ -304,14 +310,14 @@ export async function POST(request: Request) {
 
     if (!question) {
       return NextResponse.json(
-        { error: "Vui lòng nhập câu hỏi." },
+        { error: "Vui l\u00f2ng nh\u1eadp c\u00e2u h\u1ecfi." },
         { status: 400 }
       );
     }
 
     if (question.length > 1000) {
       return NextResponse.json(
-        { error: "Câu hỏi quá dài." },
+        { error: "C\u00e2u h\u1ecfi qu\u00e1 d\u00e0i." },
         { status: 400 }
       );
     }
@@ -342,7 +348,10 @@ export async function POST(request: Request) {
 
     console.error("FAQ AI error:", error);
     return NextResponse.json(
-      { error: "Dịch vụ AI tạm thời không khả dụng. Vui lòng thử lại." },
+      {
+        error:
+          "D\u1ecbch v\u1ee5 AI t\u1ea1m th\u1eddi kh\u00f4ng kh\u1ea3 d\u1ee5ng. Vui l\u00f2ng th\u1eed l\u1ea1i.",
+      },
       { status: 500 }
     );
   }

@@ -9,7 +9,7 @@ import LanguageToggle from "./LanguageToggle";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "@/app/context/LanguageContext";
 
-const HOME_SECTIONS = ["home", "projects", "about", "contact"] as const;
+const HOME_SECTIONS = ["home", "projects", "blog", "about", "contact"] as const;
 type HomeSectionId = (typeof HOME_SECTIONS)[number];
 
 type NavItem =
@@ -27,11 +27,16 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { dict } = useLanguage();
+  const { dict, language } = useLanguage();
 
   const navLinks: NavItem[] = [
     { kind: "section", sectionId: "home", label: dict.nav.home },
     { kind: "section", sectionId: "projects", label: dict.nav.projects },
+    {
+      kind: "section",
+      sectionId: "blog",
+      label: language === "vi" ? "Blog" : "Blog",
+    },
     { kind: "section", sectionId: "about", label: dict.nav.about },
     { kind: "route", href: "/certificates", label: dict.nav.certificates },
     { kind: "route", href: "/faq", label: dict.nav.faq },
@@ -125,7 +130,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-slate-200 bg-white/70 backdrop-blur-lg transition-colors duration-300 dark:border-slate-800/70 dark:bg-slate-950/70">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2.5 sm:px-4 sm:py-3">
         <Link
           href="/"
           onClick={(e) => handleSectionNavigation(e, "home")}
@@ -137,7 +142,7 @@ export default function Navbar() {
           >
             TVH
           </motion.span>
-          <span className="max-w-[5.5rem] truncate text-xs font-semibold tracking-wide text-slate-800 transition-colors group-hover:text-sky-500 dark:text-slate-100 dark:group-hover:text-sky-400 sm:max-w-none sm:text-sm">
+          <span className="max-w-[7rem] truncate text-[13px] font-semibold tracking-wide text-slate-800 transition-colors group-hover:text-sky-500 dark:text-slate-100 dark:group-hover:text-sky-400 sm:max-w-none sm:text-sm">
             Tong Van Hoang
           </span>
         </Link>
@@ -193,7 +198,7 @@ export default function Navbar() {
           </div>
         </nav>
 
-        <div className="flex shrink-0 items-center gap-1.5 md:hidden">
+        <div className="flex shrink-0 items-center gap-1 md:hidden">
           <LanguageToggle />
           <ThemeToggle />
           <button
@@ -249,7 +254,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden md:hidden"
+            className="max-h-[calc(100svh-4rem)] overflow-y-auto md:hidden"
           >
             <nav className="flex flex-col gap-1 border-t border-slate-200 bg-white/95 px-3 py-3 backdrop-blur-lg dark:border-slate-800/50 dark:bg-slate-950/95">
               {navLinks.map((item, index) => {
@@ -273,7 +278,7 @@ export default function Navbar() {
                           : handleRouteNavigation(e, item.href)
                       }
                       className={clsx(
-                        "block rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+                        "block rounded-xl px-4 py-3 text-sm font-medium transition-colors",
                         isActive
                           ? "bg-sky-500/10 text-sky-600 dark:text-sky-400"
                           : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
@@ -294,7 +299,7 @@ export default function Navbar() {
                 <Link
                   href="/"
                   onClick={(e) => handleSectionNavigation(e, "contact")}
-                  className="block w-full rounded-xl bg-sky-500 px-4 py-3 text-center text-sm font-bold text-white shadow-lg shadow-sky-500/30 transition-colors hover:bg-sky-400 dark:text-slate-950"
+                  className="block w-full rounded-xl bg-sky-500 px-4 py-3.5 text-center text-sm font-bold text-white shadow-lg shadow-sky-500/30 transition-colors hover:bg-sky-400 dark:text-slate-950"
                 >
                   {dict.nav.contact}
                 </Link>

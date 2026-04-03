@@ -6,6 +6,7 @@ import { contactInfo, socialLinks } from "@/app/data/contact";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { getContactErrorMessage } from "@/app/lib/contact-form-feedback";
 import ContactSuccessPopup from "@/app/components/ContactSuccessPopup";
+import { buildProtectedHeaders } from "@/app/lib/client-request-security";
 
 type ContactForm = {
   name: string;
@@ -57,7 +58,7 @@ export default function ContactPage() {
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: buildProtectedHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           name: trimmedName,
           email: trimmedEmail,
@@ -85,7 +86,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-10 px-4 pb-12 pt-24 sm:gap-12 sm:pt-28 md:grid-cols-[1fr,1.25fr]">
+    <div className="mx-auto grid max-w-6xl gap-8 px-4 pb-12 pt-22 sm:gap-12 sm:pt-28 md:grid-cols-[1fr,1.25fr]">
       <ContactSuccessPopup
         open={showSuccessPopup}
         title={dict.contact.success_title}
@@ -100,7 +101,7 @@ export default function ContactPage() {
           y: errorToast ? 0 : -20,
           pointerEvents: errorToast ? "auto" : "none",
         }}
-        className="fixed left-4 right-4 top-20 z-50 flex items-center gap-3 rounded-xl border border-white/10 bg-red-500/90 px-4 py-3 text-white shadow-xl backdrop-blur-md sm:left-auto sm:right-4 sm:top-24 sm:px-5 sm:py-4"
+        className="fixed left-4 right-4 top-18 z-50 flex items-center gap-3 rounded-xl border border-white/10 bg-red-500/90 px-4 py-3 text-white shadow-xl backdrop-blur-md sm:left-auto sm:right-4 sm:top-24 sm:px-5 sm:py-4"
       >
         <span className="text-sm font-semibold">{errorToast}</span>
       </motion.div>
@@ -109,7 +110,7 @@ export default function ContactPage() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
-        className="space-y-8"
+        className="space-y-6 sm:space-y-8"
       >
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-sky-400">
@@ -118,12 +119,12 @@ export default function ContactPage() {
           <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
             {dict.contact.title}
           </h1>
-          <p className="mt-3 max-w-md text-base leading-relaxed text-slate-600 dark:text-slate-300">
+          <p className="mt-3 max-w-md text-sm leading-7 text-slate-600 dark:text-slate-300 sm:text-base">
             {dict.contact.subtitle}
           </p>
         </div>
 
-        <div className="space-y-6 text-sm text-slate-700 dark:text-slate-300">
+        <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300 sm:space-y-6">
           <div className="group flex items-start gap-4 rounded-2xl border border-transparent bg-slate-100/70 p-4 transition-colors hover:border-slate-300 hover:bg-slate-100 dark:bg-slate-900/50 dark:hover:border-slate-700 dark:hover:bg-slate-800/50">
             <div className="rounded-full bg-white p-3 text-sky-500 transition-colors dark:bg-slate-800">
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -137,7 +138,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="mb-1 text-xs font-bold uppercase text-slate-500">Email</p>
-              <p className="font-medium tracking-wide text-slate-900 dark:text-slate-100">
+              <p className="break-all font-medium tracking-wide text-slate-900 dark:text-slate-100">
                 {contactInfo.email}
               </p>
             </div>
@@ -155,7 +156,9 @@ export default function ContactPage() {
               </svg>
             </div>
             <div>
-              <p className="mb-1 text-xs font-bold uppercase text-slate-500">Điện thoại</p>
+              <p className="mb-1 text-xs font-bold uppercase text-slate-500">
+                Điện thoại
+              </p>
               <p className="font-medium tracking-wide text-slate-900 dark:text-slate-100">
                 {contactInfo.phone}
               </p>
@@ -199,12 +202,12 @@ export default function ContactPage() {
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
                     <path d={link.iconPath} />
                   </svg>
-                  <span className="pointer-events-none absolute -top-8 left-1/2 mb-1 -translate-x-1/2 whitespace-nowrap rounded bg-slate-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
-                    {link.name}
-                  </span>
-                </a>
-              ))}
-            </div>
+                <span className="pointer-events-none absolute -top-8 left-1/2 mb-1 -translate-x-1/2 whitespace-nowrap rounded bg-slate-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+                  {link.name}
+                </span>
+              </a>
+            ))}
+          </div>
           </div>
         )}
       </motion.section>
@@ -219,7 +222,7 @@ export default function ContactPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="relative space-y-6 rounded-[2rem] border border-white/5 bg-slate-950/70 p-5 shadow-2xl backdrop-blur-xl sm:p-8"
+          className="relative space-y-5 rounded-[2rem] border border-white/5 bg-slate-950/70 p-4 shadow-2xl backdrop-blur-xl sm:space-y-6 sm:p-8"
         >
           <h2 className="mb-6 text-lg font-bold text-slate-50 sm:text-xl">
             {dict.contact.send_btn}
@@ -235,7 +238,7 @@ export default function ContactPage() {
             autoComplete="off"
           />
 
-          <div className="space-y-6">
+          <div className="space-y-5 sm:space-y-6">
             {[
               { key: "name", label: dict.contact.name_label, type: "text" },
               { key: "email", label: dict.contact.email_label, type: "email" },

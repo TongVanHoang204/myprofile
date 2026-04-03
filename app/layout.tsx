@@ -25,17 +25,19 @@ const siteUrl =
 const ogImage =
   process.env.NEXT_PUBLIC_OG_IMAGE || "/profile/tong-van-hoang-avatar.jpg";
 const ogImageUrl = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`;
+const personName = "T\u1ed1ng V\u0103n Ho\u00e0ng";
+const siteDescription =
+  "Portfolio c\u1ee7a T\u1ed1ng V\u0103n Ho\u00e0ng, sinh vi\u00ean HUTECH \u0111\u1ecbnh h\u01b0\u1edbng Web Developer Intern v\u1edbi React, Node.js, Express, Flutter v\u00e0 Git workflow.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Tống Văn Hoàng - Portfolio",
-    template: "%s | Tống Văn Hoàng",
+    default: `${personName} - Portfolio`,
+    template: `%s | ${personName}`,
   },
-  description:
-    "Portfolio của Tống Văn Hoàng, sinh viên HUTECH định hướng Web Developer Intern với React, Node.js, Express, Flutter và Git workflow.",
+  description: siteDescription,
   keywords: [
-    "Tống Văn Hoàng",
+    personName,
     "Portfolio",
     "Web Developer",
     "Web Developer Intern",
@@ -52,25 +54,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "/",
-    title: "Tống Văn Hoàng - Portfolio",
-    description:
-      "Portfolio của Tống Văn Hoàng, sinh viên HUTECH định hướng Web Developer Intern với React, Node.js, Express, Flutter và Git workflow.",
-    siteName: "Portfolio Tống Văn Hoàng",
+    title: `${personName} - Portfolio`,
+    description: siteDescription,
+    siteName: `Portfolio ${personName}`,
     locale: "vi_VN",
     images: [
       {
         url: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: "Portfolio Tống Văn Hoàng",
+        alt: `Portfolio ${personName}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tống Văn Hoàng - Portfolio",
-    description:
-      "Portfolio của Tống Văn Hoàng, sinh viên HUTECH định hướng Web Developer Intern với React, Node.js, Express, Flutter và Git workflow.",
+    title: `${personName} - Portfolio`,
+    description: siteDescription,
     images: [ogImageUrl],
   },
   robots: {
@@ -94,7 +94,7 @@ export default function RootLayout({
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Tống Văn Hoàng",
+    name: personName,
     url: siteUrl,
     email: `mailto:${contactInfo.email}`,
     telephone: contactInfo.phone,

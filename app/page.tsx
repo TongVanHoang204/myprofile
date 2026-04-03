@@ -4,6 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import ProfileAvatar from "@/app/components/ProfileAvatar";
 import ProjectsSection from "@/app/components/sections/ProjectsSection";
+import BlogSection from "@/app/components/sections/BlogSection";
 import AboutSection from "@/app/components/sections/AboutSection";
 import ContactSection from "@/app/components/sections/ContactSection";
 import { useLanguage } from "@/app/context/LanguageContext";
@@ -39,25 +40,25 @@ export default function HomePage() {
     <div className="text-slate-900 transition-colors duration-300 dark:text-slate-50">
       <section
         id="home"
-        className="flex min-h-[100svh] items-start justify-center pt-24 sm:pt-28 md:min-h-screen md:items-center md:pt-0"
+        className="flex min-h-[100svh] items-start justify-center pt-22 sm:pt-28 md:min-h-screen md:items-center md:pt-0"
       >
         <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="mx-auto flex max-w-6xl flex-col-reverse gap-10 px-4 py-6 sm:px-6 sm:py-10 md:flex-row md:items-center md:gap-12"
+          className="mx-auto flex max-w-6xl flex-col-reverse gap-8 px-4 py-5 sm:px-6 sm:py-10 md:flex-row md:items-center md:gap-12"
         >
-          <div className="flex-1 space-y-5 text-center md:space-y-6 md:text-left">
+          <div className="flex-1 space-y-4 text-center md:space-y-6 md:text-left">
             <motion.p
               variants={fadeInUp}
-              className="text-sm font-bold uppercase tracking-[0.25em] text-sky-600 dark:text-sky-400"
+              className="text-[11px] font-bold uppercase tracking-[0.25em] text-sky-600 dark:text-sky-400 sm:text-sm"
             >
               {dict.hero.greeting}
             </motion.p>
 
             <motion.h1
               variants={fadeInUp}
-              className="text-4xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-7xl"
+              className="text-3xl font-extrabold leading-[1.05] tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-7xl"
             >
               Tống Văn <br className="hidden md:block" />
               <span className="bg-gradient-to-r from-sky-500 to-purple-500 bg-clip-text text-transparent dark:from-sky-400 dark:to-purple-400">
@@ -67,10 +68,10 @@ export default function HomePage() {
 
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col items-center gap-1 text-center text-lg font-medium text-slate-600 dark:text-slate-200 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-2 sm:text-xl md:justify-start md:text-left"
+              className="flex flex-col items-center gap-1.5 text-center text-base font-medium text-slate-600 dark:text-slate-200 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-2 sm:text-xl md:justify-start md:text-left"
             >
               <span className="shrink-0">{dict.hero.role_prefix}</span>
-              <span className="min-h-10 bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text font-bold text-transparent dark:from-sky-400 dark:to-purple-400 sm:min-h-0 sm:min-w-[220px]">
+              <span className="min-h-12 bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text font-bold text-transparent dark:from-sky-400 dark:to-purple-400 sm:min-h-0 sm:min-w-[220px]">
                 <Typewriter
                   options={{
                     strings: dict.hero.roles,
@@ -85,18 +86,18 @@ export default function HomePage() {
 
             <motion.p
               variants={fadeInUp}
-              className="mx-auto max-w-xl text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base md:mx-0 md:text-lg"
+              className="mx-auto max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-400 sm:text-base md:mx-0 md:text-lg"
             >
               {dict.hero.description}
             </motion.p>
 
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col items-stretch justify-center gap-3 pt-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 md:justify-start"
+              className="flex flex-col items-stretch justify-center gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 md:justify-start"
             >
               <button
                 onClick={() => scrollToSection("projects")}
-                className="group relative inline-flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full bg-sky-500 px-6 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-sky-400 hover:shadow-sky-500/50 sm:w-auto sm:px-8"
+                className="group relative inline-flex min-h-12 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full bg-sky-500 px-6 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-sky-400 hover:shadow-sky-500/50 sm:w-auto sm:px-8"
               >
                 <span className="mr-2">{dict.hero.view_projects}</span>
                 <svg
@@ -116,7 +117,7 @@ export default function HomePage() {
 
               <button
                 onClick={() => scrollToSection("contact")}
-                className="inline-flex w-full cursor-pointer items-center justify-center rounded-full border border-slate-300 px-6 py-3 font-medium text-slate-600 transition-all duration-300 hover:border-sky-400 hover:bg-slate-50 hover:text-sky-500 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-sky-400 sm:w-auto sm:px-8"
+                className="inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full border border-slate-300 px-6 py-3 font-medium text-slate-600 transition-all duration-300 hover:border-sky-400 hover:bg-slate-50 hover:text-sky-500 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-sky-400 sm:w-auto sm:px-8"
               >
                 {dict.hero.contact}
               </button>
@@ -139,7 +140,7 @@ export default function HomePage() {
 
           <motion.div
             variants={fadeInUp}
-            className="relative flex flex-1 items-center justify-center"
+            className="relative flex flex-1 items-center justify-center pt-2 md:pt-0"
           >
             <motion.div
               animate={{
@@ -151,7 +152,7 @@ export default function HomePage() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-sky-500/30 to-purple-500/30 blur-[80px]"
+              className="absolute left-1/2 top-1/2 -z-10 h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-sky-500/30 to-purple-500/30 blur-[70px] sm:h-[300px] sm:w-[300px] sm:blur-[80px]"
             />
 
             <div className="relative z-10 flex w-full justify-center">
@@ -163,6 +164,7 @@ export default function HomePage() {
 
       <ProjectsSection />
       <AboutSection />
+      <BlogSection />
       <ContactSection />
     </div>
   );

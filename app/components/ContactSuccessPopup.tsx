@@ -51,7 +51,7 @@ export default function ContactSuccessPopup({
               aria-label="Close popup"
               className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:border-white/20 hover:bg-white/10 hover:text-white"
             >
-              <span className="text-lg leading-none">×</span>
+              <span className="text-lg leading-none">x</span>
             </button>
 
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-400 shadow-[0_0_40px_rgba(16,185,129,0.18)]">

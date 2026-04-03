@@ -533,7 +533,7 @@ export const dictionaries = {
         "Express",
         "Flutter",
         "MySQL",
-        "AI Prompting",
+        "Prompt AI",
         "Git",
         "GitHub",
         "REST API",
@@ -601,7 +601,7 @@ export const dictionaries = {
           category: "tech",
           question: "What is your main stack?",
           answer:
-            "I am practicing with **JavaScript**, **TypeScript**, **React**, **Node.js**, **Express**, **Flutter**, **MySQL**, and **AI Prompting**. I am also comfortable with **Git/GitHub**, **REST APIs**, and **MVC Architecture**.",
+            "I am practicing with **JavaScript**, **TypeScript**, **React**, **Node.js**, **Express**, **Flutter**, **MySQL**, and **Prompt AI**. I am also comfortable with **Git/GitHub**, **REST APIs**, and **MVC Architecture**.",
         },
         {
           id: "q2",
@@ -821,7 +821,7 @@ export const dictionaries = {
         "Express",
         "Flutter",
         "MySQL",
-        "AI Prompting",
+        "Prompt AI",
         "Git",
         "GitHub",
       ],

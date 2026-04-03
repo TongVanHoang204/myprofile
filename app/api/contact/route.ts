@@ -6,6 +6,8 @@ import {
 import {
   consumeRateLimit,
   getClientIp,
+  hasAllowedFetchMetadata,
+  hasValidProtectionToken,
   isJsonRequest,
   isSameOriginRequest,
 } from "@/app/lib/request-security";
@@ -65,7 +67,11 @@ function validateContactBody(body: ContactBody) {
 
 export async function POST(request: NextRequest) {
   try {
-    if (!isSameOriginRequest(request)) {
+    if (
+      !isSameOriginRequest(request) ||
+      !hasAllowedFetchMetadata(request) ||
+      !hasValidProtectionToken(request)
+    ) {
       return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }
 

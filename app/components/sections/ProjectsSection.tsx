@@ -17,9 +17,9 @@ export default function ProjectsSection() {
   ];
 
   return (
-    <section id="projects" className="px-4 py-16 sm:px-6 sm:py-20">
+    <section id="projects" className="px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-10 flex flex-col gap-5 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
           <div className="text-center md:text-left">
             <motion.h2
               initial={{ opacity: 0, x: -20 }}
@@ -34,7 +34,7 @@ export default function ProjectsSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="max-w-2xl text-slate-600 dark:text-slate-400"
+              className="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-400 sm:text-base"
             >
               {dict.projects.subtitle}
             </motion.p>
@@ -51,7 +51,7 @@ export default function ProjectsSection() {
               <button
                 key={filter.value}
                 onClick={() => setActiveFilter(filter.value)}
-                className="relative z-10 rounded-full px-3 py-2 font-medium transition-colors sm:px-4"
+                className="relative z-10 min-w-[calc(50%-0.25rem)] rounded-full px-3 py-2.5 font-medium transition-colors sm:min-w-0 sm:px-4 sm:py-2"
               >
                 {activeFilter === filter.value && (
                   <motion.div
