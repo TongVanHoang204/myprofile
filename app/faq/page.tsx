@@ -13,8 +13,8 @@ import {
   Search,
   Sparkles,
 } from "lucide-react";
+import Link from "next/link";
 import { useLanguage } from "@/app/context/LanguageContext";
-import { contactInfo } from "@/app/data/contact";
 
 type FAQItem = {
   id: string;
@@ -116,6 +116,22 @@ export default function FAQPage() {
   }>({});
 
   const faqData = dict.faq;
+  const ctaContent =
+    language === "vi"
+      ? {
+          title: "Liên hệ",
+          subtitle:
+            "Bạn có thể mở trang liên hệ để gửi tin nhắn trực tiếp hoặc mở CV PDF để xem đầy đủ thông tin hồ sơ.",
+          emailBtn: "Mở trang liên hệ",
+          cvBtn: "Xem CV PDF",
+        }
+      : {
+          title: "Contact",
+          subtitle:
+            "You can open the contact page to send a direct message or open the PDF resume to view the full profile.",
+          emailBtn: "Open contact page",
+          cvBtn: "View PDF resume",
+        };
   const filters = [
     { id: "all", label: faqData.filters.all, icon: Layers },
     { id: "tech", label: faqData.filters.tech, icon: Code },
@@ -442,27 +458,27 @@ export default function FAQPage() {
 
             <div className="relative z-10 space-y-6">
               <h2 className="text-3xl font-bold text-white">
-                {faqData.cta.title}
+                {ctaContent.title}
               </h2>
               <p className="mx-auto max-w-lg text-slate-400">
-                {faqData.cta.subtitle}
+                {ctaContent.subtitle}
               </p>
 
               <div className="flex flex-wrap justify-center gap-4 pt-4">
-                <a
-                  href={`mailto:${contactInfo.email}`}
+                <Link
+                  href="/contact"
                   className="flex items-center gap-2 rounded-xl bg-blue-600 px-8 py-3 font-bold text-white transition-all hover:-translate-y-1 hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/25"
                 >
                   <MessageCircle size={20} />
-                  {faqData.cta.email_btn}
-                </a>
+                  {ctaContent.emailBtn}
+                </Link>
                 <a
                   href="/documents/tong-van-hoang-cv.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-xl border border-slate-700 bg-slate-800 px-8 py-3 font-medium text-white transition-all hover:-translate-y-1 hover:border-slate-600 hover:bg-slate-700"
                 >
-                  {faqData.cta.cv_btn}
+                  {ctaContent.cvBtn}
                 </a>
               </div>
             </div>
