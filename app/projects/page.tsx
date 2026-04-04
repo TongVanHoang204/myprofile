@@ -6,8 +6,12 @@ import ProjectGrid, { type ProjectFilter } from "@/app/components/ProjectGrid";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 export default function ProjectsPage() {
-  const { dict } = useLanguage();
+  const { dict, language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>("all");
+  const subtitle =
+    language === "vi"
+      ? "Những phần việc tôi đã trực tiếp xây dựng trong dự án FeShenShop."
+      : "The actual areas I built inside the FeShenShop project.";
 
   const filters: Array<{ value: ProjectFilter; label: string }> = [
     { value: "all", label: dict.projects.filters.all },
@@ -31,7 +35,7 @@ export default function ProjectsPage() {
             {dict.projects.title}
           </h1>
           <p className="mt-2 max-w-2xl text-base text-slate-600 dark:text-slate-400">
-            {dict.projects.subtitle}
+            {subtitle}
           </p>
         </motion.div>
 
