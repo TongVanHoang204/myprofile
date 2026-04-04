@@ -71,10 +71,10 @@ export default function HomePage() {
 
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col items-center gap-1.5 text-center text-base font-medium text-slate-600 dark:text-slate-200 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-2 sm:text-xl md:justify-start md:text-left"
+              className="flex flex-col items-center gap-1.5 text-center text-base font-medium text-slate-600 dark:text-slate-200 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-center sm:gap-2 sm:text-xl md:justify-start md:text-left"
             >
               <span className="shrink-0">{dict.hero.role_prefix}</span>
-              <span className="hero-typewriter inline-flex min-h-12 pb-2 font-bold sm:min-h-0 sm:min-w-[220px]">
+              <span className="hero-typewriter inline-flex min-h-12 items-baseline font-bold leading-none sm:min-h-0 sm:min-w-[220px]">
                 <Typewriter
                   options={{
                     strings: dict.hero.roles,
