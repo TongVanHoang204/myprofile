@@ -112,6 +112,44 @@ body {
   transform: translateY(0) scale(0.98);
 }
 
+.hero-typewriter .Typewriter {
+  display: inline-flex;
+}
+
+.hero-typewriter .Typewriter__wrapper {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.35rem;
+  background-image: linear-gradient(to right, #0ea5e9, #2563eb);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.dark .hero-typewriter .Typewriter__wrapper {
+  background-image: linear-gradient(to right, #38bdf8, #a855f7);
+}
+
+.hero-typewriter .Typewriter__wrapper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  border-radius: 9999px;
+  background-image: linear-gradient(to right, #0ea5e9, #a855f7);
+}
+
+.dark .hero-typewriter .Typewriter__wrapper::after {
+  background-image: linear-gradient(to right, #38bdf8, #a855f7);
+}
+
+.hero-typewriter .Typewriter__cursor {
+  margin-left: 0.08em;
+  color: #38bdf8;
+}
+
 @media (hover: hover) {
   .interactive-card:hover {
     transform: translateY(-4px);
