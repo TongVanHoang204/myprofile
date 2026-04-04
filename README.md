@@ -147,6 +147,3 @@ Chi tiết thêm xem tại [DEPLOY.md](./DEPLOY.md).
 - Không nhét secret vào file `.zip` deploy
 - Nếu key đã từng bị lộ qua chat hoặc log, hãy tạo key mới trước khi deploy production
 
-## Ghi chú
-
-Repo này là source code cho portfolio cá nhân của Tống Văn Hoàng, không còn dùng phần admin/auth cũ.

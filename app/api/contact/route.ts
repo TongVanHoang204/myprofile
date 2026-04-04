@@ -11,9 +11,17 @@ import {
   isJsonRequest,
   isSameOriginRequest,
 } from "@/app/lib/request-security";
+import {
+  activateContactCooldown,
+  getContactCooldownRemaining,
+} from "@/app/lib/contact-cooldown-store";
 
 const MAX_REQUESTS_PER_WINDOW = 4;
 const WINDOW_MS = 10 * 60 * 1000;
+const CONTACT_COOLDOWN_SECONDS = Math.max(
+  60,
+  Number(process.env.CONTACT_COOLDOWN_SECONDS || "3600")
+);
 
 type ContactBody = {
   name?: string;
@@ -23,8 +31,10 @@ type ContactBody = {
 };
 
 function validateContactBody(body: ContactBody) {
-  const name = body.name?.trim() ?? "";
-  const email = body.email?.trim() ?? "";
+  const name = (body.name?.trim() ?? "").replace(/[\r\n\0]+/g, " ");
+  const email = (body.email?.trim() ?? "")
+    .replace(/[\r\n\0]+/g, "")
+    .toLowerCase();
   const message = body.message?.trim() ?? "";
   const company = body.company?.trim() ?? "";
 
@@ -105,13 +115,34 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    const retryAfterSeconds = await getContactCooldownRemaining(parsed.email, ip);
+    if (retryAfterSeconds > 0) {
+      return NextResponse.json(
+        {
+          error: "CONTACT_COOLDOWN_ACTIVE",
+          retryAfterSeconds,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(retryAfterSeconds),
+          },
+        }
+      );
+    }
+
     await sendContactMail({
       name: parsed.name,
       email: parsed.email,
       message: parsed.message,
     });
 
-    return NextResponse.json({ success: true });
+    await activateContactCooldown(parsed.email, ip, CONTACT_COOLDOWN_SECONDS);
+
+    return NextResponse.json({
+      success: true,
+      cooldownSeconds: CONTACT_COOLDOWN_SECONDS,
+    });
   } catch (error) {
     if (error instanceof ContactMailConfigError) {
       console.error("Contact mail config error:", error.message);

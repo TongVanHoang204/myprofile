@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { useLanguage } from "@/app/context/LanguageContext";
@@ -8,6 +8,7 @@ import { contactInfo, socialLinks } from "@/app/data/contact";
 import { getContactErrorMessage } from "@/app/lib/contact-form-feedback";
 import ContactSuccessPopup from "@/app/components/ContactSuccessPopup";
 import { buildProtectedHeaders } from "@/app/lib/client-request-security";
+import { useContactCooldown } from "@/app/hooks/useContactCooldown";
 
 type FormState = {
   name: string;
@@ -17,7 +18,7 @@ type FormState = {
 };
 
 export default function ContactSection() {
-  const { dict } = useLanguage();
+  const { dict, language } = useLanguage();
   const [formState, setFormState] = useState<FormState>({
     name: "",
     email: "",
@@ -32,6 +33,18 @@ export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const { isCoolingDown, remainingLabel, applyCooldown } =
+    useContactCooldown(language);
+
+  const cooldownHint = useMemo(() => {
+    if (!isCoolingDown) {
+      return "";
+    }
+
+    return language === "vi"
+      ? `Bạn có thể gửi lại sau ${remainingLabel}.`
+      : `You can send another message in ${remainingLabel}.`;
+  }, [isCoolingDown, language, remainingLabel]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -63,6 +76,10 @@ export default function ContactSection() {
 
     setErrors(newErrors);
     if (Object.values(newErrors).some(Boolean)) return;
+    if (isCoolingDown) {
+      setSubmitError(cooldownHint);
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitError("");
@@ -81,13 +98,21 @@ export default function ContactSection() {
 
       const payload = (await response.json().catch(() => ({}))) as {
         error?: string;
+        retryAfterSeconds?: number;
+        cooldownSeconds?: number;
       };
 
       if (!response.ok) {
-        setSubmitError(getContactErrorMessage(payload.error, dict.contact));
+        setSubmitError(getContactErrorMessage(payload, dict.contact, language));
+        if (payload.retryAfterSeconds) {
+          applyCooldown(payload.retryAfterSeconds);
+        }
         return;
       }
 
+      if (payload.cooldownSeconds) {
+        applyCooldown(payload.cooldownSeconds);
+      }
       setIsSuccess(true);
       setFormState({ name: "", email: "", message: "", company: "" });
 
@@ -304,15 +329,24 @@ export default function ContactSection() {
               {submitError && (
                 <p className="mb-4 text-sm text-red-500">{submitError}</p>
               )}
+              {isCoolingDown && !submitError ? (
+                <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
+                  {cooldownHint}
+                </p>
+              ) : null}
 
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                disabled={isSubmitting}
+                disabled={isSubmitting || isCoolingDown}
                 type="submit"
                 className="w-full rounded-xl bg-gradient-to-r from-sky-500 to-purple-600 py-3.5 font-bold text-white shadow-lg shadow-purple-500/25 transition-all hover:shadow-purple-500/40 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                {isSubmitting ? dict.contact.sending : dict.contact.send_btn}
+                {isSubmitting
+                  ? dict.contact.sending
+                  : isCoolingDown
+                    ? cooldownHint
+                    : dict.contact.send_btn}
               </motion.button>
             </form>
           </motion.div>

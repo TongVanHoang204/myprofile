@@ -1,5 +1,6 @@
 "use client";
 
+import VisitorAnalyticsWidget from "@/app/components/VisitorAnalyticsWidget";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { socialLinks } from "@/app/data/contact";
 
@@ -31,6 +32,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
+      <VisitorAnalyticsWidget />
     </footer>
   );
 }

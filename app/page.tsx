@@ -74,7 +74,7 @@ export default function HomePage() {
               className="flex flex-col items-center gap-1.5 text-center text-base font-medium text-slate-600 dark:text-slate-200 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-2 sm:text-xl md:justify-start md:text-left"
             >
               <span className="shrink-0">{dict.hero.role_prefix}</span>
-              <span className="min-h-12 bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text font-bold text-transparent dark:from-sky-400 dark:to-purple-400 sm:min-h-0 sm:min-w-[220px]">
+              <span className="relative inline-flex min-h-12 bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text pb-2 font-bold text-transparent after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:rounded-full after:bg-gradient-to-r after:from-sky-500 after:to-purple-500 after:content-[''] dark:from-sky-400 dark:to-purple-400 dark:after:from-sky-400 dark:after:to-purple-400 sm:min-h-0 sm:min-w-[220px]">
                 <Typewriter
                   options={{
                     strings: dict.hero.roles,

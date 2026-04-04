@@ -10,10 +10,13 @@ import {
   Download,
   Github,
   GraduationCap,
+  Heart,
   Mail,
+  Plane,
   Phone,
   Sparkles,
   type LucideIcon,
+  Coffee,
 } from "lucide-react";
 
 type QuickInfoItem = {
@@ -68,10 +71,22 @@ const quickIconMap: Record<QuickInfoItem["icon"], LucideIcon> = {
 };
 
 export default function CVPage() {
-  const { dict } = useLanguage();
+  const { dict, language } = useLanguage();
   const cv = dict.cv as CVData;
   const content = cv.main_content;
   const avatarUrl = "/profile/tong-van-hoang-avatar.jpg";
+  const interests =
+    language === "vi"
+      ? [
+          { label: "Du lịch", icon: Plane },
+          { label: "Coffee chill", icon: Coffee },
+          { label: "Coding", icon: Code2 },
+        ]
+      : [
+          { label: "Travel", icon: Plane },
+          { label: "Coffee chill", icon: Coffee },
+          { label: "Coding", icon: Code2 },
+        ];
 
   return (
     <PageWrapper>
@@ -156,6 +171,26 @@ export default function CVPage() {
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 sm:p-6">
+              <h2 className="mb-5 flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white sm:text-lg">
+                <Heart className="text-pink-500" size={18} />
+                {language === "vi" ? "Sở thích" : "Interests"}
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                {interests.map(({ label, icon: Icon }) => (
+                  <div
+                    key={label}
+                    className="flex min-h-24 flex-col items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-100/80 px-3 py-4 text-center dark:border-slate-800 dark:bg-slate-950/50"
+                  >
+                    <Icon className="h-5 w-5 text-slate-500 dark:text-slate-300" />
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 sm:p-6">

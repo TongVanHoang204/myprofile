@@ -1,12 +1,13 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { contactInfo, socialLinks } from "@/app/data/contact";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { getContactErrorMessage } from "@/app/lib/contact-form-feedback";
 import ContactSuccessPopup from "@/app/components/ContactSuccessPopup";
 import { buildProtectedHeaders } from "@/app/lib/client-request-security";
+import { useContactCooldown } from "@/app/hooks/useContactCooldown";
 
 type ContactForm = {
   name: string;
@@ -16,7 +17,7 @@ type ContactForm = {
 };
 
 export default function ContactPage() {
-  const { dict } = useLanguage();
+  const { dict, language } = useLanguage();
   const [formData, setFormData] = useState<ContactForm>({
     name: "",
     email: "",
@@ -27,6 +28,18 @@ export default function ContactPage() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [errorToast, setErrorToast] = useState("");
+  const { isCoolingDown, remainingLabel, applyCooldown } =
+    useContactCooldown(language);
+
+  const cooldownHint = useMemo(() => {
+    if (!isCoolingDown) {
+      return "";
+    }
+
+    return language === "vi"
+      ? `Bạn có thể gửi lại sau ${remainingLabel}.`
+      : `You can send another message in ${remainingLabel}.`;
+  }, [isCoolingDown, language, remainingLabel]);
 
   const showErrorToast = (message: string) => {
     setErrorToast(message);
@@ -52,6 +65,10 @@ export default function ContactPage() {
       showErrorToast(dict.contact.message_required);
       return;
     }
+    if (isCoolingDown) {
+      showErrorToast(cooldownHint);
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -69,13 +86,21 @@ export default function ContactPage() {
 
       const payload = (await response.json().catch(() => ({}))) as {
         error?: string;
+        retryAfterSeconds?: number;
+        cooldownSeconds?: number;
       };
 
       if (!response.ok) {
-        showErrorToast(getContactErrorMessage(payload.error, dict.contact));
+        showErrorToast(getContactErrorMessage(payload, dict.contact, language));
+        if (payload.retryAfterSeconds) {
+          applyCooldown(payload.retryAfterSeconds);
+        }
         return;
       }
 
+      if (payload.cooldownSeconds) {
+        applyCooldown(payload.cooldownSeconds);
+      }
       setShowSuccessPopup(true);
       setFormData({ name: "", email: "", message: "", company: "" });
     } catch {
@@ -296,11 +321,18 @@ export default function ContactPage() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isCoolingDown}
             className="group relative mt-4 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isSubmitting ? dict.contact.sending : dict.contact.send_btn}
+            {isSubmitting
+              ? dict.contact.sending
+              : isCoolingDown
+                ? cooldownHint
+                : dict.contact.send_btn}
           </motion.button>
+          {isCoolingDown ? (
+            <p className="text-center text-xs text-slate-400">{cooldownHint}</p>
+          ) : null}
         </form>
       </motion.section>
     </div>
