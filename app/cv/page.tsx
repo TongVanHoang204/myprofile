@@ -6,17 +6,19 @@ import PageWrapper from "@/app/components/PageWrapper";
 import { useLanguage } from "@/app/context/LanguageContext";
 import {
   Briefcase,
+  CheckCircle2,
   Code2,
+  Coffee,
   Download,
   Github,
   GraduationCap,
   Heart,
   Mail,
-  Plane,
   Phone,
+  Plane,
+  Sandwich,
   Sparkles,
   type LucideIcon,
-  Coffee,
 } from "lucide-react";
 
 type QuickInfoItem = {
@@ -75,16 +77,31 @@ export default function CVPage() {
   const cv = dict.cv as CVData;
   const content = cv.main_content;
   const avatarUrl = "/profile/tong-van-hoang-avatar.jpg";
+  const strengthsTitle = language === "vi" ? "\u0110i\u1ec3m M\u1ea1nh" : "Strengths";
+  const strengths =
+    language === "vi"
+      ? [
+          "T\u01b0 duy logic t\u1ed1t",
+          "Kh\u1ea3 n\u0103ng t\u1ef1 h\u1ecdc cao",
+          "L\u00e0m vi\u1ec7c nh\u00f3m hi\u1ec7u qu\u1ea3",
+        ]
+      : [
+          "Strong logical thinking",
+          "Fast self-learning ability",
+          "Work well in teams",
+        ];
   const interests =
     language === "vi"
       ? [
           { label: "Du lịch", icon: Plane },
           { label: "Coffee chill", icon: Coffee },
+          { label: "Ăn vặt", icon: Sandwich },
           { label: "Coding", icon: Code2 },
         ]
       : [
           { label: "Travel", icon: Plane },
           { label: "Coffee chill", icon: Coffee },
+          { label: "Snack", icon: Sandwich },
           { label: "Coding", icon: Code2 },
         ];
 
@@ -158,15 +175,18 @@ export default function CVPage() {
             <div className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 sm:p-6">
               <h2 className="mb-5 flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white sm:text-lg">
                 <Sparkles className="text-amber-500" size={18} />
-                {cv.strengths_title}
+                {strengthsTitle}
               </h2>
               <ul className="space-y-3">
-                {cv.strengths.map((item) => (
+                {strengths.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-3 text-sm leading-6 text-slate-600 dark:text-slate-300"
                   >
-                    <span className="mt-1.5 h-2 w-2 rounded-full bg-sky-500" />
+                    <CheckCircle2
+                      className="mt-1 h-4 w-4 shrink-0 text-emerald-500"
+                      aria-hidden="true"
+                    />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -176,7 +196,7 @@ export default function CVPage() {
             <div className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 sm:p-6">
               <h2 className="mb-5 flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white sm:text-lg">
                 <Heart className="text-pink-500" size={18} />
-                {language === "vi" ? "Sở thích" : "Interests"}
+                {language === "vi" ? "S\u1edf th\u00edch" : "Interests"}
               </h2>
               <div className="grid grid-cols-2 gap-3">
                 {interests.map(({ label, icon: Icon }) => (
