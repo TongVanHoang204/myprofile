@@ -63,9 +63,10 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
     featuredTitle:
       "Từ FeShenShop đến portfolio cá nhân: cách tôi gom một hệ thống học tập thành sản phẩm có thể trình bày",
     featuredDescription:
-      "Bài viết này nói về cách tôi chia một project cá nhân thành nhiều bề mặt rõ ràng: storefront web, RESTful API, dashboard và mobile app, rồi biến toàn bộ hệ thống đó thành câu chuyện tuyển dụng dễ hiểu hơn trên portfolio.",
+      "Bài viết này nói về cách tôi tách FeShenShop thành web storefront, RESTful API, dashboard và mobile app, rồi làm rõ cả lớp AI gồm chatbot, visual search, admin insight và AI assistant để câu chuyện kỹ thuật thuyết phục hơn.",
     featuredPoints: [
       "Tách rõ từng phần web, API, dashboard và mobile để trình bày đúng năng lực.",
+      "Chỉ ra AI được gắn vào đúng luồng nghiệp vụ thay vì thêm cho có.",
       "Ưu tiên trải nghiệm responsive và khả năng demo trước khi nói sâu về kỹ thuật.",
       "Dùng blog như lớp giải thích thêm cho recruiter ngoài CV và FAQ.",
     ],
@@ -100,17 +101,17 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         readTime: "4 phút đọc",
         title: "Frontend tôi đang dùng cho portfolio và FeShenShop web",
         excerpt:
-          "Tôi chọn React, Next.js và Tailwind để có tốc độ triển khai nhanh, nhưng vẫn ưu tiên tính rõ ràng của layout, animation vừa đủ và khả năng responsive thật sự trên mobile.",
+          "Ngoài React và TypeScript cho storefront, tôi còn gắn AI chat widget, voice input và visual search để trải nghiệm mua sắm không dừng ở việc duyệt sản phẩm thủ công.",
         focus:
-          "Từ hero, navbar đến card dự án đều được tối ưu theo mobile-first rồi mới mở rộng cho desktop.",
+          "Phần web không chỉ là UI bán hàng mà còn là nơi tôi thử AI tư vấn size, gợi ý outfit và tìm sản phẩm từ ảnh tải lên.",
         takeaways: [
-          "Tách route page rõ ràng để portfolio dễ điều hướng hơn.",
-          "Giữ animation có chủ đích, không làm nặng trải nghiệm đọc.",
-          "Thiết kế giao diện theo nội dung thật từ CV và dự án.",
+          "Chat widget AI được nối trực tiếp với lịch sử hội thoại và dữ liệu sản phẩm.",
+          "Visual search cho phép upload ảnh, gửi qua backend AI và nhận danh sách sản phẩm gần nhất.",
+          "Voice input giúp luồng hỏi AI trên web gần với hành vi mua sắm thực tế hơn.",
         ],
         body: [
-          "Khi làm frontend cho portfolio, tôi không muốn trang chỉ là một bản CV đặt lên web. Vì vậy tôi xây từng khu vực như một trang trải nghiệm riêng: trang chủ để tạo ấn tượng, trang dự án để cho thấy năng lực triển khai, còn blog để giải thích tư duy làm sản phẩm.",
-          "Với FeShenShop web, mục tiêu của tôi là giao diện đủ trực quan để người xem có thể hiểu ngay đây là một storefront thật, không phải chỉ là mockup. Điều này làm tôi tập trung nhiều vào responsive layout, spacing và thứ tự ưu tiên thông tin trên màn hình nhỏ.",
+          "Ở FeShenShop web, tôi không dừng ở phần storefront cơ bản. Tôi thêm chat widget để người dùng hỏi về sản phẩm, size và outfit, đồng thời giữ luôn các product card trong khung chat để AI trả lời gắn với hàng hóa thật thay vì chỉ nhả text.",
+          "Một điểm tôi thấy đáng nói hơn trong portfolio là visual search. Người dùng có thể tải ảnh lên, frontend gửi ảnh sang backend, backend gọi lớp AI vision để phân tích món đồ chính rồi trả về các sản phẩm tương tự. Khi AI không sẵn sàng, hệ thống vẫn có fallback để gợi ý theo bố cục và màu sắc.",
         ],
         accent: "from-sky-500/80 via-cyan-400/70 to-blue-500/80",
       },
@@ -121,17 +122,17 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         readTime: "5 phút đọc",
         title: "Những gì tôi học được khi dựng RESTful API cho FeShenShop",
         excerpt:
-          "Phần backend giúp tôi hiểu rõ hơn cách tách route, chuẩn hóa dữ liệu và giữ cho cấu trúc project đủ sạch để frontend, dashboard và mobile cùng dùng chung logic.",
+          "Backend của FeShenShop không chỉ có CRUD. Tôi tách riêng lớp AI route cho chat, generate nội dung và visual search, đồng thời giữ phân quyền, rate limit và fallback đủ rõ để vận hành an toàn hơn.",
         focus:
-          "API không cần quá phức tạp, nhưng phải đủ rõ, đủ ổn định và đủ dễ mở rộng khi hệ thống lớn lên.",
+          "Điểm quan trọng nhất là AI không được phá cấu trúc hệ thống; nó phải là một service layer có quyền truy cập, guard và đường lui rõ ràng.",
         takeaways: [
-          "Chuẩn hóa naming và group route ngay từ đầu giúp project đỡ rối.",
-          "CORS, validation và lỗi phản hồi rõ ràng là phần không thể bỏ qua.",
-          "Một backend tốt giúp portfolio có câu chuyện full-stack thuyết phục hơn.",
+          "AI chat, AI generate và visual search được tách thành route riêng thay vì trộn vào CRUD.",
+          "Role-based auth và rate limit giúp các tính năng AI không mở hoàn toàn cho mọi loại người dùng.",
+          "Visual search có fallback pHash và color histogram khi AI vision lỗi hoặc offline.",
         ],
         body: [
-          "Trong FeShenShop, tôi dùng RESTful API như một cách để rèn tư duy hệ thống. Dù project là cá nhân, tôi vẫn muốn backend có cấu trúc rõ, endpoint đặt hợp lý và dữ liệu phản hồi nhất quán để frontend dễ sử dụng hơn.",
-          "Khi backend có nền tảng tốt, dashboard quản trị, storefront và ứng dụng mobile đều có thể bám vào cùng một lớp dữ liệu. Điều này giúp tôi nhìn project như một hệ thống thực sự thay vì nhiều phần tách rời.",
+          "Khi dựng backend cho FeShenShop, tôi giữ phần AI như một nhóm route riêng: chat cho assistant, generate cho nội dung quản trị như coupon hoặc product description, và visual-search cho tìm kiếm từ ảnh. Điều này giúp frontend web, dashboard và mobile đều có cách gọi rõ ràng hơn.",
+          "Phần tôi thấy đáng giá nhất là visual search. AI service dùng Ollama hoặc model Gemini cloud để phân tích ảnh thành dữ liệu có cấu trúc như loại sản phẩm, màu sắc, chất liệu và style. Nếu vision fail, hệ thống chuyển sang pHash và color histogram bằng sharp để vẫn trả về kết quả gần đúng thay vì hỏng hẳn.",
         ],
         accent: "from-emerald-500/80 via-teal-400/70 to-cyan-500/80",
       },
@@ -140,19 +141,19 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         category: "AI Workflow",
         date: "03 Apr 2026",
         readTime: "4 phút đọc",
-        title: "Cách tôi dùng Prompt AI và Gemini trong website portfolio",
+        title: "Cách tôi tích hợp AI vào FeShenShop thay vì chỉ thêm chatbot cho có",
         excerpt:
-          "Tôi không dùng AI chỉ để tạo nội dung. Mục tiêu là biến AI thành lớp hỗ trợ giao tiếp: trả lời nhanh về CV, dự án, kỹ năng và định hướng thực tập của tôi.",
+          "Repo WebBanQuanAO cho thấy tôi dùng AI ở nhiều lớp: trợ lý mua sắm, visual search, admin insight, AI tạo coupon, AI viết mô tả sản phẩm và màn AI chat trên mobile.",
         focus:
-          "AI phải trả lời ngắn, đúng ngữ cảnh hồ sơ và không làm mất chất cá nhân của portfolio.",
+          "Điều tôi ưu tiên là AI phải bám vào nghiệp vụ thật của shop, có prompt rõ, guard rõ và fallback rõ.",
         takeaways: [
-          "Prompt phải bám đúng dữ liệu CV và dự án thật.",
-          "Fallback model và kiểm soát lỗi giúp chatbot ổn định hơn khi deploy.",
-          "Format câu trả lời quyết định trải nghiệm người xem nhiều hơn tôi nghĩ.",
+          "Chatbot khách hàng có knowledge về size, shipping, đổi trả và gọi tool theo ngữ cảnh.",
+          "Admin dashboard dùng AI để phân tích dữ liệu thật thay vì chỉ hiển thị chart tĩnh.",
+          "AI generate hỗ trợ coupon, product description và gợi ý trả lời chat cho vận hành nội bộ.",
         ],
         body: [
-          "Phần FAQ AI của website là nơi tôi thử cách kết hợp Gemini với dữ liệu hồ sơ cá nhân. Tôi muốn người xem có thể hỏi trực tiếp về stack, dự án hoặc định hướng của tôi mà không phải đọc hết toàn bộ site.",
-          "Việc này buộc tôi phải nghĩ nhiều hơn về prompt, format đầu ra và bảo mật API. Bài học lớn nhất là AI trên website không nên nói quá nhiều. Nó phải trả lời đủ gọn để tăng độ tin cậy cho hồ sơ, không phải để lấn át nội dung thật.",
+          "Trong WebBanQuanAO, AI không chỉ nằm ở một ô chat. Ở phía user, tôi có shopping assistant để tư vấn sản phẩm và size, visual search để tải ảnh và tìm món đồ tương tự, và mobile app cũng có route AI chat riêng. Ở phía admin, tôi thêm AI insight panel cho analytics, inventory, orders, customers, reviews và coupons để hỗ trợ nhìn dữ liệu nhanh hơn.",
+          "Điểm tôi muốn nhấn mạnh trong portfolio là cách tích hợp. Tôi viết prompt theo từng vai trò, chia route riêng cho chat, generate và visual-search, thêm phân quyền và rate limit, rồi chuẩn bị fallback thuật toán cho visual search khi AI vision không sẵn sàng. Với tôi, đó mới là phần cho thấy mình đang dùng AI như một lớp sản phẩm thật chứ không chỉ gọi model rồi hiển thị text.",
         ],
         accent: "from-fuchsia-500/80 via-violet-400/70 to-sky-500/80",
       },
@@ -198,9 +199,10 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
     featuredTitle:
       "From FeShenShop to a personal portfolio: how I turned one learning system into a presentable product story",
     featuredDescription:
-      "This piece is about how I split one personal project into clear surfaces: web storefront, RESTful API, dashboard, and mobile app, then translated that system into a portfolio story that recruiters can scan quickly.",
+      "This piece is about how I split FeShenShop into a web storefront, RESTful API, dashboard, and mobile app, then made the AI layer visible too: chatbot, visual search, admin insights, and the mobile assistant.",
     featuredPoints: [
       "Separate the web, API, dashboard, and mobile layers so each skill is visible.",
+      "Show where AI is attached to real product flows instead of treating it like a gimmick.",
       "Prioritize demo quality and responsive experience before overly deep technical detail.",
       "Use the blog as an explanation layer beyond the CV and FAQ.",
     ],
@@ -235,17 +237,17 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         readTime: "4 min read",
         title: "The frontend stack I am using for the portfolio and FeShenShop web",
         excerpt:
-          "I chose React, Next.js, and Tailwind for fast implementation, while still prioritizing layout clarity, restrained motion, and truly responsive behavior on mobile.",
+          "Beyond the storefront UI, I integrated an AI chat widget, voice input, and image-based visual search so the shopping flow feels more interactive than a standard product grid.",
         focus:
-          "From the hero to the navbar and project cards, the interface is designed mobile-first before expanding to desktop.",
+          "The web layer became a place to test AI-assisted shopping, not just a responsive commerce interface.",
         takeaways: [
-          "Separate route pages make the portfolio easier to navigate.",
-          "Motion should have purpose instead of adding noise.",
-          "Design is stronger when it is driven by real CV and project content.",
+          "The AI chat widget is tied to conversation history and real product data.",
+          "Visual search lets users upload an image and receive similar in-store products.",
+          "Voice input makes the AI shopping flow feel closer to real user behavior.",
         ],
         body: [
-          "When building the frontend for this portfolio, I did not want the site to feel like a CV pasted onto the web. That is why each major area became its own experience: the home page creates the first impression, the projects page proves implementation ability, and the blog explains product thinking.",
-          "For the FeShenShop web interface, my goal was to make it feel like a real storefront rather than a static mockup. That pushed me to focus on responsive layout, spacing, and information priority on smaller screens.",
+          "In FeShenShop, I did not stop at the storefront basics. I added an AI chat widget so users can ask about products, sizes, and outfit suggestions, while still keeping product cards inside the conversation flow instead of returning text alone.",
+          "The more interesting part for the portfolio is visual search. Users can upload an image, the frontend passes it to the backend AI layer, and the system returns visually similar products. When the vision path is unavailable, the app still falls back to similarity matching instead of breaking completely.",
         ],
         accent: "from-sky-500/80 via-cyan-400/70 to-blue-500/80",
       },
@@ -256,17 +258,17 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         readTime: "5 min read",
         title: "What I learned while building the RESTful API for FeShenShop",
         excerpt:
-          "The backend helped me understand route separation, cleaner data structure, and how to keep a project organized enough for the frontend, dashboard, and mobile app to share one logic layer.",
+          "The backend is not only CRUD. I separated AI routes for chat, content generation, and visual search while keeping access control, rate limiting, and fallback logic explicit.",
         focus:
-          "An API does not need to be overly complex, but it does need to be clear, stable, and easy to extend as the system grows.",
+          "The important part is keeping AI as a clear service layer instead of letting it blur the system design.",
         takeaways: [
-          "Consistent naming and route grouping reduce chaos later.",
-          "CORS, validation, and clear error responses are non-negotiable.",
-          "A solid backend makes the full-stack story much more convincing.",
+          "AI chat, AI generation, and visual search live in their own route group.",
+          "Role-based auth and rate limiting keep AI features from being completely open.",
+          "Visual search has a pHash and color-histogram fallback when vision AI is unavailable.",
         ],
         body: [
-          "In FeShenShop, I used the RESTful API layer as a way to train system thinking. Even though the project is personal, I still wanted the backend to have clean structure, sensible endpoints, and consistent responses so the frontend would stay easier to maintain.",
-          "Once the backend foundation is stable, the dashboard, storefront, and mobile app can all rely on the same data model. That makes the project feel like one connected system instead of disconnected demos.",
+          "While building the FeShenShop backend, I kept the AI layer as its own route family: chat for assistants, generate for internal content such as coupons or product descriptions, and visual search for image-based discovery. That made the API easier to reason about from the web, dashboard, and mobile clients.",
+          "The most interesting piece is the visual-search service. It uses Ollama or a Gemini cloud model to turn an image into structured fashion attributes such as product type, color, material, and style. If the AI path fails, the service falls back to perceptual hashing and color histograms with sharp so the feature still returns a usable result.",
         ],
         accent: "from-emerald-500/80 via-teal-400/70 to-cyan-500/80",
       },
@@ -275,19 +277,19 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         category: "AI Workflow",
         date: "Apr 03, 2026",
         readTime: "4 min read",
-        title: "How I use AI Prompting and Gemini inside the portfolio website",
+        title: "How I integrated AI into FeShenShop instead of adding a generic chatbot",
         excerpt:
-          "I do not use AI only for content generation. The goal is to turn AI into a communication layer that can answer quickly about my CV, projects, skills, and internship direction.",
+          "The WebBanQuanAO repo shows AI across multiple layers: shopping assistant, visual search, admin insights, AI coupon generation, AI product writing, and a dedicated mobile AI chat screen.",
         focus:
-          "The AI should stay concise, resume-aware, and supportive of the portfolio rather than overpowering it.",
+          "What matters most to me is making AI serve real store workflows with clear prompts, clear guards, and clear fallback paths.",
         takeaways: [
-          "Prompts need to stay grounded in real CV and project data.",
-          "Model fallback and error handling matter for production stability.",
-          "Answer formatting shapes user trust more than I first expected.",
+          "The customer assistant knows store policies, sizing, and when to call tools for live data.",
+          "The admin dashboard uses AI to analyze real data instead of only displaying charts.",
+          "AI generation helps with coupons, product descriptions, and reply suggestions for operations.",
         ],
         body: [
-          "The AI FAQ inside the website is where I explored how Gemini can work with profile data. I wanted visitors to ask directly about my stack, projects, and direction without reading every section of the site first.",
-          "That forced me to think more carefully about prompts, output structure, and API protection. The biggest lesson is that AI on a portfolio should not talk too much. It should answer just enough to strengthen the credibility of the profile.",
+          "Inside WebBanQuanAO, AI is not isolated to one chat box. On the customer side, I have a shopping assistant for product and size advice, visual search for uploaded images, and a dedicated AI chat flow in the Flutter mobile app. On the admin side, I added AI insight panels for analytics, inventory, orders, customers, reviews, and coupons so the dashboard can interpret real data faster.",
+          "The part I want the portfolio to communicate is the integration work itself. I wrote prompts for different roles, split chat, generate, and visual-search into separate routes, added authorization and rate limiting, and prepared an algorithmic fallback for vision search when AI is unavailable. That is what makes the AI layer feel like a real product feature rather than a simple model call.",
         ],
         accent: "from-fuchsia-500/80 via-violet-400/70 to-sky-500/80",
       },

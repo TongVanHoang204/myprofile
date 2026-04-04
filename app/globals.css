@@ -83,3 +83,58 @@ body {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.interactive-card,
+.interactive-pill,
+.interactive-button,
+.interactive-link {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    filter 220ms ease;
+  will-change: transform;
+}
+
+.interactive-card:focus-visible,
+.interactive-pill:focus-visible,
+.interactive-button:focus-visible,
+.interactive-link:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.9);
+  outline-offset: 3px;
+}
+
+.interactive-button:active,
+.interactive-pill:active,
+.interactive-link:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@media (hover: hover) {
+  .interactive-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56, 189, 248, 0.35);
+    box-shadow: 0 26px 60px -34px rgba(14, 165, 233, 0.45);
+  }
+
+  .interactive-pill:hover {
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.45);
+    background-color: rgba(14, 165, 233, 0.12);
+    box-shadow: 0 16px 36px -28px rgba(56, 189, 248, 0.55);
+    color: #e0f2fe;
+  }
+
+  .interactive-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 44px -26px rgba(14, 165, 233, 0.55);
+    filter: saturate(1.08);
+  }
+
+  .interactive-link:hover {
+    transform: translateX(2px);
+    color: #38bdf8;
+  }
+}

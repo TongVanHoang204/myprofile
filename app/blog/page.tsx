@@ -48,7 +48,7 @@ export default function BlogPage() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.08 * index }}
-                className="rounded-3xl border border-slate-200 bg-white/75 p-4 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65"
+                className="interactive-card rounded-3xl border border-slate-200 bg-white/75 p-4 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65"
               >
                 <p className="text-2xl font-black text-slate-900 dark:text-slate-50">
                   {stat.value}
@@ -60,7 +60,7 @@ export default function BlogPage() {
             ))}
           </div>
 
-          <div className="rounded-[2rem] border border-slate-200 bg-white/70 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/60 sm:p-6">
+          <div className="interactive-card rounded-[2rem] border border-slate-200 bg-white/70 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/60 sm:p-6">
             <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
               <BookOpenText className="h-4 w-4 text-sky-400" />
               {copy.topicsTitle}
@@ -69,7 +69,7 @@ export default function BlogPage() {
               {copy.topics.map((topic) => (
                 <span
                   key={topic}
-                  className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-700 dark:border-sky-900/60 dark:bg-sky-950/30 dark:text-sky-300"
+                  className="interactive-pill cursor-default rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-700 dark:border-sky-900/60 dark:bg-sky-950/30 dark:text-sky-300"
                 >
                   {topic}
                 </span>
@@ -82,7 +82,7 @@ export default function BlogPage() {
           initial={{ opacity: 0, x: 28 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.55, delay: 0.15 }}
-          className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950/90 p-6 text-slate-50 shadow-[0_30px_80px_-30px_rgba(14,165,233,0.45)] sm:p-8"
+          className="interactive-card relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950/90 p-6 text-slate-50 shadow-[0_30px_80px_-30px_rgba(14,165,233,0.45)] sm:p-8"
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.22),transparent_38%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.2),transparent_34%)]" />
           <div className="relative space-y-6">
@@ -109,7 +109,7 @@ export default function BlogPage() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/6 p-5 backdrop-blur-md">
+            <div className="interactive-card rounded-3xl border border-white/10 bg-white/6 p-5 backdrop-blur-md">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-200">
                 {copy.summaryLabel}
               </p>
@@ -152,7 +152,7 @@ export default function BlogPage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.08 * index }}
-              className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-md transition-transform duration-300 hover:-translate-y-1 dark:border-slate-800 dark:bg-slate-900/65 sm:p-6"
+              className="group interactive-card relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-6"
             >
               <div
                 className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${post.accent}`}
@@ -172,7 +172,7 @@ export default function BlogPage() {
                 {post.excerpt}
               </p>
 
-              <div className="mt-5 rounded-3xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/60">
+              <div className="interactive-card mt-5 rounded-3xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/60">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                   {copy.summaryLabel}
                 </p>
@@ -183,7 +183,7 @@ export default function BlogPage() {
 
               <a
                 href={`#${post.slug}`}
-                className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-sky-500 transition-colors hover:text-sky-400"
+                className="interactive-link mt-5 inline-flex items-center gap-2 text-sm font-semibold text-sky-500"
               >
                 {copy.readArticle}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -202,7 +202,7 @@ export default function BlogPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.45, delay: index * 0.04 }}
-            className="scroll-mt-28 overflow-hidden rounded-[2rem] border border-slate-200 bg-white/75 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65"
+            className="interactive-card scroll-mt-28 overflow-hidden rounded-[2rem] border border-slate-200 bg-white/75 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65"
           >
             <div className={`h-1 w-full bg-gradient-to-r ${post.accent}`} />
 
@@ -227,7 +227,7 @@ export default function BlogPage() {
                   </p>
                 </div>
 
-                <div className="rounded-3xl border border-slate-200 bg-slate-50/90 p-5 dark:border-slate-800 dark:bg-slate-950/70">
+                <div className="interactive-card rounded-3xl border border-slate-200 bg-slate-50/90 p-5 dark:border-slate-800 dark:bg-slate-950/70">
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                     <FolderKanban className="h-4 w-4 text-sky-400" />
                     {copy.takeawayLabel}
@@ -263,7 +263,7 @@ export default function BlogPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.45 }}
-        className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950/90 p-6 text-slate-50 shadow-[0_24px_60px_-28px_rgba(56,189,248,0.45)] dark:border-slate-800 sm:p-8"
+        className="interactive-card overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950/90 p-6 text-slate-50 shadow-[0_24px_60px_-28px_rgba(56,189,248,0.45)] dark:border-slate-800 sm:p-8"
       >
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-3">
@@ -281,14 +281,14 @@ export default function BlogPage() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-sky-500 px-5 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-sky-400"
+              className="interactive-button inline-flex items-center justify-center gap-2 rounded-full bg-sky-500 px-5 py-3 text-sm font-bold text-slate-950 hover:bg-sky-400"
             >
               {copy.ctaPrimary}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/projects"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-white/12"
+              className="interactive-button inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/8 px-5 py-3 text-sm font-bold text-white hover:bg-white/12"
             >
               {copy.ctaSecondary}
             </Link>

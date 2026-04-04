@@ -38,7 +38,7 @@ export default function BlogSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="rounded-[2rem] border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-6"
+            className="interactive-card rounded-[2rem] border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-6"
           >
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-400">
               {copy.featuredLabel}
@@ -53,7 +53,7 @@ export default function BlogSection() {
               {copy.featuredPoints.map((point) => (
                 <span
                   key={point}
-                  className="rounded-full border border-slate-200 bg-slate-100/80 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200"
+                  className="interactive-pill cursor-default rounded-full border border-slate-200 bg-slate-100/80 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200"
                 >
                   {point}
                 </span>
@@ -70,7 +70,7 @@ export default function BlogSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white/75 p-4 shadow-sm backdrop-blur-md transition-transform duration-300 hover:-translate-y-1 dark:border-slate-800 dark:bg-slate-900/65 sm:p-5"
+              className="group interactive-card relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white/75 p-4 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-5"
             >
               <div
                 className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${post.accent}`}
@@ -92,7 +92,7 @@ export default function BlogSection() {
                 {post.excerpt}
               </p>
 
-              <div className="mt-5 rounded-3xl border border-slate-200 bg-slate-50/85 p-4 dark:border-slate-800 dark:bg-slate-950/60">
+              <div className="interactive-card mt-5 rounded-3xl border border-slate-200 bg-slate-50/85 p-4 dark:border-slate-800 dark:bg-slate-950/60">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                   {copy.summaryLabel}
                 </p>
@@ -112,7 +112,7 @@ export default function BlogSection() {
         >
           <Link
             href="/blog"
-            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-sky-400 sm:w-auto"
+            className="interactive-button inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-bold text-slate-950 hover:bg-sky-400 sm:w-auto"
           >
             {copy.sectionCta}
             <ArrowRight className="h-4 w-4" />

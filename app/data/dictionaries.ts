@@ -13,18 +13,22 @@ export const dictionaries = {
     },
     hero: {
       greeting: "XIN CHÀO, TÔI LÀ",
-      role_prefix: "Định hướng",
+      role_prefix: "Kỹ năng",
       description:
-        "Sinh viên ngành Công nghệ thông tin / Kỹ thuật phần mềm tại HUTECH, tập trung vào phát triển web. Tôi đã chủ động xây dựng dự án cá nhân full-stack để rèn kỹ năng frontend, backend, mobile và quy trình làm việc với Git, hiện đang tìm kiếm cơ hội thực tập phát triển web.",
+        "Sinh viên ngành Công nghệ thông tin / Kỹ thuật phần mềm tại HUTECH, tập trung vào phát triển web. Tôi đã chủ động xây dựng dự án cá nhân full-stack để rèn kỹ năng frontend, backend, mobile, UI/UX, AI integration và quy trình làm việc với Git, đồng thời hiện đang thực tập và tiếp tục phát triển sản phẩm thực tế.",
       view_projects: "Xem dự án",
       contact: "Liên hệ",
-      available: "Đang tìm cơ hội thực tập",
+      available: "Hiện đang thực tập",
       roles: [
-        "Thực tập sinh phát triển web",
-        "Người học Frontend",
-        "Lập trình viên React",
-        "Người xây dựng dự án full-stack",
+        "UI/UX",
+        "Frontend",
+        "Backend",
+        "Mobile App",
+        "AI Integration",
+        "Full-Stack",
+        "Minecraft Plugin Dev"
       ],
+      highlights: ["UI/UX", "Frontend", "Backend", "Mobile", "AI", "Plugin Dev"],
     },
     projects: {
       title: "Dự án từ CV",
@@ -44,24 +48,24 @@ export const dictionaries = {
         {
           title: "Giao diện web FeShenShop",
           description:
-            "Giao diện web responsive cho hệ thống bán hàng thời trang, xây dựng bằng React và TypeScript để thực hành trải nghiệm mua sắm trên desktop và mobile.",
-          tags: ["React", "TypeScript", "Responsive UI"],
+            "Storefront responsive xây bằng React và TypeScript, có tích hợp AI chat tư vấn mua sắm, visual search từ ảnh tải lên và luồng gợi ý sản phẩm phù hợp với hành vi người dùng.",
+          tags: ["React", "TypeScript", "AI Chat", "Visual Search"],
           thumbnail: "/projects/feshenshop-web.png",
           category: "website",
         },
         {
           title: "FeShenShop RESTful API",
           description:
-            "Xây dựng API bằng Node.js, Express và TypeScript cho quản lý sản phẩm, người dùng, cấu trúc route và cấu hình CORS cho backend service.",
-          tags: ["Node.js", "Express", "REST API", "CORS"],
+            "Backend Node.js, Express và TypeScript với các route AI cho chat, generate nội dung và visual search; có phân quyền theo role, rate limit, gọi Ollama/Gemini và fallback pHash plus color histogram khi AI vision không sẵn sàng.",
+          tags: ["Node.js", "Express", "AI Routes", "Ollama"],
           thumbnail: "/projects/feshenshop-api.png",
           category: "backend",
         },
         {
           title: "Ứng dụng mua sắm FeShenShop",
           description:
-            "Phát triển ứng dụng mua sắm cơ bản bằng Flutter để mở rộng hệ thống thương mại điện tử từ web sang mobile.",
-          tags: ["Flutter", "Mobile UI", "E-commerce"],
+            "Ứng dụng Flutter mở rộng cùng hệ thống FeShenShop lên mobile, có màn AI shopping assistant riêng để hỏi sản phẩm, tư vấn size và kiểm tra đơn hàng trực tiếp trên điện thoại.",
+          tags: ["Flutter", "Mobile UI", "AI Chat", "E-commerce"],
           thumbnail: "/projects/feshenshop-mobile.png",
           category: "mobile",
         },
@@ -71,32 +75,30 @@ export const dictionaries = {
       title: "Về bản thân",
       subtitle: "Tóm tắt học vấn, định hướng và kỹ năng thực hành từ CV.",
       summary:
-        "Tôi là sinh viên yêu thích phát triển web và chủ động học qua dự án thực tế. Trong quá trình tự học, tôi đã thực hành cả frontend, backend và mobile ở mức nền tảng, đồng thời sử dụng Git/GitHub để quản lý mã nguồn và làm việc có cấu trúc hơn.",
+        "Tôi là sinh viên yêu thích phát triển web và chủ động học qua dự án thực tế. Trong quá trình học và đi thực tập, tôi đã thực hành frontend, backend, mobile, UI/UX, tích hợp AI và sử dụng Git/GitHub để quản lý mã nguồn theo quy trình rõ ràng hơn.",
       timeline_title: "Hành trình",
       skills_title: "Kỹ năng thực hành",
       skills: [
-        "JavaScript",
-        "TypeScript",
-        "PHP",
-        "Java",
-        "React",
-        "Node.js",
-        "Express",
-        "Flutter",
-        "MySQL",
-        "Prompt AI",
-        "Git",
-        "GitHub",
+        "UI/UX",
+        "Frontend",
+        "Backend",
+        "Responsive Web",
         "REST API",
-        "MVC Architecture",
+        "Database",
+        "Mobile App",
+        "AI Integration",
+        "Prompt AI",
+        "Git/GitHub",
+        "Admin Dashboard",
+        "E-commerce Flow",
       ],
       timeline: [
         {
           year: "Hiện tại",
-          title: "Sinh viên HUTECH, định hướng thực tập phát triển web",
+          title: "Sinh viên HUTECH đang thực tập và phát triển sản phẩm web",
           place: "HUTECH University of Technology",
           description:
-            "Theo học ngành Công nghệ thông tin / Kỹ thuật phần mềm và tìm cơ hội thực tập để áp dụng kiến thức vào môi trường thực tế.",
+            "Theo học ngành Công nghệ thông tin / Kỹ thuật phần mềm, đồng thời đang thực tập để áp dụng kiến thức vào môi trường thực tế và cải thiện kỹ năng triển khai sản phẩm.",
         },
         {
           year: "Dự án cá nhân",
@@ -117,7 +119,7 @@ export const dictionaries = {
     contact: {
       title: "Liên hệ",
       subtitle:
-        "Nếu bạn đang tuyển thực tập sinh phát triển web hoặc cần trao đổi về dự án, tôi sẵn sàng kết nối.",
+        "Nếu bạn muốn trao đổi về dự án, công nghệ hoặc quá trình tôi đang thực tập và phát triển sản phẩm, tôi sẵn sàng kết nối.",
       name_label: "Họ và tên",
       email_label: "Email",
       message_label: "Nội dung",
@@ -173,7 +175,7 @@ export const dictionaries = {
           category: "work",
           question: "Mục tiêu hiện tại của bạn là gì?",
           answer:
-            "Hiện tại tôi đang tìm kiếm vị trí **thực tập sinh phát triển web** để áp dụng kiến thức đã học vào môi trường làm việc thực tế.",
+            "Hiện tại tôi đang **thực tập tại doanh nghiệp** và tiếp tục phát triển kỹ năng **frontend**, **backend**, **UI/UX**, **AI integration** và quy trình triển khai sản phẩm thực tế.",
         },
         {
           id: "q5",
@@ -358,10 +360,10 @@ export const dictionaries = {
       download_btn: "Tải CV PDF",
       profile: {
         name: "Tống Văn Hoàng",
-        role: "Thực tập sinh phát triển web",
+        role: "Web Developer Intern",
         tag: "Sinh viên Công nghệ thông tin",
         summary:
-          "Yêu thích phát triển web, chủ động rèn luyện qua dự án cá nhân và sẵn sàng áp dụng kiến thức thực tế trong môi trường thực tập.",
+          "Yêu thích phát triển web, chủ động rèn luyện qua dự án cá nhân và hiện đang thực tập để tiếp tục phát triển kỹ năng triển khai sản phẩm thực tế.",
       },
       skills_title: "Công nghệ chính",
       tech_stack: [
@@ -400,7 +402,7 @@ export const dictionaries = {
       main_content: {
         about_title: "Giới thiệu",
         about_content:
-          "Tôi là sinh viên yêu thích phát triển web. Tôi xây dựng dự án cá nhân để rèn luyện kỹ năng, thực hành các chức năng cơ bản ở cả frontend lẫn backend. Tôi cũng sử dụng Git để quản lý mã nguồn. Hiện tại, tôi đang tìm kiếm cơ hội thực tập để áp dụng kiến thức và giải quyết các bài toán thực tế.",
+          "Tôi là sinh viên yêu thích phát triển web. Tôi xây dựng dự án cá nhân để rèn luyện kỹ năng, thực hành các chức năng ở cả frontend, backend, mobile và AI integration. Tôi cũng sử dụng Git để quản lý mã nguồn. Hiện tại, tôi đang thực tập và tiếp tục cải thiện khả năng giải quyết các bài toán thực tế trong sản phẩm.",
         education_title: "Học vấn",
         education: [
           {
@@ -462,18 +464,21 @@ export const dictionaries = {
     },
     hero: {
       greeting: "HELLO, I AM",
-      role_prefix: "Focus",
+      role_prefix: "Skills",
       description:
-        "An Information Technology / Software Engineering student at HUTECH focused on Web Development. I have been training through a personal full-stack project that covers frontend, backend, mobile, and Git workflow, and I am currently looking for a Web Developer internship.",
+        "An Information Technology / Software Engineering student at HUTECH focused on Web Development. I have been building a personal full-stack project that covers frontend, backend, mobile, UI/UX, AI integration, and Git workflow, and I am currently interning while continuing to ship real product work.",
       view_projects: "View projects",
       contact: "Contact me",
-      available: "Open to internships",
+      available: "Currently interning",
       roles: [
-        "Web Developer Intern",
-        "Frontend Learner",
-        "React Developer",
-        "Full-stack Project Builder",
+        "UI/UX",
+        "Frontend",
+        "Backend",
+        "Mobile App",
+        "AI Integration",
+        "Full-stack",
       ],
+      highlights: ["UI/UX", "Frontend", "Backend", "Mobile", "AI"],
     },
     projects: {
       title: "Projects From My CV",
@@ -493,24 +498,24 @@ export const dictionaries = {
         {
           title: "FeShenShop Web Storefront",
           description:
-            "A responsive storefront for a fashion e-commerce system built with React and TypeScript.",
-          tags: ["React", "TypeScript", "Responsive UI"],
+            "A responsive React and TypeScript storefront with an AI shopping chat widget, image-based visual search, and personalized product suggestion flows.",
+          tags: ["React", "TypeScript", "AI Chat", "Visual Search"],
           thumbnail: "/projects/feshenshop-web.png",
           category: "website",
         },
         {
           title: "FeShenShop RESTful API",
           description:
-            "A Node.js, Express, and TypeScript backend for product and user management, route structure, and CORS configuration.",
-          tags: ["Node.js", "Express", "REST API", "CORS"],
+            "A Node.js, Express, and TypeScript backend with AI chat, content generation, and visual-search routes, plus role-based access, rate limiting, Ollama integration, and an algorithmic fallback for image matching.",
+          tags: ["Node.js", "Express", "AI Routes", "Ollama"],
           thumbnail: "/projects/feshenshop-api.png",
           category: "backend",
         },
         {
           title: "FeShenShop Mobile Shopping App",
           description:
-            "A basic Flutter shopping app extending the same fashion e-commerce system to mobile.",
-          tags: ["Flutter", "Mobile UI", "E-commerce"],
+            "A Flutter shopping app that extends the same system to mobile, including a dedicated AI shopping assistant for product discovery, size guidance, and order help.",
+          tags: ["Flutter", "Mobile UI", "AI Chat", "E-commerce"],
           thumbnail: "/projects/feshenshop-mobile.png",
           category: "mobile",
         },
@@ -520,32 +525,30 @@ export const dictionaries = {
       title: "About Me",
       subtitle: "Education, direction, and hands-on skills taken from my CV.",
       summary:
-        "I enjoy learning Web Development by building real projects. Through self-driven practice, I have worked on frontend, backend, and mobile fundamentals while using Git/GitHub to manage source code in a structured way.",
+        "I enjoy learning Web Development by building real projects. Through project work and my current internship, I have practiced frontend, backend, mobile, UI/UX, AI integration, and Git/GitHub workflow in a more structured way.",
       timeline_title: "Journey",
       skills_title: "Hands-on skills",
       skills: [
-        "JavaScript",
-        "TypeScript",
-        "PHP",
-        "Java",
-        "React",
-        "Node.js",
-        "Express",
-        "Flutter",
-        "MySQL",
-        "Prompt AI",
-        "Git",
-        "GitHub",
+        "UI/UX",
+        "Frontend",
+        "Backend",
+        "Responsive Web",
         "REST API",
-        "MVC Architecture",
+        "Database",
+        "Mobile App",
+        "AI Integration",
+        "Prompt AI",
+        "Git/GitHub",
+        "Admin Dashboard",
+        "E-commerce Flow",
       ],
       timeline: [
         {
           year: "Current",
-          title: "HUTECH student pursuing a Web Developer internship",
+          title: "HUTECH student currently interning and building web products",
           place: "HUTECH University of Technology",
           description:
-            "Studying Information Technology / Software Engineering and looking for an internship to apply my knowledge to real work.",
+            "Studying Information Technology / Software Engineering while interning and applying what I learn to real product work.",
         },
         {
           year: "Personal Project",
@@ -566,7 +569,7 @@ export const dictionaries = {
     contact: {
       title: "Contact",
       subtitle:
-        "If you are hiring a Web Developer intern or want to discuss a project, I am ready to connect.",
+        "If you want to discuss a project, technology, or the work I am doing during my internship, I am ready to connect.",
       name_label: "Name",
       email_label: "Email",
       message_label: "Message",
@@ -622,7 +625,7 @@ export const dictionaries = {
           category: "work",
           question: "What is your current goal?",
           answer:
-            "I am currently looking for a **Web Developer internship** where I can apply what I have learned in a real environment.",
+            "I am currently **interning at a company** and continuing to strengthen my **frontend**, **backend**, **UI/UX**, **AI integration**, and real product delivery skills.",
         },
         {
           id: "q5",
@@ -810,7 +813,7 @@ export const dictionaries = {
         role: "Web Developer Intern",
         tag: "Information Technology Student",
         summary:
-          "Passionate about Web Development, self-driven through personal projects, and ready to apply practical knowledge in a real internship environment.",
+          "Passionate about Web Development, self-driven through personal projects, and currently interning while continuing to improve real product delivery skills.",
       },
       skills_title: "Core Stack",
       tech_stack: [
@@ -849,7 +852,7 @@ export const dictionaries = {
       main_content: {
         about_title: "Profile",
         about_content:
-          "I am a student passionate about Web Development. I have built personal projects to practice my skills, developing basic features for both Frontend and Backend. I am also proficient in using Git to manage source code. Currently, I am seeking an internship to apply my knowledge and solve real-world problems.",
+          "I am a student passionate about Web Development. I have built personal projects to practice my skills across frontend, backend, mobile, and AI integration. I also use Git to manage source code. Right now, I am interning and continuing to improve how I solve real product problems in practice.",
         education_title: "Education",
         education: [
           {

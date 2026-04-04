@@ -11,6 +11,9 @@ import { useLanguage } from "@/app/context/LanguageContext";
 
 export default function HomePage() {
   const { dict } = useLanguage();
+  const heroHighlights = Array.isArray(dict.hero.highlights)
+    ? (dict.hero.highlights as string[])
+    : ["UI/UX", "Frontend", "Backend"];
 
   const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 30 },
@@ -131,10 +134,12 @@ export default function HomePage() {
                 <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
                 {dict.hero.available}
               </div>
-              <span className="hidden sm:inline">•</span>
-              <span>React / Node.js</span>
-              <span className="hidden sm:inline">•</span>
-              <span>REST API / Git</span>
+              {heroHighlights.map((highlight) => (
+                <div key={highlight} className="contents">
+                  <span className="hidden sm:inline">•</span>
+                  <span>{highlight}</span>
+                </div>
+              ))}
             </motion.div>
           </div>
 

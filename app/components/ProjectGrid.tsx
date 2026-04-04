@@ -27,16 +27,16 @@ export default function ProjectGrid({ filter }: ProjectGridProps) {
       ? {
           title: "Dashboard quản trị FeShenShop",
           description:
-            "Giao diện dashboard theo dõi doanh thu, đơn hàng, sản phẩm và hoạt động khách hàng cho hệ thống bán hàng FeShenShop.",
-          tags: ["Dashboard UI", "Admin Panel", "Analytics"],
+            "Dashboard quản trị có các AI insight panel cho analytics, tồn kho, khách hàng, đơn hàng, đánh giá và khuyến mãi; đồng thời hỗ trợ AI tạo mã giảm giá, gợi ý phản hồi chat và viết mô tả sản phẩm.",
+          tags: ["Dashboard UI", "Admin AI", "Analytics"],
           thumbnail: "/projects/feshenshop-dashboard.png",
           category: "website",
         }
       : {
           title: "FeShenShop Admin Dashboard",
           description:
-            "An admin dashboard for tracking revenue, orders, products, and customer activity inside FeShenShop.",
-          tags: ["Dashboard UI", "Admin Panel", "Analytics"],
+            "An admin dashboard with AI insight panels across analytics, inventory, customers, orders, reviews, and coupons, plus AI-assisted coupon generation, reply suggestions, and product writing.",
+          tags: ["Dashboard UI", "Admin AI", "Analytics"],
           thumbnail: "/projects/feshenshop-dashboard.png",
           category: "website",
         };
