@@ -73,10 +73,6 @@ export default function CVPage() {
   const content = cv.main_content;
   const avatarUrl = "/profile/tong-van-hoang-avatar.jpg";
 
-  const handleDownload = () => {
-    window.open("/documents/tong-van-hoang-cv.pdf", "_blank");
-  };
-
   return (
     <PageWrapper>
       <div className="mx-auto min-h-screen max-w-7xl px-4 pb-16 pt-20 sm:pb-20 sm:pt-24 md:px-8">
@@ -117,13 +113,14 @@ export default function CVPage() {
                 {cv.profile.summary}
               </p>
 
-              <button
-                onClick={handleDownload}
+              <a
+                href="/api/cv-download"
+                download="tong-van-hoang-cv.pdf"
                 className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-sky-500 py-3 font-bold text-white shadow-lg shadow-sky-500/20 transition-colors hover:bg-sky-400 sm:rounded-2xl"
               >
                 <Download size={18} />
                 {cv.download_btn}
-              </button>
+              </a>
             </div>
 
             <div className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 sm:p-6">

@@ -35,6 +35,10 @@ export const metadata: Metadata = {
     default: `${personName} - Portfolio`,
     template: `%s | ${personName}`,
   },
+  icons: {
+    icon: [{ url: "/favicon-tvh.svg?v=1", type: "image/svg+xml" }],
+    shortcut: ["/favicon-tvh.svg?v=1"],
+  },
   description: siteDescription,
   keywords: [
     personName,

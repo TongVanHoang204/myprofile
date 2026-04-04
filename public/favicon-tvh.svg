@@ -1,0 +1,16 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(42 34) rotate(41.1121) scale(60.0921)">
+      <stop stop-color="white" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="32" fill="url(#bg)"/>
+  <rect x="8" y="8" width="112" height="112" rx="32" fill="url(#glow)"/>
+  <path d="M32 28C32 23.5817 35.5817 20 40 20H88C92.4183 20 96 23.5817 96 28V36H32V28Z" fill="white" fill-opacity="0.12"/>
+  <text x="64" y="74" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" letter-spacing="1.5" fill="white">TVH</text>
+</svg>
