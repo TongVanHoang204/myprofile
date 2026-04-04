@@ -15,11 +15,11 @@ function getCooldownMessage(language: Language, retryAfterSeconds: number) {
   if (language === "vi") {
     if (hours > 0) {
       return minutes > 0
-        ? `B\u1ea1n v\u1eeba g\u1eedi tin nh\u1eafn. Vui l\u00f2ng ch\u1edd ${hours} gi\u1edd ${minutes} ph\u00fat r\u1ed3i g\u1eedi l\u1ea1i.`
-        : `B\u1ea1n v\u1eeba g\u1eedi tin nh\u1eafn. Vui l\u00f2ng ch\u1edd ${hours} gi\u1edd r\u1ed3i g\u1eedi l\u1ea1i.`;
+        ? `Bạn vừa gửi tin nhắn. Vui lòng chờ ${hours} giờ ${minutes} phút rồi gửi lại.`
+        : `Bạn vừa gửi tin nhắn. Vui lòng chờ ${hours} giờ rồi gửi lại.`;
     }
 
-    return `B\u1ea1n v\u1eeba g\u1eedi tin nh\u1eafn. Vui l\u00f2ng ch\u1edd ${Math.max(1, minutes)} ph\u00fat r\u1ed3i g\u1eedi l\u1ea1i.`;
+    return `Bạn vừa gửi tin nhắn. Vui lòng chờ ${Math.max(1, minutes)} phút rồi gửi lại.`;
   }
 
   if (hours > 0) {

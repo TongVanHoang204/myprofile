@@ -1,4 +1,17 @@
 import { NextResponse } from "next/server";
+import { logFaqQuestion } from "@/app/lib/faq-ai-analytics";
+import type {
+  AiAudienceMode,
+  ChatHistoryItem,
+  FaqAiMeta,
+} from "@/app/lib/faq-ai-types";
+import {
+  buildPortfolioPrompt,
+  getActionCards,
+  getPortfolioContext,
+  getSuggestedQuestions,
+  sanitizeHistoryItems,
+} from "@/app/lib/portfolio-ai";
 import {
   consumeRateLimit,
   getClientIp,
@@ -8,16 +21,11 @@ import {
   isSameOriginRequest,
 } from "@/app/lib/request-security";
 
-type FAQContextItem = {
-  question: string;
-  answer: string;
-};
-
 type RequestBody = {
-  provider?: string;
   question?: string;
   language?: "vi" | "en";
-  context?: FAQContextItem[];
+  mode?: AiAudienceMode;
+  history?: ChatHistoryItem[];
 };
 
 type AiProvider = "gemini" | "ollama";
@@ -42,75 +50,19 @@ const GEMINI_FALLBACK_MODELS = [
   "gemini-2.5-flash-lite",
 ] as const;
 
-function buildPrompt(
-  question: string,
-  language: "vi" | "en",
-  context: FAQContextItem[]
-) {
-  const header =
-    language === "vi"
-      ? "B\u1ea1n l\u00e0 tr\u1ee3 l\u00fd FAQ cho portfolio c\u1ee7a T\u1ed1ng V\u0103n Ho\u00e0ng."
-      : "You are an FAQ assistant for Tong Van Hoang's portfolio.";
-
-  const rules =
-    language === "vi"
-      ? "Tr\u1ea3 l\u1eddi ng\u1eafn g\u1ecdn, r\u00f5 r\u00e0ng, th\u00e2n thi\u1ec7n. N\u1ebfu thi\u1ebfu th\u00f4ng tin, h\u00e3y n\u00f3i r\u00f5 v\u00e0 khuy\u00ean ng\u01b0\u1eddi d\u00f9ng li\u00ean h\u1ec7 tr\u1ef1c ti\u1ebfp."
-      : "Answer clearly and concisely. If information is missing, say so and suggest contacting directly.";
-
-  const formatHint =
-    language === "vi"
-      ? "Tr\u00e1nh d\u00f9ng markdown nh\u01b0 **in \u0111\u1eadm**, # heading ho\u1eb7c b\u1ea3ng. N\u1ebfu c\u1ea7n li\u1ec7t k\u00ea, h\u00e3y d\u00f9ng g\u1ea1ch \u0111\u1ea7u d\u00f2ng \u0111\u01a1n gi\u1ea3n ho\u1eb7c 1-3 \u0111o\u1ea1n ng\u1eafn."
-      : "Formatting rules: do not use markdown such as **bold**, # headings, or tables. If listing items, use simple bullet points or 1-3 short paragraphs.";
-
-  const contextText =
-    context.length > 0
-      ? context
-          .map(
-            (item, index) =>
-              `${index + 1}. Q: ${item.question}\nA: ${item.answer}`
-          )
-          .join("\n\n")
-      : language === "vi"
-        ? "Kh\u00f4ng c\u00f3 d\u1eef li\u1ec7u FAQ b\u1ed5 sung."
-        : "No additional FAQ context.";
-
-  return `${header}
-
-${rules}
-
-${formatHint}
-
-FAQ context:
-${contextText}
-
-User question: ${question}`;
+function resolveMode(mode?: AiAudienceMode) {
+  return mode === "client" ? "client" : "recruiter";
 }
 
-function normalizeProvider(provider?: string): AiProvider | null {
-  if (!provider) return null;
+function resolveLanguage(language?: "vi" | "en") {
+  return language === "en" ? "en" : "vi";
+}
 
-  const normalized = provider.trim().toLowerCase();
-
-  if (normalized === "gemini" || normalized === "google") {
-    return "gemini";
-  }
+function resolveProvider(): AiProvider {
+  const normalized = process.env.FAQ_AI_PROVIDER?.trim().toLowerCase();
 
   if (normalized === "ollama") {
     return "ollama";
-  }
-
-  return null;
-}
-
-function resolveProvider(provider?: string): AiProvider {
-  const requestedProvider = normalizeProvider(provider);
-  if (requestedProvider) {
-    return requestedProvider;
-  }
-
-  const envProvider = normalizeProvider(process.env.FAQ_AI_PROVIDER);
-  if (envProvider) {
-    return envProvider;
   }
 
   return process.env.GEMINI_API_KEY ? "gemini" : "ollama";
@@ -185,8 +137,8 @@ async function callGemini(prompt: string) {
             ],
             generationConfig: {
               candidateCount: 1,
-              maxOutputTokens: 384,
-              temperature: 0.6,
+              maxOutputTokens: 512,
+              temperature: 0.55,
             },
           }),
         },
@@ -269,6 +221,67 @@ async function callOllama(prompt: string) {
   return { answer, model };
 }
 
+function toSseEvent(event: string, data: object) {
+  return `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
+}
+
+function chunkAnswerText(answer: string) {
+  const tokens = answer.split(/(\s+)/).filter(Boolean);
+  const chunks: string[] = [];
+  let current = "";
+
+  for (const token of tokens) {
+    current += token;
+
+    if (current.length >= 36 || /[\n.!?]$/.test(token)) {
+      chunks.push(current);
+      current = "";
+    }
+  }
+
+  if (current) {
+    chunks.push(current);
+  }
+
+  return chunks;
+}
+
+async function buildStreamResponse(params: {
+  answer: string;
+  meta: FaqAiMeta;
+  provider: AiProvider;
+  model: string;
+}) {
+  const { answer, meta, provider, model } = params;
+  const encoder = new TextEncoder();
+
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      const send = (event: string, data: object) => {
+        controller.enqueue(encoder.encode(toSseEvent(event, data)));
+      };
+
+      send("meta", meta);
+
+      for (const chunk of chunkAnswerText(answer)) {
+        send("chunk", { text: chunk });
+        await new Promise((resolve) => setTimeout(resolve, 14));
+      }
+
+      send("done", { provider, model });
+      controller.close();
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
+      Connection: "keep-alive",
+    },
+  });
+}
+
 export async function POST(request: Request) {
   try {
     if (
@@ -295,40 +308,57 @@ export async function POST(request: Request) {
     }
 
     const body = (await request.json()) as RequestBody;
-
-    if (body.provider && !normalizeProvider(body.provider)) {
-      return NextResponse.json(
-        { error: "AI provider is not supported." },
-        { status: 400 }
-      );
-    }
-
-    const provider = resolveProvider(body.provider);
     const question = body.question?.trim() || "";
-    const language = body.language || "vi";
-    const context = (body.context || []).slice(0, 10);
+    const language = resolveLanguage(body.language);
+    const mode = resolveMode(body.mode);
+    const history = sanitizeHistoryItems(body.history);
 
     if (!question) {
       return NextResponse.json(
-        { error: "Vui l\u00f2ng nh\u1eadp c\u00e2u h\u1ecfi." },
+        { error: "Vui lòng nhập câu hỏi." },
         { status: 400 }
       );
     }
 
     if (question.length > 1000) {
       return NextResponse.json(
-        { error: "C\u00e2u h\u1ecfi qu\u00e1 d\u00e0i." },
+        { error: "Câu hỏi quá dài." },
         { status: 400 }
       );
     }
 
-    const prompt = buildPrompt(question, language, context);
+    const provider = resolveProvider();
+    const { intent, sources } = getPortfolioContext(question, language);
+    const actions = getActionCards(language, intent, sources);
+    const suggestions = getSuggestedQuestions(language, mode, intent);
+    const prompt = buildPortfolioPrompt({
+      question,
+      language,
+      mode,
+      intent,
+      sources,
+      history,
+    });
+
+    logFaqQuestion(question, language, intent);
+
     const { answer, model } =
       provider === "gemini"
         ? await callGemini(prompt)
         : await callOllama(prompt);
 
-    return NextResponse.json({ answer, provider, model });
+    return buildStreamResponse({
+      answer,
+      provider,
+      model,
+      meta: {
+        intent,
+        mode,
+        sources,
+        actions,
+        suggestions,
+      },
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
 
@@ -350,7 +380,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          "D\u1ecbch v\u1ee5 AI t\u1ea1m th\u1eddi kh\u00f4ng kh\u1ea3 d\u1ee5ng. Vui l\u00f2ng th\u1eed l\u1ea1i.",
+          "Dịch vụ AI tạm thời không khả dụng. Vui lòng thử lại.",
       },
       { status: 500 }
     );

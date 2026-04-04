@@ -56,11 +56,11 @@ export function formatContactCooldown(seconds: number, language: Language) {
   if (language === "vi") {
     if (hours > 0) {
       return minutes > 0
-        ? `${hours} gi\u1edd ${minutes} ph\u00fat`
-        : `${hours} gi\u1edd`;
+        ? `${hours} giờ ${minutes} phút`
+        : `${hours} giờ`;
     }
 
-    return `${Math.max(1, minutes)} ph\u00fat`;
+    return `${Math.max(1, minutes)} phút`;
   }
 
   if (hours > 0) {

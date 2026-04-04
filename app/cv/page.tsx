@@ -77,13 +77,13 @@ export default function CVPage() {
   const cv = dict.cv as CVData;
   const content = cv.main_content;
   const avatarUrl = "/profile/tong-van-hoang-avatar.jpg";
-  const strengthsTitle = language === "vi" ? "\u0110i\u1ec3m M\u1ea1nh" : "Strengths";
+  const strengthsTitle = language === "vi" ? "Điểm Mạnh" : "Strengths";
   const strengths =
     language === "vi"
       ? [
-          "T\u01b0 duy logic t\u1ed1t",
-          "Kh\u1ea3 n\u0103ng t\u1ef1 h\u1ecdc cao",
-          "L\u00e0m vi\u1ec7c nh\u00f3m hi\u1ec7u qu\u1ea3",
+          "Tư duy logic tốt",
+          "Khả năng tự học cao",
+          "Làm việc nhóm hiệu quả",
         ]
       : [
           "Strong logical thinking",
@@ -196,7 +196,7 @@ export default function CVPage() {
             <div className="rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 sm:p-6">
               <h2 className="mb-5 flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white sm:text-lg">
                 <Heart className="text-pink-500" size={18} />
-                {language === "vi" ? "S\u1edf th\u00edch" : "Interests"}
+                {language === "vi" ? "Sở thích" : "Interests"}
               </h2>
               <div className="grid grid-cols-2 gap-3">
                 {interests.map(({ label, icon: Icon }) => (

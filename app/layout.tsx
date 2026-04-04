@@ -25,9 +25,9 @@ const siteUrl =
 const ogImage =
   process.env.NEXT_PUBLIC_OG_IMAGE || "/profile/tong-van-hoang-avatar.jpg";
 const ogImageUrl = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`;
-const personName = "T\u1ed1ng V\u0103n Ho\u00e0ng";
+const personName = "Tống Văn Hoàng";
 const siteDescription =
-  "Portfolio c\u1ee7a T\u1ed1ng V\u0103n Ho\u00e0ng, sinh vi\u00ean HUTECH \u0111\u1ecbnh h\u01b0\u1edbng Web Developer Intern v\u1edbi React, Node.js, Express, Flutter v\u00e0 Git workflow.";
+  "Portfolio của Tống Văn Hoàng, sinh viên HUTECH định hướng Web Developer Intern với React, Node.js, Express, Flutter và Git workflow.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
