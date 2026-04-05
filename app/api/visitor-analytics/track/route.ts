@@ -22,9 +22,14 @@ import {
   addUniqueVisitor,
   getUniqueVisitorCount,
 } from "@/app/lib/visitor-analytics-store";
+import { logPageView } from "@/app/lib/private-analytics-store";
 
 const MAX_REQUESTS_PER_WINDOW = 90;
 const WINDOW_MS = 10 * 60 * 1000;
+
+type TrackBody = {
+  path?: string;
+};
 
 function clearInvalidOwnerCookie(response: NextResponse) {
   response.cookies.set({
@@ -65,6 +70,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const body = (await request.json()) as TrackBody;
+    const path = typeof body.path === "string" ? body.path.trim() : "";
+
     if (hasOwnerSession(request)) {
       const uniqueVisitors = await getUniqueVisitorCount();
       return NextResponse.json({ owner: true, uniqueVisitors });
@@ -75,6 +83,14 @@ export async function POST(request: NextRequest) {
 
     if (isBotRequest(request)) {
       return response;
+    }
+
+    if (path === "/owner") {
+      return response;
+    }
+
+    if (path) {
+      await logPageView(path);
     }
 
     if (getVisitorId(request)) {

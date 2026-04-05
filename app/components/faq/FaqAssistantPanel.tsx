@@ -353,13 +353,13 @@ export default function FaqAssistantPanel({
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 sm:justify-end">
           {modeOptions.map((option) => (
             <button
               key={option.id}
               type="button"
               onClick={() => setChatMode(option.id)}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+              className={`min-w-[calc(50%-0.25rem)] rounded-full px-4 py-2 text-sm font-semibold transition-colors sm:min-w-0 ${
                 chatMode === option.id
                   ? "bg-sky-500 text-white shadow-lg shadow-sky-500/25"
                   : "border border-slate-200 bg-slate-50 text-slate-600 hover:border-sky-400 hover:text-sky-500 dark:border-slate-700 dark:bg-slate-950/60 dark:text-slate-300 dark:hover:text-sky-400"
@@ -371,14 +371,14 @@ export default function FaqAssistantPanel({
         </div>
       </div>
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mb-4 flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0">
         {quickPrompts.map((prompt) => (
           <button
             key={prompt}
             type="button"
             onClick={() => submitQuestion(prompt)}
             disabled={aiLoading}
-            className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-left text-xs font-semibold text-slate-600 transition-colors hover:border-sky-400 hover:text-sky-500 dark:border-slate-700 dark:bg-slate-950/60 dark:text-slate-200 dark:hover:text-sky-400"
+            className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-left text-xs font-semibold text-slate-600 transition-colors hover:border-sky-400 hover:text-sky-500 dark:border-slate-700 dark:bg-slate-950/60 dark:text-slate-200 dark:hover:text-sky-400"
           >
             {prompt}
           </button>
@@ -387,7 +387,7 @@ export default function FaqAssistantPanel({
 
       <div
         ref={chatLogRef}
-        className="mb-4 max-h-[28rem] min-h-[13rem] space-y-4 overflow-y-auto rounded-[1.75rem] border border-slate-200 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-950/40 sm:p-4"
+        className="mb-4 max-h-[30rem] min-h-[14rem] space-y-4 overflow-y-auto rounded-[1.75rem] border border-slate-200 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-950/40 sm:max-h-[28rem] sm:min-h-[13rem] sm:p-4"
       >
         {messages.length === 0 ? (
           <div className="flex min-h-[11rem] flex-col items-center justify-center rounded-[1.25rem] border border-dashed border-slate-300 bg-white/70 px-5 py-6 text-center dark:border-slate-700 dark:bg-slate-900/40">

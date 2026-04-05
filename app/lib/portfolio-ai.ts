@@ -1,5 +1,6 @@
 import { blogCopy } from "@/app/data/blog";
 import { dictionaries, type Language } from "@/app/data/dictionaries";
+import { projectCopy } from "@/app/data/projects";
 import type {
   AiAudienceMode,
   AiIntent,
@@ -11,13 +12,6 @@ import type {
 type PortfolioDoc = FaqAiSource & {
   content: string;
   tags: string[];
-};
-
-type ProjectItem = {
-  title: string;
-  description: string;
-  tags: string[];
-  category: string;
 };
 
 type FaqItem = {
@@ -57,9 +51,6 @@ type AboutTimelineItem = {
 };
 
 type PortfolioDictionary = {
-  projects?: {
-    items?: ProjectItem[];
-  };
   faq?: {
     items?: FaqItem[];
   };
@@ -100,7 +91,7 @@ function normalizeText(value: string) {
     .toLowerCase()
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
-    .replace(/[`*#:/.,!?()[\]{}|"'’“”+-]/g, " ")
+    .replace(/[^\p{Letter}\p{Number}\s]/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -113,17 +104,15 @@ function tokenize(value: string) {
 }
 
 function createDoc(
-  language: Language,
   source: Omit<PortfolioDoc, "content" | "tags"> & {
     contentParts: string[];
     tags?: string[];
   }
 ): PortfolioDoc {
-  const tags = source.tags || [];
   return {
     ...source,
     content: source.contentParts.join("\n"),
-    tags,
+    tags: source.tags || [],
   };
 }
 
@@ -132,71 +121,61 @@ function getLanguageDictionary(language: Language): PortfolioDictionary {
 }
 
 function getProjectDocs(language: Language) {
-  const dict = getLanguageDictionary(language);
-  const projectItems = dict.projects?.items || [];
-
-  const docs = projectItems.map((item, index) =>
-    createDoc(language, {
+  return projectCopy[language].items.map((item, index) =>
+    createDoc({
       id: `project-${index + 1}`,
       label: language === "vi" ? "Dự án" : "Projects",
-      href: "/projects",
+      href: `/projects/${item.slug}`,
       kind: "project",
       title: item.title,
       excerpt: item.description,
-      tags: [item.category, ...(item.tags || [])],
-      contentParts: [item.title, item.description, ...(item.tags || [])],
-    })
-  );
-
-  docs.push(
-    createDoc(language, {
-      id: "project-dashboard",
-      label: language === "vi" ? "Dự án" : "Projects",
-      href: "/projects",
-      kind: "project",
-      title:
-        language === "vi"
-          ? "Dashboard quản trị FeShenShop"
-          : "FeShenShop Admin Dashboard",
-      excerpt:
-        language === "vi"
-          ? "Dashboard quản trị có AI insight panel, AI tạo coupon, gợi ý phản hồi và viết mô tả sản phẩm."
-          : "An admin dashboard with AI insight panels, AI coupon generation, reply suggestions, and product-writing support.",
-      tags: ["dashboard", "analytics", "admin", "AI"],
+      tags: [
+        item.category,
+        item.eyebrow,
+        ...item.tags,
+        ...item.stack,
+        ...item.relatedBlogSlugs,
+      ],
       contentParts: [
-        language === "vi"
-          ? "Dashboard quản trị của FeShenShop."
-          : "FeShenShop admin dashboard.",
-        language === "vi"
-          ? "Có AI insight cho analytics, tồn kho, khách hàng, đơn hàng, đánh giá và khuyến mãi."
-          : "Includes AI insight panels for analytics, inventory, customers, orders, reviews, and coupons.",
-        language === "vi"
-          ? "Hỗ trợ AI tạo mã giảm giá, gợi ý phản hồi chat và viết mô tả sản phẩm."
-          : "Supports AI coupon generation, reply suggestions, and product description writing.",
+        item.title,
+        item.shortTitle,
+        item.eyebrow,
+        item.description,
+        item.summary,
+        item.objective,
+        item.aiUse,
+        item.result,
+        ...item.role,
+        ...item.stack,
+        ...item.outcomes,
       ],
     })
   );
-
-  return docs;
 }
 
 function getBlogDocs(language: Language) {
-  const copy = blogCopy[language];
-
-  return copy.posts.map((post) =>
-    createDoc(language, {
+  return blogCopy[language].posts.map((post) =>
+    createDoc({
       id: `blog-${post.slug}`,
-      label: language === "vi" ? "Blog" : "Blog",
-      href: `/blog#${post.slug}`,
+      label: "Blog",
+      href: `/blog/${post.slug}`,
       kind: "blog",
       title: post.title,
       excerpt: post.excerpt,
-      tags: [post.category, ...post.takeaways],
+      tags: [
+        post.category,
+        post.relatedProjectSlug,
+        ...post.takeaways,
+        ...post.credibilityPoints,
+        ...post.systems,
+      ],
       contentParts: [
         post.title,
         post.excerpt,
         post.focus,
         ...post.takeaways,
+        ...post.credibilityPoints,
+        ...post.systems,
         ...post.body,
       ],
     })
@@ -208,7 +187,7 @@ function getFaqDocs(language: Language) {
   const items = dict.faq?.items || [];
 
   return items.map((item) =>
-    createDoc(language, {
+    createDoc({
       id: `faq-${item.id}`,
       label: "FAQ",
       href: "/faq",
@@ -224,10 +203,9 @@ function getFaqDocs(language: Language) {
 function getCvDocs(language: Language) {
   const dict = getLanguageDictionary(language);
   const cv = dict.cv;
-  const docs: PortfolioDoc[] = [];
 
-  docs.push(
-    createDoc(language, {
+  return [
+    createDoc({
       id: "cv-profile",
       label: "CV",
       href: "/cv",
@@ -241,17 +219,15 @@ function getCvDocs(language: Language) {
         cv.profile.summary,
         ...(cv.tech_stack || []),
       ],
-    })
-  );
-
-  docs.push(
-    createDoc(language, {
+    }),
+    createDoc({
       id: "cv-experience",
       label: "CV",
       href: "/cv",
       kind: "cv",
       title: cv.main_content.experience_title,
-      excerpt: cv.main_content.experience[0]?.company || cv.main_content.experience_title,
+      excerpt:
+        cv.main_content.experience[0]?.company || cv.main_content.experience_title,
       tags: [cv.main_content.experience_title, "experience"],
       contentParts: [
         cv.main_content.about_content,
@@ -261,17 +237,15 @@ function getCvDocs(language: Language) {
           ...item.desc,
         ]),
       ],
-    })
-  );
-
-  docs.push(
-    createDoc(language, {
+    }),
+    createDoc({
       id: "cv-education",
       label: "CV",
       href: "/cv",
       kind: "cv",
       title: cv.main_content.education_title,
-      excerpt: cv.main_content.education[0]?.school || cv.main_content.education_title,
+      excerpt:
+        cv.main_content.education[0]?.school || cv.main_content.education_title,
       tags: ["education", "HUTECH"],
       contentParts: cv.main_content.education.flatMap((item) => [
         item.title,
@@ -279,10 +253,8 @@ function getCvDocs(language: Language) {
         item.meta,
         item.description,
       ]),
-    })
-  );
-
-  return docs;
+    }),
+  ];
 }
 
 function getCertificateDocs(language: Language) {
@@ -290,7 +262,7 @@ function getCertificateDocs(language: Language) {
   const items = dict.certificates?.items || [];
 
   return items.map((item) =>
-    createDoc(language, {
+    createDoc({
       id: `certificate-${item.id}`,
       label: language === "vi" ? "Năng lực" : "Capabilities",
       href: "/certificates",
@@ -308,7 +280,7 @@ function getAboutDocs(language: Language) {
   const about = dict.about;
 
   return [
-    createDoc(language, {
+    createDoc({
       id: "about-summary",
       label: language === "vi" ? "Giới thiệu" : "About",
       href: "/about",
@@ -333,7 +305,8 @@ function getAboutDocs(language: Language) {
 
 function getContactDoc(language: Language) {
   const dict = getLanguageDictionary(language);
-  return createDoc(language, {
+
+  return createDoc({
     id: "contact-info",
     label: language === "vi" ? "Liên hệ" : "Contact",
     href: "/contact",
@@ -347,7 +320,6 @@ function getContactDoc(language: Language) {
 
 export function detectAiIntent(question: string): AiIntent {
   const normalized = normalizeText(question);
-
   const matches = (terms: string[]) =>
     terms.some((term) => normalized.includes(normalizeText(term)));
 
@@ -379,6 +351,7 @@ export function detectAiIntent(question: string): AiIntent {
       "mobile",
       "api",
       "storefront",
+      "case study",
     ])
   ) {
     return "project";
@@ -393,6 +366,7 @@ export function detectAiIntent(question: string): AiIntent {
       "prompt",
       "assistant",
       "insight",
+      "rag",
     ])
   ) {
     return "ai";
@@ -453,24 +427,31 @@ function getIntentBoosts(intent: AiIntent, language: Language) {
     case "stack":
       return ["JavaScript", "TypeScript", "React", "Node.js", "Flutter", "MySQL"];
     case "project":
-      return ["FeShenShop", "dashboard", "mobile", "API", "storefront"];
+      return ["FeShenShop", "dashboard", "mobile", "API", "storefront", "case study"];
     case "ai":
-      return ["AI", "Gemini", "visual search", "assistant", "Prompt AI"];
+      return ["AI", "Gemini", "visual search", "assistant", "Prompt AI", "RAG"];
     case "experience":
-      return ["intern", "thực tập", "project", "workflow"];
+      return ["intern", "thực tập", "workflow", "project"];
     case "education":
       return ["HUTECH", "education", "student", "Software Engineering"];
     case "contact":
       return [contactKeyword, "email", "phone"];
     case "blog":
-      return ["blog", "article", "notes", "AI Workflow"];
+      return ["blog", "article", "technical", "credibility"];
     default:
       return ["portfolio", "FeShenShop", "skills"];
   }
 }
 
-function scoreDoc(questionTokens: string[], doc: PortfolioDoc, intent: AiIntent, language: Language) {
-  const docTokens = new Set(tokenize(`${doc.title} ${doc.excerpt} ${doc.content} ${doc.tags.join(" ")}`));
+function scoreDoc(
+  questionTokens: string[],
+  doc: PortfolioDoc,
+  intent: AiIntent,
+  language: Language
+) {
+  const docTokens = new Set(
+    tokenize(`${doc.title} ${doc.excerpt} ${doc.content} ${doc.tags.join(" ")}`)
+  );
   const titleTokens = new Set(tokenize(doc.title));
   const boostTokens = new Set(tokenize(getIntentBoosts(intent, language).join(" ")));
 
@@ -497,8 +478,18 @@ function scoreDoc(questionTokens: string[], doc: PortfolioDoc, intent: AiIntent,
   if (intent === "project" && doc.kind === "project") score += 10;
   if (intent === "ai" && (doc.kind === "project" || doc.kind === "blog")) score += 8;
   if (intent === "blog" && doc.kind === "blog") score += 12;
-  if (intent === "stack" && (doc.kind === "about" || doc.kind === "cv" || doc.kind === "project")) score += 6;
-  if (intent === "experience" && (doc.kind === "cv" || doc.kind === "about" || doc.kind === "project")) score += 7;
+  if (
+    intent === "stack" &&
+    (doc.kind === "about" || doc.kind === "cv" || doc.kind === "project")
+  ) {
+    score += 6;
+  }
+  if (
+    intent === "experience" &&
+    (doc.kind === "cv" || doc.kind === "about" || doc.kind === "project")
+  ) {
+    score += 7;
+  }
 
   return score;
 }
@@ -506,8 +497,8 @@ function scoreDoc(questionTokens: string[], doc: PortfolioDoc, intent: AiIntent,
 function getFallbackSources(intent: AiIntent, docs: PortfolioDoc[]) {
   const priorities: Record<AiIntent, PortfolioDoc["kind"][]> = {
     stack: ["cv", "about", "project"],
-    project: ["project", "cv", "blog"],
-    ai: ["blog", "project", "cv"],
+    project: ["project", "blog", "cv"],
+    ai: ["project", "blog", "cv"],
     experience: ["cv", "about", "project"],
     education: ["cv", "certificate", "about"],
     contact: ["contact", "cv", "about"],
@@ -515,11 +506,12 @@ function getFallbackSources(intent: AiIntent, docs: PortfolioDoc[]) {
     general: ["about", "project", "cv"],
   };
 
-  const desiredKinds = priorities[intent];
   const picked: PortfolioDoc[] = [];
 
-  for (const kind of desiredKinds) {
-    const match = docs.find((doc) => doc.kind === kind && !picked.some((item) => item.id === doc.id));
+  for (const kind of priorities[intent]) {
+    const match = docs.find(
+      (doc) => doc.kind === kind && !picked.some((item) => item.id === doc.id)
+    );
     if (match) {
       picked.push(match);
     }
@@ -552,9 +544,10 @@ export function getPortfolioContext(question: string, language: Language) {
     .slice(0, 5)
     .map((entry) => entry.doc);
 
-  const sources = ranked.length > 0 ? ranked : getFallbackSources(intent, docs);
-
-  return { intent, sources };
+  return {
+    intent,
+    sources: ranked.length > 0 ? ranked : getFallbackSources(intent, docs),
+  };
 }
 
 export function sanitizeHistoryItems(
@@ -571,13 +564,17 @@ export function sanitizeHistoryItems(
     .filter((item) => item.content.length > 0);
 }
 
-export function getSuggestedQuestions(language: Language, mode: AiAudienceMode, intent: AiIntent) {
+export function getSuggestedQuestions(
+  language: Language,
+  mode: AiAudienceMode,
+  intent: AiIntent
+) {
   const viSuggestions: Record<AiAudienceMode, string[]> = {
     recruiter: [
       "Stack chính của bạn là gì?",
       "Bạn đã tích hợp AI vào FeShenShop như thế nào?",
-      "Bạn đang phụ trách phần backend nào?",
-      "Vì sao recruiter nên xem phần blog của bạn?",
+      "Bạn phụ trách phần backend nào trực tiếp?",
+      "Recruiter nên đọc bài blog nào trước?",
     ],
     client: [
       "Bạn có thể làm website theo stack nào?",
@@ -592,17 +589,15 @@ export function getSuggestedQuestions(language: Language, mode: AiAudienceMode, 
       "What is your core stack?",
       "How did you integrate AI into FeShenShop?",
       "What backend work did you handle directly?",
-      "Why should a recruiter read your blog notes?",
+      "Which blog article should a recruiter read first?",
     ],
     client: [
       "What kind of website stack can you build with?",
       "What AI features did you add to FeShenShop?",
-      "Do you have mobile app experience too?",
+      "Do you also have mobile app experience?",
       "Which page should I open first to understand your work quickly?",
     ],
   };
-
-  const suggestions = language === "vi" ? viSuggestions : enSuggestions;
 
   if (intent === "contact") {
     return language === "vi"
@@ -623,7 +618,7 @@ export function getSuggestedQuestions(language: Language, mode: AiAudienceMode, 
       ? [
           "Bạn đang học ở đâu?",
           "Bạn đang thực tập và phát triển theo hướng nào?",
-          "Phần học vấn có điểm gì liên quan đến web?",
+          "Phần học vấn liên quan gì đến web development?",
         ]
       : [
           "Where are you studying now?",
@@ -632,7 +627,21 @@ export function getSuggestedQuestions(language: Language, mode: AiAudienceMode, 
         ];
   }
 
-  return suggestions[mode];
+  if (intent === "project") {
+    return language === "vi"
+      ? [
+          "Case study nào thể hiện rõ nhất phần frontend của bạn?",
+          "Bạn làm dashboard quản trị ở mức nào?",
+          "Phần mobile app khác gì so với web storefront?",
+        ]
+      : [
+          "Which case study shows your frontend work best?",
+          "How much of the admin dashboard did you build?",
+          "How does the mobile app differ from the web storefront?",
+        ];
+  }
+
+  return language === "vi" ? viSuggestions[mode] : enSuggestions[mode];
 }
 
 export function getActionCards(
@@ -643,23 +652,25 @@ export function getActionCards(
   const labels =
     language === "vi"
       ? {
-          projects: "Xem dự án",
+          projects: "Xem case study",
           contact: "Mở trang liên hệ",
           downloadCv: "Tải CV PDF",
-          readBlog: "Xem blog",
+          readBlog: "Đọc blog",
           capabilities: "Xem năng lực",
           viewCv: "Mở trang CV",
         }
       : {
-          projects: "View projects",
+          projects: "View case study",
           contact: "Open contact page",
           downloadCv: "Download resume",
-          readBlog: "Open blog",
+          readBlog: "Read blog",
           capabilities: "View capabilities",
           viewCv: "Open resume page",
         };
 
   const baseActions: FaqAiAction[] = [];
+  const primaryProjectSource = sources.find((source) => source.kind === "project");
+  const primaryBlogSource = sources.find((source) => source.kind === "blog");
 
   if (intent === "contact") {
     baseActions.push(
@@ -681,16 +692,18 @@ export function getActionCards(
   } else if (intent === "blog" || intent === "ai") {
     baseActions.push(
       {
-        id: "blog-page",
+        id: primaryBlogSource ? `source-${primaryBlogSource.id}` : "blog-page",
         label: labels.readBlog,
-        href: "/blog",
+        href: primaryBlogSource?.href || "/blog",
         kind: "route",
         variant: "primary",
       },
       {
-        id: "projects-page",
+        id: primaryProjectSource
+          ? `source-${primaryProjectSource.id}`
+          : "projects-page",
         label: labels.projects,
-        href: "/projects",
+        href: primaryProjectSource?.href || "/projects",
         kind: "route",
         variant: "secondary",
       }
@@ -715,9 +728,11 @@ export function getActionCards(
   } else {
     baseActions.push(
       {
-        id: "projects-page",
+        id: primaryProjectSource
+          ? `source-${primaryProjectSource.id}`
+          : "projects-page",
         label: labels.projects,
-        href: "/projects",
+        href: primaryProjectSource?.href || "/projects",
         kind: "route",
         variant: "primary",
       },
@@ -778,11 +793,11 @@ export function buildPortfolioPrompt(params: {
   const audienceRule =
     language === "vi"
       ? mode === "recruiter"
-        ? "Người dùng đang ở chế độ recruiter. Hãy nhấn vào stack, phần việc trực tiếp đã làm, AI integration, internship hiện tại và lý do hồ sơ này đáng xem."
-        : "Người dùng đang ở chế độ client. Hãy nhấn vào những gì Tống Văn Hoàng có thể xây dựng, cách tích hợp AI và trang nào nên xem tiếp theo."
+        ? "Người dùng đang ở recruiter mode. Hãy nhấn vào stack, phần việc trực tiếp đã làm, AI integration, trải nghiệm thực tập hiện tại và lý do hồ sơ này đáng xem."
+        : "Người dùng đang ở client mode. Hãy nhấn vào những gì Tống Văn Hoàng có thể xây dựng, cách tích hợp AI và trang nên xem tiếp theo."
       : mode === "recruiter"
-        ? "The user is in recruiter mode. Emphasize stack, direct contributions, AI integration, current internship, and why this profile is worth reviewing."
-        : "The user is in client mode. Emphasize what Tong Van Hoang can build, how AI is integrated, and which pages to view next.";
+        ? "The user is in recruiter mode. Emphasize stack, direct contributions, AI integration, the current internship, and why this profile is worth reviewing."
+        : "The user is in client mode. Emphasize what Tong Van Hoang can build, how AI is integrated, and which page to view next.";
 
   const intentRule =
     language === "vi"
@@ -791,7 +806,7 @@ export function buildPortfolioPrompt(params: {
 
   const formatRule =
     language === "vi"
-      ? "Trả lời bằng tiếng Việt, ngắn gọn và rõ ràng. Không dùng markdown như **in đậm** hoặc # heading. Hãy bắt đầu bằng 1 câu tóm tắt ngắn. Sau đó nếu cần thì dùng 2-4 gạch đầu dòng ngắn cho công nghệ, phần việc đã làm, AI integration hoặc trang nên xem."
+      ? "Trả lời bằng tiếng Việt, ngắn gọn và rõ ràng. Không dùng markdown như **in đậm** hay # heading. Bắt đầu bằng 1 câu tóm tắt ngắn. Sau đó nếu cần thì dùng 2-4 gạch đầu dòng ngắn cho công nghệ, phần việc đã làm, AI integration hoặc trang nên xem tiếp."
       : "Answer in English, concise and clear. Do not use markdown such as **bold** or # headings. Start with one short summary sentence, then use 2-4 short bullet points if useful for stack, direct work, AI integration, or recommended next pages.";
 
   const trustRule =

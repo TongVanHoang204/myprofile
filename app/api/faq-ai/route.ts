@@ -340,7 +340,7 @@ export async function POST(request: Request) {
       history,
     });
 
-    logFaqQuestion(question, language, intent);
+    await logFaqQuestion(question, language, intent);
 
     const { answer, model } =
       provider === "gemini"

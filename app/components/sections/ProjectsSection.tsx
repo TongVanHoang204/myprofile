@@ -1,23 +1,23 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ProjectGrid, { type ProjectFilter } from "../ProjectGrid";
+import { ArrowRight } from "lucide-react";
+import ProjectGrid, { type ProjectFilter } from "@/app/components/ProjectGrid";
 import { useLanguage } from "@/app/context/LanguageContext";
+import { projectCopy } from "@/app/data/projects";
 
 export default function ProjectsSection() {
-  const { dict, language } = useLanguage();
+  const { language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>("all");
-  const subtitle =
-    language === "vi"
-      ? "Những phần việc tôi đã trực tiếp xây dựng trong dự án FeShenShop."
-      : "The actual areas I built inside the FeShenShop project.";
+  const copy = projectCopy[language];
 
   const filters: Array<{ value: ProjectFilter; label: string }> = [
-    { value: "all", label: dict.projects.filters.all },
-    { value: "website", label: dict.projects.filters.website },
-    { value: "backend", label: dict.projects.filters.backend },
-    { value: "mobile", label: dict.projects.filters.mobile },
+    { value: "all", label: copy.filters.all },
+    { value: "website", label: copy.filters.website },
+    { value: "backend", label: copy.filters.backend },
+    { value: "mobile", label: copy.filters.mobile },
   ];
 
   return (
@@ -25,22 +25,30 @@ export default function ProjectsSection() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-10 flex flex-col gap-5 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
           <div className="text-center md:text-left">
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-400"
+            >
+              {copy.eyebrow}
+            </motion.p>
             <motion.h2
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="mb-2 inline-block bg-gradient-to-r from-sky-500 to-purple-600 bg-clip-text text-2xl font-bold text-transparent dark:from-sky-400 dark:to-purple-500 sm:text-3xl"
+              className="mt-3 inline-block bg-gradient-to-r from-sky-500 to-purple-600 bg-clip-text text-2xl font-bold text-transparent dark:from-sky-400 dark:to-purple-500 sm:text-3xl"
             >
-              {dict.projects.title}
+              {copy.title}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-400 sm:text-base"
+              className="mt-2 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-400 sm:text-base"
             >
-              {subtitle}
+              {copy.subtitle}
             </motion.p>
           </div>
 
@@ -79,6 +87,22 @@ export default function ProjectsSection() {
         </div>
 
         <ProjectGrid filter={activeFilter} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.12 }}
+          className="mt-8 flex justify-center sm:mt-10"
+        >
+          <Link
+            href="/projects"
+            className="interactive-button inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-bold text-slate-950 hover:bg-sky-400"
+          >
+            {copy.openCaseStudy}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

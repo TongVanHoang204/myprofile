@@ -1,11 +1,24 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
+import { ArrowRight, Loader2, ShieldCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, ShieldCheck } from "lucide-react";
 import { buildProtectedHeaders } from "@/app/lib/client-request-security";
 import { emitOwnerAnalyticsChanged } from "@/app/components/VisitorAnalyticsWidget";
 import { useLanguage } from "@/app/context/LanguageContext";
+import OwnerAnalyticsDashboard from "@/app/components/owner/OwnerAnalyticsDashboard";
+import type {
+  ContentClickStat,
+  FaqQuestionStat,
+  PageViewStat,
+} from "@/app/lib/private-analytics-store";
+
+type OwnerAnalyticsSummary = {
+  uniqueVisitors: number;
+  topPages: PageViewStat[];
+  topBlogClicks: ContentClickStat[];
+  topAiQuestions: FaqQuestionStat[];
+};
 
 export default function OwnerPage() {
   const router = useRouter();
@@ -13,29 +26,62 @@ export default function OwnerPage() {
   const [accessKey, setAccessKey] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoadingSummary, setIsLoadingSummary] = useState(true);
+  const [summary, setSummary] = useState<OwnerAnalyticsSummary | null>(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const copy =
     language === "vi"
       ? {
           eyebrow: "Truy cập riêng",
-          title: "Bật chế độ xem thống kê lượt truy cập",
+          title: "Bật chế độ owner để xem dashboard analytics",
           subtitle:
-            "Trang này chỉ dùng để bạn mở quyền xem bộ đếm người xem. Sau khi xác thực thành công, số lượt xem sẽ hiện riêng cho bạn và không tính lượt truy cập của chính bạn.",
+            "Trang này chỉ dành cho bạn. Sau khi xác thực, bạn sẽ thấy tổng lượt xem, trang được xem nhiều, bài blog được mở nhiều và câu hỏi AI được hỏi nhiều nhất.",
           placeholder: "Nhập owner access key",
           action: "Bật chế độ owner",
           back: "Quay lại trang chủ",
           genericError: "Không thể bật chế độ owner lúc này.",
+          summaryError: "Không thể tải dashboard analytics.",
         }
       : {
           eyebrow: "Private access",
-          title: "Enable the private visitor analytics view",
+          title: "Enable owner mode to open the analytics dashboard",
           subtitle:
-            "This page is only for unlocking the owner-only visitor counter. After a successful verification, the total will appear only for you and your own visit will be excluded.",
+            "This page is only for you. After verification, you will see total visits, top viewed pages, most opened blog articles, and the most asked AI questions.",
           placeholder: "Enter the owner access key",
           action: "Enable owner mode",
           back: "Back to home",
           genericError: "Could not enable owner mode right now.",
+          summaryError: "Could not load the analytics dashboard.",
         };
+
+  const loadSummary = useCallback(async () => {
+    setIsLoadingSummary(true);
+
+    try {
+      const response = await fetch("/api/owner-analytics/summary", {
+        method: "GET",
+        headers: buildProtectedHeaders(),
+        cache: "no-store",
+      });
+
+      if (!response.ok) {
+        setSummary(null);
+        return;
+      }
+
+      const data = (await response.json()) as OwnerAnalyticsSummary;
+      setSummary(data);
+    } catch {
+      setSummary(null);
+    } finally {
+      setIsLoadingSummary(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadSummary();
+  }, [loadSummary]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -59,13 +105,53 @@ export default function OwnerPage() {
       }
 
       emitOwnerAnalyticsChanged();
-      router.replace("/");
+      await loadSummary();
+      setAccessKey("");
     } catch {
       setError(copy.genericError);
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+
+    try {
+      await fetch("/api/visitor-analytics/session", {
+        method: "DELETE",
+        headers: buildProtectedHeaders(),
+        cache: "no-store",
+      });
+      setSummary(null);
+      emitOwnerAnalyticsChanged();
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
+  if (isLoadingSummary) {
+    return (
+      <div className="mx-auto flex min-h-[100svh] max-w-3xl items-center justify-center px-4 py-24">
+        <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white/80 px-5 py-3 text-sm font-semibold text-slate-700 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-200">
+          <Loader2 className="h-4 w-4 animate-spin text-sky-400" />
+          {language === "vi" ? "Đang tải owner dashboard..." : "Loading owner dashboard..."}
+        </div>
+      </div>
+    );
+  }
+
+  if (summary) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6">
+        <OwnerAnalyticsDashboard
+          summary={summary}
+          onLogout={handleLogout}
+          isLoggingOut={isLoggingOut}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto flex min-h-[100svh] max-w-3xl items-center px-4 py-24">
@@ -107,8 +193,12 @@ export default function OwnerPage() {
               disabled={isSubmitting}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-70"
             >
+              {isSubmitting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <ArrowRight className="h-4 w-4" />
+              )}
               {copy.action}
-              <ArrowRight className="h-4 w-4" />
             </button>
 
             <button

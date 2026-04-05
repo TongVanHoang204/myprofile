@@ -3,39 +3,38 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import ProjectGrid, { type ProjectFilter } from "@/app/components/ProjectGrid";
+import ProjectCaseStudyShowcase from "@/app/components/projects/ProjectCaseStudyShowcase";
 import { useLanguage } from "@/app/context/LanguageContext";
+import { projectCopy } from "@/app/data/projects";
 
 export default function ProjectsPage() {
-  const { dict, language } = useLanguage();
+  const { language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>("all");
-  const subtitle =
-    language === "vi"
-      ? "Những phần việc tôi đã trực tiếp xây dựng trong dự án FeShenShop."
-      : "The actual areas I built inside the FeShenShop project.";
+  const copy = projectCopy[language];
 
   const filters: Array<{ value: ProjectFilter; label: string }> = [
-    { value: "all", label: dict.projects.filters.all },
-    { value: "website", label: dict.projects.filters.website },
-    { value: "backend", label: dict.projects.filters.backend },
-    { value: "mobile", label: dict.projects.filters.mobile },
+    { value: "all", label: copy.filters.all },
+    { value: "website", label: copy.filters.website },
+    { value: "backend", label: copy.filters.backend },
+    { value: "mobile", label: copy.filters.mobile },
   ];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-12 pt-24 sm:pt-28">
-      <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+    <div className="mx-auto max-w-6xl px-4 pb-12 pt-24 sm:px-6 sm:pb-16 sm:pt-28">
+      <div className="mb-12 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-400">
-            Portfolio
+            {copy.eyebrow}
           </p>
           <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
-            {dict.projects.title}
+            {copy.title}
           </h1>
-          <p className="mt-2 max-w-2xl text-base text-slate-600 dark:text-slate-400">
-            {subtitle}
+          <p className="mt-2 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-400">
+            {copy.subtitle}
           </p>
         </motion.div>
 
@@ -49,7 +48,7 @@ export default function ProjectsPage() {
             <button
               key={filter.value}
               onClick={() => setActiveFilter(filter.value)}
-              className="relative z-10 rounded-full px-3 py-2 font-medium transition-colors sm:px-4"
+              className="relative z-10 min-w-[calc(50%-0.25rem)] rounded-full px-3 py-2.5 font-medium transition-colors sm:min-w-0 sm:px-4 sm:py-2"
             >
               {activeFilter === filter.value && (
                 <motion.div
@@ -73,6 +72,7 @@ export default function ProjectsPage() {
       </div>
 
       <ProjectGrid filter={activeFilter} />
+      <ProjectCaseStudyShowcase />
     </div>
   );
 }

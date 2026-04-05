@@ -9,6 +9,9 @@ export type BlogPost = {
   excerpt: string;
   focus: string;
   takeaways: string[];
+  credibilityPoints: string[];
+  systems: string[];
+  relatedProjectSlug: string;
   body: string[];
   accent: string;
 };
@@ -32,6 +35,9 @@ export type BlogPageCopy = {
   detailLabel: string;
   summaryLabel: string;
   takeawayLabel: string;
+  credibilityLabel: string;
+  systemsLabel: string;
+  relatedProjectLabel: string;
   ctaTitle: string;
   ctaSubtitle: string;
   ctaPrimary: string;
@@ -45,53 +51,56 @@ export type BlogPageCopy = {
 
 export const blogCopy: Record<Language, BlogPageCopy> = {
   vi: {
-    eyebrow: "Blog cá nhân",
+    eyebrow: "Blog kỹ thuật",
     title:
-      "Nơi tôi ghi lại cách xây sản phẩm, học công nghệ và hoàn thiện portfolio",
+      "Lớp nội dung giúp portfolio của tôi bớt phẳng và chứng minh được cách tôi xây sản phẩm",
     subtitle:
-      "Trang blog này tổng hợp những ghi chú ngắn xoay quanh frontend, backend, mobile và AI workflow mà tôi đang áp dụng trong quá trình phát triển FeShenShop cũng như website cá nhân.",
+      "Trang blog này không dùng để viết lan man. Mỗi bài đều bám vào FeShenShop hoặc chính website portfolio để làm rõ cách tôi tổ chức frontend, backend, AI workflow và tư duy triển khai.",
     listEyebrow: "Bài viết",
     ctaEyebrow: "Kết nối",
-    topicsTitle: "Chủ đề tôi đang viết",
+    topicsTitle: "Các trục nội dung tôi đang dùng để xây credibility",
     topics: [
-      "Frontend thực chiến với React và Next.js",
-      "Kiến trúc backend cho project cá nhân",
-      "Quy trình dùng AI để tăng tốc công việc",
-      "Kinh nghiệm tối ưu portfolio khi đi thực tập",
+      "Frontend thực chiến với React và trải nghiệm mua sắm",
+      "Kiến trúc backend cho một hệ thống có AI route",
+      "AI integration theo nghiệp vụ thay vì gắn cho có",
+      "Cách biến project cá nhân thành câu chuyện đủ thuyết phục",
     ],
     featuredLabel: "Bài nổi bật",
     featuredTitle:
-      "Từ FeShenShop đến portfolio cá nhân: cách tôi gom một hệ thống học tập thành sản phẩm có thể trình bày",
+      "Từ FeShenShop đến portfolio cá nhân: cách tôi biến một project học tập thành câu chuyện kỹ thuật có thể trình bày",
     featuredDescription:
-      "Bài viết này nói về cách tôi tách FeShenShop thành web storefront, RESTful API, dashboard và mobile app, rồi làm rõ cả lớp AI gồm chatbot, visual search, admin insight và AI assistant để câu chuyện kỹ thuật thuyết phục hơn.",
+      "Bài mở đầu này gom lại toàn bộ hệ thống FeShenShop theo góc nhìn portfolio: storefront, RESTful API, dashboard, mobile app và lớp AI để người xem hiểu nhanh tôi thực sự đã làm gì.",
     featuredPoints: [
-      "Tách rõ từng phần web, API, dashboard và mobile để trình bày đúng năng lực.",
-      "Chỉ ra AI được gắn vào đúng luồng nghiệp vụ thay vì thêm cho có.",
-      "Ưu tiên trải nghiệm responsive và khả năng demo trước khi nói sâu về kỹ thuật.",
-      "Dùng blog như lớp giải thích thêm cho recruiter ngoài CV và FAQ.",
+      "Tách rõ frontend, backend, dashboard và mobile để năng lực không bị dồn vào một card chung.",
+      "Chỉ ra AI được gắn vào đúng luồng sản phẩm thay vì thêm một chatbot độc lập.",
+      "Dùng blog như lớp giải thích cho recruiter ngoài CV, FAQ và ảnh chụp màn hình.",
+      "Biến mỗi bài viết thành một bằng chứng kỹ thuật có thể click vào và kiểm chứng.",
     ],
     stats: [
-      { value: "04", label: "Bài viết mở đầu" },
-      { value: "03", label: "Nhóm kỹ thuật chính" },
-      { value: "01", label: "Case study hệ thống" },
+      { value: "04", label: "Bài kỹ thuật" },
+      { value: "04", label: "Case study liên kết" },
+      { value: "01", label: "Hệ thống xuyên suốt" },
     ],
     listTitle: "Bài viết hiện có",
     listSubtitle:
-      "Tôi khởi động blog bằng những chủ đề bám sát đúng thứ mình đang xây và đang học, thay vì viết lan man.",
+      "Mỗi bài đều bám vào thứ tôi đã trực tiếp build, có liên kết về project case study để người xem đọc theo chiều sâu thay vì chỉ nhìn qua card tổng quan.",
     readArticle: "Đọc bài viết",
     detailLabel: "Nội dung chi tiết",
     summaryLabel: "Tóm tắt nhanh",
     takeawayLabel: "Điểm chính",
-    ctaTitle: "Muốn trao đổi trực tiếp về các bài viết hoặc dự án?",
+    credibilityLabel: "Điều bài này chứng minh",
+    systemsLabel: "Hệ thống / phần liên quan",
+    relatedProjectLabel: "Case study liên quan",
+    ctaTitle: "Muốn đi tiếp từ blog sang project thật?",
     ctaSubtitle:
-      "Nếu bạn muốn xem cách tôi triển khai thực tế hoặc trao đổi sâu hơn về stack đang dùng, hãy chuyển sang trang liên hệ hoặc xem phần dự án.",
+      "Sau khi đọc bài viết, bạn có thể mở thẳng case study của từng phần trong FeShenShop hoặc chuyển sang trang liên hệ để trao đổi sâu hơn.",
     ctaPrimary: "Đi tới liên hệ",
-    ctaSecondary: "Xem dự án",
+    ctaSecondary: "Xem case study dự án",
     sectionBadge: "Blog",
     sectionTitle:
-      "Những ghi chú kỹ thuật tôi đang biến thành lợi thế khi đi thực tập",
+      "Blog giờ là lớp technical credibility cho portfolio, không còn chỉ là phần phụ",
     sectionSubtitle:
-      "Blog được gắn ngay trên trang chính để người xem kéo xuống là thấy cách tôi học, cách tôi xây sản phẩm và cách tôi dùng AI trong portfolio này.",
+      "Mỗi bài viết đều gắn thẳng với một lát cắt sản phẩm hoặc AI workflow thật để người xem nhìn thấy cả tư duy lẫn phần triển khai.",
     sectionCta: "Mở trang blog",
     posts: [
       {
@@ -109,9 +118,16 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
           "Visual search cho phép upload ảnh, gửi qua backend AI và nhận danh sách sản phẩm gần nhất.",
           "Voice input giúp luồng hỏi AI trên web gần với hành vi mua sắm thực tế hơn.",
         ],
+        credibilityPoints: [
+          "Tôi không chỉ dựng UI mà còn biết gắn trải nghiệm AI vào đúng hành vi người dùng.",
+          "Tôi hiểu cách demo frontend bằng một luồng sản phẩm có chiều sâu thay vì chỉ có landing page.",
+          "Tôi có thể nối frontend với AI service và dữ liệu sản phẩm thật.",
+        ],
+        systems: ["Storefront UI", "Product detail", "AI chat widget", "Visual search"],
+        relatedProjectSlug: "feshenshop-web-storefront",
         body: [
-          "Ở FeShenShop web, tôi không dừng ở phần storefront cơ bản. Tôi thêm chat widget để người dùng hỏi về sản phẩm, size và outfit, đồng thời giữ luôn các product card trong khung chat để AI trả lời gắn với hàng hóa thật thay vì chỉ nhả text.",
-          "Một điểm tôi thấy đáng nói hơn trong portfolio là visual search. Người dùng có thể tải ảnh lên, frontend gửi ảnh sang backend, backend gọi lớp AI vision để phân tích món đồ chính rồi trả về các sản phẩm tương tự. Khi AI không sẵn sàng, hệ thống vẫn có fallback để gợi ý theo bố cục và màu sắc.",
+          "Ở FeShenShop web, tôi không dừng ở phần storefront cơ bản. Tôi thêm chat widget để người dùng hỏi về sản phẩm, size và outfit, đồng thời giữ product card xuất hiện ngay trong luồng chat để AI trả lời bám vào dữ liệu thật thay vì chỉ nhả text chung chung.",
+          "Điểm làm phần này đáng đưa lên portfolio hơn là visual search. Người dùng có thể tải ảnh lên, frontend gửi ảnh sang backend AI layer để phân tích món đồ chính rồi trả về các sản phẩm tương tự. Khi AI vision không sẵn sàng, hệ thống vẫn có fallback để giữ trải nghiệm không bị gãy hoàn toàn.",
         ],
         accent: "from-sky-500/80 via-cyan-400/70 to-blue-500/80",
       },
@@ -130,9 +146,16 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
           "Role-based auth và rate limit giúp các tính năng AI không mở hoàn toàn cho mọi loại người dùng.",
           "Visual search có fallback pHash và color histogram khi AI vision lỗi hoặc offline.",
         ],
+        credibilityPoints: [
+          "Tôi hiểu backend ở mức service design chứ không chỉ viết API CRUD.",
+          "Tôi biết cách đưa AI vào kiến trúc có guard, quyền và fallback.",
+          "Tôi có thể giải thích quyết định kỹ thuật thay vì chỉ liệt kê stack.",
+        ],
+        systems: ["REST API", "AI routes", "Rate limit", "Fallback search"],
+        relatedProjectSlug: "feshenshop-rest-api",
         body: [
-          "Khi dựng backend cho FeShenShop, tôi giữ phần AI như một nhóm route riêng: chat cho assistant, generate cho nội dung quản trị như coupon hoặc product description, và visual-search cho tìm kiếm từ ảnh. Điều này giúp frontend web, dashboard và mobile đều có cách gọi rõ ràng hơn.",
-          "Phần tôi thấy đáng giá nhất là visual search. AI service dùng Ollama hoặc model Gemini cloud để phân tích ảnh thành dữ liệu có cấu trúc như loại sản phẩm, màu sắc, chất liệu và style. Nếu vision fail, hệ thống chuyển sang pHash và color histogram bằng sharp để vẫn trả về kết quả gần đúng thay vì hỏng hẳn.",
+          "Khi dựng backend cho FeShenShop, tôi giữ phần AI như một nhóm route riêng: chat cho assistant, generate cho nội dung quản trị như coupon hoặc product description, và visual-search cho tìm kiếm từ ảnh. Điều này giúp web, dashboard và mobile đều có cách gọi rõ ràng hơn.",
+          "Phần tôi thấy đáng giá nhất là visual search. AI service dùng Ollama hoặc Gemini để phân tích ảnh thành dữ liệu có cấu trúc như loại sản phẩm, màu sắc, chất liệu và style. Nếu vision fail, hệ thống chuyển sang pHash và color histogram bằng sharp để vẫn trả về kết quả gần đúng thay vì hỏng hẳn.",
         ],
         accent: "from-emerald-500/80 via-teal-400/70 to-cyan-500/80",
       },
@@ -151,9 +174,16 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
           "Admin dashboard dùng AI để phân tích dữ liệu thật thay vì chỉ hiển thị chart tĩnh.",
           "AI generate hỗ trợ coupon, product description và gợi ý trả lời chat cho vận hành nội bộ.",
         ],
+        credibilityPoints: [
+          "Tôi biết phân biệt giữa AI demo và AI product feature.",
+          "Tôi có thể tích hợp AI xuyên frontend, backend, dashboard và mobile.",
+          "Tôi hiểu AI cần prompt, guard và fallback để dùng được trong sản phẩm thật.",
+        ],
+        systems: ["Shopping assistant", "Visual search", "Admin insight", "Mobile AI chat"],
+        relatedProjectSlug: "feshenshop-admin-dashboard",
         body: [
-          "Trong WebBanQuanAO, AI không chỉ nằm ở một ô chat. Ở phía user, tôi có shopping assistant để tư vấn sản phẩm và size, visual search để tải ảnh và tìm món đồ tương tự, và mobile app cũng có route AI chat riêng. Ở phía admin, tôi thêm AI insight panel cho analytics, inventory, orders, customers, reviews và coupons để hỗ trợ nhìn dữ liệu nhanh hơn.",
-          "Điểm tôi muốn nhấn mạnh trong portfolio là cách tích hợp. Tôi viết prompt theo từng vai trò, chia route riêng cho chat, generate và visual-search, thêm phân quyền và rate limit, rồi chuẩn bị fallback thuật toán cho visual search khi AI vision không sẵn sàng. Với tôi, đó mới là phần cho thấy mình đang dùng AI như một lớp sản phẩm thật chứ không chỉ gọi model rồi hiển thị text.",
+          "Trong WebBanQuanAO, AI không chỉ nằm ở một ô chat. Ở phía user, tôi có shopping assistant để tư vấn sản phẩm và size, visual search để tải ảnh và tìm món đồ tương tự, còn mobile app cũng có route AI chat riêng. Ở phía admin, tôi thêm AI insight panel cho analytics, inventory, orders, customers, reviews và coupons để hỗ trợ nhìn dữ liệu nhanh hơn.",
+          "Điểm tôi muốn nhấn mạnh trong portfolio là cách tích hợp. Tôi viết prompt theo từng vai trò, chia route riêng cho chat, generate và visual-search, thêm phân quyền và rate limit, rồi chuẩn bị fallback thuật toán cho visual search khi AI vision không sẵn sàng. Với tôi, đó mới là phần cho thấy mình đang dùng AI như một lớp sản phẩm thật.",
         ],
         accent: "from-fuchsia-500/80 via-violet-400/70 to-sky-500/80",
       },
@@ -162,7 +192,7 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         category: "Career",
         date: "03 Apr 2026",
         readTime: "3 phút đọc",
-        title: "Tôi dùng blog để làm portfolio bớt phẳng khi đi tìm thực tập như thế nào",
+        title: "Tôi dùng blog để làm portfolio bớt phẳng như thế nào",
         excerpt:
           "Một portfolio chỉ liệt kê stack thường khá giống nhau. Blog giúp tôi cho thấy cách mình suy nghĩ, cách mình ưu tiên và cách mình học từ project thật.",
         focus:
@@ -172,8 +202,15 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
           "Bài viết ngắn nhưng đúng trọng tâm dễ đọc hơn bài dài chung chung.",
           "Portfolio có chiều sâu hơn khi nội dung nói được cả tư duy và sản phẩm.",
         ],
+        credibilityPoints: [
+          "Tôi có thể tự giải thích sản phẩm và quyết định kỹ thuật của mình.",
+          "Tôi biết cách đóng gói một project thành narrative thuyết phục hơn cho recruiter.",
+          "Portfolio của tôi có thêm lớp nội dung để chứng minh cách tôi tiếp cận công việc.",
+        ],
+        systems: ["Portfolio", "Case study", "Blog article flow", "Recruiter reading path"],
+        relatedProjectSlug: "feshenshop-mobile-app",
         body: [
-          "Khi chuẩn bị portfolio để tìm thực tập, tôi nhận ra phần lớn ứng viên đều có thể ghi React, Node.js hay Git vào CV. Điều tạo khác biệt không nằm ở việc liệt kê thêm công nghệ, mà ở cách giải thích mình đã dùng chúng vào một sản phẩm cụ thể như thế nào.",
+          "Khi chuẩn bị portfolio để đi thực tập, tôi nhận ra phần lớn ứng viên đều có thể ghi React, Node.js hay Git vào CV. Điều tạo khác biệt không nằm ở việc liệt kê thêm công nghệ, mà ở cách giải thích mình đã dùng chúng vào một sản phẩm cụ thể như thế nào.",
           "Vì vậy tôi thêm blog như một lớp nội dung bổ sung. Nó cho phép tôi nói về quyết định giao diện, cách tổ chức project, cách dùng AI và cả những gì tôi đang tiếp tục cải thiện. Với recruiter, đây là phần giúp nhìn rõ hơn cách tôi tiếp cận công việc.",
         ],
         accent: "from-amber-400/80 via-orange-400/70 to-rose-500/80",
@@ -181,53 +218,56 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
     ],
   },
   en: {
-    eyebrow: "Personal blog",
+    eyebrow: "Technical blog",
     title:
-      "A place where I document how I build products, learn technology, and shape my portfolio",
+      "The content layer that makes the portfolio less flat and proves how I build products",
     subtitle:
-      "This blog page collects short notes about frontend, backend, mobile, and AI workflow that I am actively applying while building FeShenShop and refining my personal website.",
-    listEyebrow: "Journal",
+      "This blog is not generic writing. Every article is tied to FeShenShop or the portfolio itself so it can explain how I structure frontend, backend, AI workflow, and implementation decisions.",
+    listEyebrow: "Articles",
     ctaEyebrow: "Connect",
-    topicsTitle: "Topics I am writing about",
+    topicsTitle: "The credibility tracks I am building through content",
     topics: [
-      "Hands-on frontend with React and Next.js",
-      "Backend structure for personal projects",
-      "Using AI to speed up real work",
-      "Improving a portfolio for internship applications",
+      "Hands-on frontend with React and shopping UX",
+      "Backend structure for a product with AI routes",
+      "AI integration tied to real workflows instead of gimmicks",
+      "Turning a personal project into a stronger story for recruiters",
     ],
-    featuredLabel: "Featured note",
+    featuredLabel: "Featured article",
     featuredTitle:
-      "From FeShenShop to a personal portfolio: how I turned one learning system into a presentable product story",
+      "From FeShenShop to a personal portfolio: how I turned one learning project into a presentable technical story",
     featuredDescription:
-      "This piece is about how I split FeShenShop into a web storefront, RESTful API, dashboard, and mobile app, then made the AI layer visible too: chatbot, visual search, admin insights, and the mobile assistant.",
+      "This opening piece reframes the whole FeShenShop system through the lens of a portfolio: storefront, RESTful API, dashboard, mobile app, and the AI layer that connects them.",
     featuredPoints: [
-      "Separate the web, API, dashboard, and mobile layers so each skill is visible.",
-      "Show where AI is attached to real product flows instead of treating it like a gimmick.",
-      "Prioritize demo quality and responsive experience before overly deep technical detail.",
-      "Use the blog as an explanation layer beyond the CV and FAQ.",
+      "Separate frontend, backend, dashboard, and mobile so each skill is visible.",
+      "Show AI in real product flows instead of hiding it inside a generic chat box.",
+      "Use the blog as an explanation layer beyond the CV, screenshots, and FAQ.",
+      "Turn every article into a technical proof point that can be clicked and verified.",
     ],
     stats: [
-      { value: "04", label: "Launch articles" },
-      { value: "03", label: "Core technical tracks" },
-      { value: "01", label: "System case study" },
+      { value: "04", label: "Technical articles" },
+      { value: "04", label: "Linked case studies" },
+      { value: "01", label: "Connected system story" },
     ],
     listTitle: "Current articles",
     listSubtitle:
-      "I started this blog with topics directly connected to what I am actually building and learning, instead of writing generic content.",
+      "Each article stays tied to something I actually built, and each one links back to a project case study so visitors can move from narrative into proof.",
     readArticle: "Read article",
-    detailLabel: "Full note",
+    detailLabel: "Detailed note",
     summaryLabel: "Quick summary",
     takeawayLabel: "Key points",
-    ctaTitle: "Want to discuss the articles or the projects directly?",
+    credibilityLabel: "What this article proves",
+    systemsLabel: "Related systems",
+    relatedProjectLabel: "Related case study",
+    ctaTitle: "Want to move from the blog into the real project work?",
     ctaSubtitle:
-      "If you want to see how I implement these ideas in practice or talk more deeply about the stack I use, move to the contact page or explore the project section.",
+      "After reading the article, you can open the matching project case study or move to the contact page to discuss the work in more detail.",
     ctaPrimary: "Go to contact",
-    ctaSecondary: "View projects",
+    ctaSecondary: "View project case studies",
     sectionBadge: "Blog",
     sectionTitle:
-      "Technical notes I am turning into an edge for internship applications",
+      "The blog is now a technical credibility layer for the portfolio, not a side section",
     sectionSubtitle:
-      "The blog now lives on the main page so visitors can scroll straight into how I learn, build products, and use AI inside this portfolio.",
+      "Each article is tied directly to a real product slice or AI workflow so visitors can see both how I think and how I ship.",
     sectionCta: "Open blog page",
     posts: [
       {
@@ -237,17 +277,24 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         readTime: "4 min read",
         title: "The frontend stack I am using for the portfolio and FeShenShop web",
         excerpt:
-          "Beyond the storefront UI, I integrated an AI chat widget, voice input, and image-based visual search so the shopping flow feels more interactive than a standard product grid.",
+          "Beyond React and TypeScript for the storefront, I integrated an AI chat widget, voice input, and visual search so the shopping experience goes beyond browsing a static product grid.",
         focus:
-          "The web layer became a place to test AI-assisted shopping, not just a responsive commerce interface.",
+          "The web layer is not only a commerce UI. It is also where I test AI-assisted shopping, sizing help, and image-based discovery.",
         takeaways: [
-          "The AI chat widget is tied to conversation history and real product data.",
+          "The AI chat widget is connected to conversation history and real product data.",
           "Visual search lets users upload an image and receive similar in-store products.",
           "Voice input makes the AI shopping flow feel closer to real user behavior.",
         ],
+        credibilityPoints: [
+          "I can do more than build UI. I can place AI into a real user flow.",
+          "I know how to demo frontend work through a richer product journey.",
+          "I can connect frontend behavior to AI services and product data.",
+        ],
+        systems: ["Storefront UI", "Product detail", "AI chat widget", "Visual search"],
+        relatedProjectSlug: "feshenshop-web-storefront",
         body: [
-          "In FeShenShop, I did not stop at the storefront basics. I added an AI chat widget so users can ask about products, sizes, and outfit suggestions, while still keeping product cards inside the conversation flow instead of returning text alone.",
-          "The more interesting part for the portfolio is visual search. Users can upload an image, the frontend passes it to the backend AI layer, and the system returns visually similar products. When the vision path is unavailable, the app still falls back to similarity matching instead of breaking completely.",
+          "In the FeShenShop web app, I did not stop at storefront basics. I added an AI chat widget so users can ask about products, sizes, and outfit suggestions, while still keeping product cards visible inside the conversation flow instead of returning generic text alone.",
+          "The stronger portfolio angle is visual search. Users can upload an image, the frontend passes it to the backend AI layer, and the system returns visually similar products. When the vision path is unavailable, the app still falls back to similarity matching so the feature does not collapse completely.",
         ],
         accent: "from-sky-500/80 via-cyan-400/70 to-blue-500/80",
       },
@@ -260,15 +307,22 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         excerpt:
           "The backend is not only CRUD. I separated AI routes for chat, content generation, and visual search while keeping access control, rate limiting, and fallback logic explicit.",
         focus:
-          "The important part is keeping AI as a clear service layer instead of letting it blur the system design.",
+          "The important part is that AI should not weaken the system design; it should live inside a guarded service layer.",
         takeaways: [
           "AI chat, AI generation, and visual search live in their own route group.",
           "Role-based auth and rate limiting keep AI features from being completely open.",
           "Visual search has a pHash and color-histogram fallback when vision AI is unavailable.",
         ],
+        credibilityPoints: [
+          "I understand backend design beyond CRUD endpoints.",
+          "I know how to integrate AI with guards, permissions, and fallback paths.",
+          "I can explain the architectural decisions behind my backend work.",
+        ],
+        systems: ["REST API", "AI routes", "Rate limit", "Fallback search"],
+        relatedProjectSlug: "feshenshop-rest-api",
         body: [
           "While building the FeShenShop backend, I kept the AI layer as its own route family: chat for assistants, generate for internal content such as coupons or product descriptions, and visual search for image-based discovery. That made the API easier to reason about from the web, dashboard, and mobile clients.",
-          "The most interesting piece is the visual-search service. It uses Ollama or a Gemini cloud model to turn an image into structured fashion attributes such as product type, color, material, and style. If the AI path fails, the service falls back to perceptual hashing and color histograms with sharp so the feature still returns a usable result.",
+          "The most valuable piece is the visual-search service. It uses Ollama or Gemini to turn an image into structured fashion attributes such as product type, color, material, and style. If the AI path fails, the service falls back to perceptual hashing and color histograms with sharp so the feature still returns a usable result.",
         ],
         accent: "from-emerald-500/80 via-teal-400/70 to-cyan-500/80",
       },
@@ -287,6 +341,13 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
           "The admin dashboard uses AI to analyze real data instead of only displaying charts.",
           "AI generation helps with coupons, product descriptions, and reply suggestions for operations.",
         ],
+        credibilityPoints: [
+          "I can tell the difference between an AI demo and an AI product feature.",
+          "I can integrate AI across frontend, backend, dashboard, and mobile.",
+          "I understand prompts, guards, and fallback as product requirements, not optional extras.",
+        ],
+        systems: ["Shopping assistant", "Visual search", "Admin insight", "Mobile AI chat"],
+        relatedProjectSlug: "feshenshop-admin-dashboard",
         body: [
           "Inside WebBanQuanAO, AI is not isolated to one chat box. On the customer side, I have a shopping assistant for product and size advice, visual search for uploaded images, and a dedicated AI chat flow in the Flutter mobile app. On the admin side, I added AI insight panels for analytics, inventory, orders, customers, reviews, and coupons so the dashboard can interpret real data faster.",
           "The part I want the portfolio to communicate is the integration work itself. I wrote prompts for different roles, split chat, generate, and visual-search into separate routes, added authorization and rate limiting, and prepared an algorithmic fallback for vision search when AI is unavailable. That is what makes the AI layer feel like a real product feature rather than a simple model call.",
@@ -298,9 +359,9 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         category: "Career",
         date: "Apr 03, 2026",
         readTime: "3 min read",
-        title: "How I use a blog to make my internship portfolio less flat",
+        title: "How I use a blog to make my portfolio less flat",
         excerpt:
-          "A portfolio that only lists technologies often looks interchangeable. The blog helps me show how I think, what I prioritize, and how I learn from real project work.",
+          "A portfolio that only lists technologies often feels interchangeable. The blog helps me show how I think, what I prioritize, and how I learn from real project work.",
         focus:
           "Visitors should not only see what I built, but also understand why I approached it that way.",
         takeaways: [
@@ -308,6 +369,13 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
           "Short focused articles are more useful than broad generic essays.",
           "A stronger portfolio shows both thinking and implementation.",
         ],
+        credibilityPoints: [
+          "I can explain my own product and technical decisions clearly.",
+          "I know how to turn a personal project into a stronger recruiter narrative.",
+          "The portfolio now includes a content layer that proves how I approach work.",
+        ],
+        systems: ["Portfolio", "Case study", "Blog article flow", "Recruiter reading path"],
+        relatedProjectSlug: "feshenshop-mobile-app",
         body: [
           "When preparing a portfolio for internship applications, I realized many candidates can list React, Node.js, or Git on a CV. The real difference comes from showing how those tools were used inside a concrete product and why certain decisions were made.",
           "That is why I added a blog as an extra layer. It lets me talk about interface decisions, project structure, AI usage, and the areas I am still improving. For recruiters, this gives a clearer view into how I approach work.",
@@ -317,3 +385,7 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
     ],
   },
 };
+
+export function getBlogPostBySlug(language: Language, slug: string) {
+  return blogCopy[language].posts.find((post) => post.slug === slug) ?? null;
+}

@@ -1,17 +1,12 @@
 "use client";
 
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "@/app/components/ProjectCard";
 import { useLanguage } from "@/app/context/LanguageContext";
-
-export type ProjectFilter = "all" | "website" | "backend" | "mobile";
-
-type Project = {
-  title: string;
-  description: string;
-  tags: string[];
-  thumbnail: string;
-  category: Exclude<ProjectFilter, "all">;
-};
+import {
+  projectCopy,
+  type ProjectCaseStudy,
+  type ProjectFilter,
+} from "@/app/data/projects";
 
 interface ProjectGridProps {
   filter: ProjectFilter;
@@ -19,43 +14,7 @@ interface ProjectGridProps {
 
 export default function ProjectGrid({ filter }: ProjectGridProps) {
   const { dict, language } = useLanguage();
-  const baseProjects = dict.projects.items as Project[];
-  const [webProject, apiProject, mobileProject] = baseProjects;
-
-  const dashboardProject: Project =
-    language === "vi"
-      ? {
-          title: "Dashboard quản trị FeShenShop",
-          description:
-            "Dashboard quản trị có các AI insight panel cho analytics, tồn kho, khách hàng, đơn hàng, đánh giá và khuyến mãi; đồng thời hỗ trợ AI tạo mã giảm giá, gợi ý phản hồi chat và viết mô tả sản phẩm.",
-          tags: ["Dashboard UI", "Admin AI", "Analytics"],
-          thumbnail: "/projects/feshenshop-dashboard.png",
-          category: "website",
-        }
-      : {
-          title: "FeShenShop Admin Dashboard",
-          description:
-            "An admin dashboard with AI insight panels across analytics, inventory, customers, orders, reviews, and coupons, plus AI-assisted coupon generation, reply suggestions, and product writing.",
-          tags: ["Dashboard UI", "Admin AI", "Analytics"],
-          thumbnail: "/projects/feshenshop-dashboard.png",
-          category: "website",
-        };
-
-  const projects = [
-    webProject && {
-      ...webProject,
-      thumbnail: "/projects/feshenshop-web.png",
-    },
-    apiProject && {
-      ...apiProject,
-      thumbnail: "/projects/feshenshop-api.png",
-    },
-    dashboardProject,
-    mobileProject && {
-      ...mobileProject,
-      thumbnail: "/projects/feshenshop-mobile.png",
-    },
-  ].filter(Boolean) as Project[];
+  const projects = projectCopy[language].items as ProjectCaseStudy[];
 
   const filteredProjects =
     filter === "all"
@@ -66,7 +25,7 @@ export default function ProjectGrid({ filter }: ProjectGridProps) {
     <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
       {filteredProjects.length > 0 ? (
         filteredProjects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+          <ProjectCard key={project.slug} project={project} />
         ))
       ) : (
         <div className="col-span-full flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white/60 px-6 py-14 text-center text-slate-500 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-400 sm:py-16">
@@ -90,3 +49,5 @@ export default function ProjectGrid({ filter }: ProjectGridProps) {
     </div>
   );
 }
+
+export type { ProjectFilter };
