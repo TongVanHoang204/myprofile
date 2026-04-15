@@ -91,7 +91,7 @@ export const threeDCopy: Record<
         "Tôi quan tâm đến responsive UI, cấu trúc route rõ ràng, AI fallback và những flow có thể demo tốt. Đó là thứ làm project trong portfolio gần hơn với một sản phẩm thật.",
     },
     services: {
-      title: "Điều tôi xây",
+      title: "Thứ tôi làm",
       eyebrow: "Năng lực cốt lõi",
       cards: [
         {
