@@ -53,9 +53,9 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
   vi: {
     eyebrow: "Blog kỹ thuật",
     title:
-      "Lớp nội dung giúp portfolio của tôi bớt phẳng và chứng minh được cách tôi xây sản phẩm",
+      "Những bài viết kỹ thuật gắn trực tiếp với FeShenShop, portfolio và AI workflow tôi đã triển khai",
     subtitle:
-      "Trang blog này không dùng để viết lan man. Mỗi bài đều bám vào FeShenShop hoặc chính website portfolio để làm rõ cách tôi tổ chức frontend, backend, AI workflow và tư duy triển khai.",
+      "Trang blog này tập trung vào những gì tôi đã thật sự làm trong FeShenShop và chính portfolio này: cách tôi tách frontend, backend, tích hợp AI và biến từng phần thành một sản phẩm có thể trình bày rõ ràng.",
     listEyebrow: "Bài viết",
     ctaEyebrow: "Kết nối",
     topicsTitle: "Các trục nội dung tôi đang dùng để xây credibility",
@@ -218,9 +218,9 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
   en: {
     eyebrow: "Technical blog",
     title:
-      "The content layer that makes the portfolio less flat and proves how I build products",
+      "Technical articles tied directly to FeShenShop, the portfolio, and the AI workflows I have implemented",
     subtitle:
-      "This blog is not generic writing. Every article is tied to FeShenShop or the portfolio itself so it can explain how I structure frontend, backend, AI workflow, and implementation decisions.",
+      "This blog focuses on the work I actually built across FeShenShop and this portfolio: how I split frontend and backend, integrate AI, and turn each part into something clear enough to present.",
     listEyebrow: "Articles",
     ctaEyebrow: "Connect",
     topicsTitle: "The credibility tracks I am building through content",
