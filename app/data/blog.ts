@@ -97,10 +97,8 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
     ctaPrimary: "Đi tới liên hệ",
     ctaSecondary: "Xem case study dự án",
     sectionBadge: "Blog",
-    sectionTitle:
-      "Blog giờ là lớp technical credibility cho portfolio, không còn chỉ là phần phụ",
-    sectionSubtitle:
-      "Mỗi bài viết đều gắn thẳng với một lát cắt sản phẩm hoặc AI workflow thật để người xem nhìn thấy cả tư duy lẫn phần triển khai.",
+    sectionTitle: "",
+    sectionSubtitle: "",
     sectionCta: "Mở trang blog",
     posts: [
       {

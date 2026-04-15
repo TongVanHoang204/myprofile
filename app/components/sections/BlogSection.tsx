@@ -30,12 +30,16 @@ export default function BlogSection() {
               <Sparkles className="h-3.5 w-3.5" />
               {copy.sectionBadge}
             </div>
-            <h2 className="max-w-3xl text-2xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
-              {copy.sectionTitle}
-            </h2>
-            <p className="max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-              {copy.sectionSubtitle}
-            </p>
+            {copy.sectionTitle ? (
+              <h2 className="max-w-3xl text-2xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
+                {copy.sectionTitle}
+              </h2>
+            ) : null}
+            {copy.sectionSubtitle ? (
+              <p className="max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+                {copy.sectionSubtitle}
+              </p>
+            ) : null}
           </motion.div>
 
           <motion.div
