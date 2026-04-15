@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import { AnimatePresence } from "framer-motion";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/Footer";
-import ParticleBackground from "./components/ParticleBackground";
-import ScrollProgress from "./components/ScrollProgress";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { LanguageProvider } from "@/app/context/LanguageContext";
 import { contactInfo, socialLinks } from "@/app/data/contact";
-import RouteTransitionLoader from "@/app/components/RouteTransitionLoader";
+import AppChrome from "@/app/components/AppChrome";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
@@ -119,19 +113,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="relative flex min-h-screen flex-col overflow-x-hidden">
-              <ParticleBackground />
-              <ScrollProgress />
-              <Suspense fallback={null}>
-                <RouteTransitionLoader />
-              </Suspense>
-
-              <Navbar />
-              <main className="w-full flex-1">
-                <AnimatePresence mode="wait">{children}</AnimatePresence>
-              </main>
-              <Footer />
-            </div>
+            <AppChrome>{children}</AppChrome>
           </ThemeProvider>
         </LanguageProvider>
 
