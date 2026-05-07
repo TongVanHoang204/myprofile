@@ -275,31 +275,49 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
 
           {isMinimized ? (
             /* ── MINIMIZED ──────────────────────────────────────────────────── */
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setIsMinimized(false)}
-                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
-                title="Mở rộng"
-              >
-                <Headphones className="h-5 w-5" />
-              </button>
-
-              {currentlyPlaying && (
-                <>
-                  <div className="flex min-w-[110px] max-w-[140px] flex-col">
-                    <span className="truncate text-sm font-bold text-white">{currentlyPlaying.title}</span>
-                    <div className="mt-0.5 flex items-center gap-1.5">
-                      <Visualizer isSmall isPlaying={isPlaying} mounted={mounted} />
-                      <span className="truncate text-[10px] text-white/50">{currentlyPlaying.artist}</span>
-                    </div>
+            <div className="flex items-center">
+              {isPlaying ? (
+                <button
+                  onClick={() => setIsMinimized(false)}
+                  className="group relative flex h-10 w-10 items-center justify-center rounded-full bg-violet-500/10 text-violet-400 transition-all duration-300 hover:bg-violet-500/20"
+                  title="Mở rộng"
+                >
+                  <Music2 className="h-5 w-5 animate-[spin_4s_linear_infinite]" />
+                  <span className="absolute inset-0 animate-ping rounded-full bg-violet-400/20" />
+                  
+                  {/* Tooltip hint on hover */}
+                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-black/80 px-2 py-1 text-[10px] text-white opacity-0 transition-opacity group-hover:opacity-100">
+                    {currentlyPlaying?.title || "Đang phát"}
                   </div>
+                </button>
+              ) : (
+                <div className="flex items-center gap-3">
                   <button
-                    onClick={() => togglePlay(currentlyPlaying)}
-                    className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-violet-500 text-white transition hover:bg-violet-400"
+                    onClick={() => setIsMinimized(false)}
+                    className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                    title="Mở rộng"
                   >
-                    {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
+                    <Music2 className="h-5 w-5" />
                   </button>
-                </>
+
+                  {currentlyPlaying && (
+                    <>
+                      <div className="flex min-w-[110px] max-w-[140px] flex-col">
+                        <span className="truncate text-sm font-bold text-white">{currentlyPlaying.title}</span>
+                        <div className="mt-0.5 flex items-center gap-1.5">
+                          <Visualizer isSmall isPlaying={isPlaying} mounted={mounted} />
+                          <span className="truncate text-[10px] text-white/50">{currentlyPlaying.artist}</span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => togglePlay(currentlyPlaying)}
+                        className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-violet-500 text-white transition hover:bg-violet-400"
+                      >
+                        {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
+                      </button>
+                    </>
+                  )}
+                </div>
               )}
             </div>
           ) : (
