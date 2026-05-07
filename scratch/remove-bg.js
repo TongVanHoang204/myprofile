@@ -30,6 +30,9 @@ async function processImage() {
         channels: info.channels
       }
     })
+    // Crop the image to keep only the hand and a bit of the sleeve (top-left area)
+    // Assuming original is 1024x1024, extracting top-left 600x600 will cut off the long arm tail.
+    .extract({ left: 0, top: 0, width: 650, height: 650 })
     .png()
     .toFile(outputPath);
 

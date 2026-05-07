@@ -62,7 +62,7 @@ export default function CustomCursor() {
           rotate: hovering ? -5 : 0,
         }}
         transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        className="relative h-24 w-24"
+        className="relative h-20 w-20"
       >
         <img
           src="/cursor-arm.png"
