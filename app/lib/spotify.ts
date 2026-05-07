@@ -45,3 +45,14 @@ export const getRecentlyPlayed = async () => {
     cache: "no-store",
   });
 };
+
+export const searchTracks = async (query: string) => {
+  const { access_token } = await getAccessToken();
+  const SEARCH_ENDPOINT = `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`;
+
+  return fetch(SEARCH_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+};
