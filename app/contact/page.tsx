@@ -243,21 +243,27 @@ export default function ContactPage() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="relative"
       >
-        <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-tr from-sky-500 via-purple-500 to-fuchsia-500 opacity-30 blur-2xl" />
+        <div className="absolute -inset-1 rounded-4xl bg-linear-to-tr from-sky-500 via-purple-500 to-fuchsia-500 opacity-30 blur-2xl" />
 
         <form
           onSubmit={handleSubmit}
-          className="relative space-y-5 rounded-[2rem] border border-white/5 bg-slate-950/70 p-4 shadow-2xl backdrop-blur-xl sm:space-y-6 sm:p-8"
+          className="relative space-y-5 rounded-4xl border border-white/5 bg-slate-950/70 p-4 shadow-2xl backdrop-blur-xl sm:space-y-6 sm:p-8"
         >
           <h2 className="mb-6 text-lg font-bold text-slate-50 sm:text-xl">
             {dict.contact.send_btn}
           </h2>
 
+          <label htmlFor="company" className="sr-only">
+            Company
+          </label>
           <input
+            id="company"
             type="text"
             name="company"
             value={formData.company}
-            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, company: e.target.value })
+            }
             className="sr-only"
             tabIndex={-1}
             autoComplete="off"
@@ -322,7 +328,7 @@ export default function ContactPage() {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={isSubmitting || isCoolingDown}
-            className="group relative mt-4 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 disabled:cursor-not-allowed disabled:opacity-50"
+            className="group relative mt-4 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-linear-to-r from-sky-500 to-blue-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSubmitting
               ? dict.contact.sending
