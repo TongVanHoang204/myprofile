@@ -2,7 +2,6 @@
 
 import { Suspense } from "react";
 import { AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import ParticleBackground from "@/app/components/ParticleBackground";
@@ -14,8 +13,7 @@ type AppChromeProps = {
 };
 
 export default function AppChrome({ children }: AppChromeProps) {
-  const pathname = usePathname();
-  const isImmersiveRoute = pathname === "/three-d";
+  const isImmersiveRoute = false;
 
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-hidden">

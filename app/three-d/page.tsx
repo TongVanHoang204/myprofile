@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ThreeDExperiencePage from "@/app/components/three-d/ThreeDExperiencePage";
 
 export const metadata: Metadata = {
-  title: "3D Experience",
+  title: "UI/UX Bio",
   description:
-    "A cinematic liquid-glass landing page experiment with immersive video sections and motion-driven storytelling.",
+    "A compact UI/UX bio page for Tong Van Hoang with profile links, project highlights, and motion-led portfolio signals.",
 };
 
 export default function ThreeDPage() {

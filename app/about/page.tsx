@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Timeline from "@/app/components/Timeline";
 import SkillsGrid from "@/app/components/SkillsGrid";
 import { useLanguage } from "@/app/context/LanguageContext";
+import SpotifyPlayer from "@/app/components/SpotifyPlayer";
 
 export default function AboutPage() {
   const { dict } = useLanguage();
@@ -48,6 +49,9 @@ export default function AboutPage() {
             {dict.hero.description}
           </p>
           <p>{dict.about.summary}</p>
+          <div className="pt-4">
+            <SpotifyPlayer />
+          </div>
         </motion.div>
       </section>
 
