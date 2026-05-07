@@ -9,12 +9,14 @@ export default function CustomCursor() {
 
   const [hovering, setHovering] = useState(false);
   const [clicking, setClicking] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
 
     const onMove = (e: MouseEvent) => {
+      if (!isVisible) setIsVisible(true);
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
@@ -30,25 +32,35 @@ export default function CustomCursor() {
 
     const onDown = () => setClicking(true);
     const onUp = () => setClicking(false);
+    
+    const onMouseLeave = () => setIsVisible(false);
+    const onMouseEnter = () => setIsVisible(true);
 
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseover", onOver);
     window.addEventListener("mousedown", onDown);
     window.addEventListener("mouseup", onUp);
+    document.addEventListener("mouseleave", onMouseLeave);
+    document.addEventListener("mouseenter", onMouseEnter);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
       window.removeEventListener("mousedown", onDown);
       window.removeEventListener("mouseup", onUp);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseenter", onMouseEnter);
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isVisible]);
 
   if (!mounted) return null;
 
   return (
     <motion.div
       className="pointer-events-none fixed left-0 top-0 z-[9999] hidden lg:block"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isVisible ? 1 : 0 }}
+      transition={{ duration: 0.15 }}
       style={{ 
         x: mouseX, 
         y: mouseY,
