@@ -335,27 +335,7 @@ export default function ThreeDPage() {
         </motion.section>
       </div>
 
-      {/* ── Mobile menu button ── */}
-      <button
-        type="button"
-        aria-label="Open menu"
-        className="fixed bottom-6 left-5 z-20 flex h-16 w-16 items-center justify-center rounded-3xl border border-white/8 bg-white/[0.045] text-violet-200 backdrop-blur-xl transition hover:bg-white/10"
-      >
-        <Menu className="h-8 w-8" />
-      </button>
 
-      {/* ── Bottom nav ── */}
-      <nav className="fixed inset-x-0 bottom-5 z-20 mx-auto hidden w-[min(88vw,24rem)] items-center justify-between rounded-full border border-white/8 bg-[#0b0710]/78 p-1.5 text-xs font-black text-white/44 backdrop-blur-xl md:flex">
-        {page.tabs.map((tab, index) => (
-          <a
-            key={tab}
-            href={index === 0 ? "#" : index === 1 ? "#projects" : "#info"}
-            className="flex min-h-10 flex-1 items-center justify-center rounded-full px-3 transition hover:bg-white/8 hover:text-white"
-          >
-            {tab}
-          </a>
-        ))}
-      </nav>
 
       <p className="fixed bottom-3 right-6 z-20 hidden text-xs text-white/26 xl:block">
         {page.footer}

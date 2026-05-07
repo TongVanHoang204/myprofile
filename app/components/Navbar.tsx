@@ -30,11 +30,14 @@ export default function Navbar() {
   const { dict, language } = useLanguage();
 
   const navLinks: NavItem[] = [
+    { kind: "section", sectionId: "home", label: dict.nav.home },
+    { kind: "section", sectionId: "projects", label: dict.nav.projects },
     {
       kind: "section",
       sectionId: "blog",
       label: language === "vi" ? "Blog" : "Blog",
     },
+    { kind: "section", sectionId: "about", label: dict.nav.about },
     { kind: "route", href: "/bio", label: "Bio" },
     { kind: "route", href: "/certificates", label: dict.nav.certificates },
     { kind: "route", href: "/faq", label: dict.nav.faq },
