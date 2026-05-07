@@ -300,7 +300,7 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
             </div>
           ) : (
             /* ── EXPANDED ───────────────────────────────────────────────────── */
-            <div>
+            <div onPointerDownCapture={(e) => e.stopPropagation()}>
               {/* Header */}
               <div className="mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -416,9 +416,12 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    {/* Controls */}
-                    <div className="flex items-center gap-2">
+                    <div 
+                      className="flex items-center gap-3"
+                      onPointerDownCapture={(e) => e.stopPropagation()}
+                    >
+                      {/* Controls */}
+                      <div className="flex items-center gap-2">
                       <button onClick={playPrev} className="text-white/30 transition-colors hover:text-white/80">
                         <SkipBack className="h-3.5 w-3.5 fill-current" />
                       </button>

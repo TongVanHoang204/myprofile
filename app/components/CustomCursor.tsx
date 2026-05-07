@@ -52,8 +52,8 @@ export default function CustomCursor() {
       style={{ 
         x: mouseX, 
         y: mouseY,
-        translateX: "-10%", // Offset to align finger tip
-        translateY: "-5%",
+        translateX: "-15%", // Adjust offset to align finger tip accurately
+        translateY: "-15%",
       }}
     >
       <motion.div

@@ -1,7 +1,7 @@
 const sharp = require('sharp');
 const fs = require('fs');
 
-const inputPath = 'C:\\Users\\Hoang\\.gemini\\antigravity\\brain\\0de7491d-14d0-442b-8212-3242f17411c6\\cursor_arm_straight_1778162117650.png';
+const inputPath = 'C:\\Users\\Hoang\\.gemini\\antigravity\\brain\\0de7491d-14d0-442b-8212-3242f17411c6\\cursor_arm_2d_flat_1778162541794.png';
 const outputPath = 'public/cursor-arm.png';
 
 async function processImage() {
