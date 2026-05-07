@@ -7,6 +7,8 @@ import Footer from "@/app/components/Footer";
 import ParticleBackground from "@/app/components/ParticleBackground";
 import ScrollProgress from "@/app/components/ScrollProgress";
 import RouteTransitionLoader from "@/app/components/RouteTransitionLoader";
+import SpotifyPlayer from "@/app/components/SpotifyPlayer";
+import CustomCursor from "@/app/components/CustomCursor";
 
 type AppChromeProps = {
   children: React.ReactNode;
@@ -28,6 +30,11 @@ export default function AppChrome({ children }: AppChromeProps) {
         <AnimatePresence mode="wait">{children}</AnimatePresence>
       </main>
       {!isImmersiveRoute ? <Footer /> : null}
+      
+      {/* Global Music Player */}
+      <SpotifyPlayer />
+      {/* Custom Cursor */}
+      <CustomCursor />
     </div>
   );
 }

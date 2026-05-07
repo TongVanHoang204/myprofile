@@ -38,7 +38,7 @@ export default function Navbar() {
       label: language === "vi" ? "Blog" : "Blog",
     },
     { kind: "section", sectionId: "about", label: dict.nav.about },
-    { kind: "route", href: "/three-d", label: dict.nav.threeD },
+    { kind: "route", href: "/bio", label: "Bio" },
     { kind: "route", href: "/certificates", label: dict.nav.certificates },
     { kind: "route", href: "/faq", label: dict.nav.faq },
     { kind: "route", href: "/cv", label: dict.nav.cv },

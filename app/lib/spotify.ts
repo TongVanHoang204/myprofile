@@ -1,5 +1,4 @@
-export const getAccessToken = async () => {
-  const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
+export const getClientCredentialsToken = async () => {
   const client_id = process.env.SPOTIFY_CLIENT_ID;
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 
@@ -13,13 +12,38 @@ export const getAccessToken = async () => {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token: refresh_token || "",
+      grant_type: "client_credentials",
     }),
     cache: "no-store",
   });
 
   return response.json();
+};
+
+// Legacy function kept for compatibility – falls back to refresh token if present
+export const getAccessToken = async () => {
+  if (process.env.SPOTIFY_REFRESH_TOKEN) {
+    const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
+    const client_id = process.env.SPOTIFY_CLIENT_ID;
+    const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+    const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
+    const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
+    const response = await fetch(TOKEN_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${basic}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refresh_token || "",
+      }),
+      cache: "no-store",
+    });
+    return response.json();
+  }
+  // Default to client credentials flow
+  return getClientCredentialsToken();
 };
 
 export const getNowPlaying = async () => {
@@ -48,7 +72,7 @@ export const getRecentlyPlayed = async () => {
 
 export const searchTracks = async (query: string) => {
   const { access_token } = await getAccessToken();
-  const SEARCH_ENDPOINT = `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`;
+  const SEARCH_ENDPOINT = `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=10`;
 
   return fetch(SEARCH_ENDPOINT, {
     headers: {
