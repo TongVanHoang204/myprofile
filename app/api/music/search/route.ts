@@ -19,9 +19,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "YouTube API Key is not configured" }, { status: 500 });
     }
 
-    // Add music-specific keywords to force YouTube to return songs/OSTs instead of movies or irrelevant videos
-    // We exclude common non-music terms like comedy, vlogs, news, gaming, podcasts, and movies.
-    const musicQuery = `${query} (audio OR music OR lyrics OR bài hát OR OST OR remix OR lofi) -phim -tập -movie -hài -vlog -news -tin -tức -game -podcast -shorts -review`;
+    // Simplified music filter to avoid potential 403/400 errors from complex query syntax
+    const musicQuery = `${query} music audio lyrics -phim -movie -vlog`;
     
     // YouTube Data API v3 Search
     const YOUTUBE_ENDPOINT = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(musicQuery)}&maxResults=${limit}&type=video&videoCategoryId=10&key=${apiKey}${pageToken ? `&pageToken=${pageToken}` : ""}`;
