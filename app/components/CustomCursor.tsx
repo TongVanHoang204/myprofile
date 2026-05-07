@@ -7,10 +7,6 @@ export default function CustomCursor() {
   const mouseX = useMotionValue(-200);
   const mouseY = useMotionValue(-200);
 
-  // Faster spring for a more responsive cursor feel
-  const smoothX = useSpring(mouseX, { stiffness: 800, damping: 40, mass: 0.1 });
-  const smoothY = useSpring(mouseY, { stiffness: 800, damping: 40, mass: 0.1 });
-
   const [hovering, setHovering] = useState(false);
   const [clicking, setClicking] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -54,8 +50,8 @@ export default function CustomCursor() {
     <motion.div
       className="pointer-events-none fixed left-0 top-0 z-[9999] hidden lg:block"
       style={{ 
-        x: smoothX, 
-        y: smoothY,
+        x: mouseX, 
+        y: mouseY,
         translateX: "-10%", // Offset to align finger tip
         translateY: "-5%",
       }}

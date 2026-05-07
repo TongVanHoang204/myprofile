@@ -219,3 +219,10 @@ body {
     color: #38bdf8;
   }
 }
+
+/* Hide default cursor on desktop where custom cursor is active */
+@media (min-width: 1024px) {
+  * {
+    cursor: none !important;
+  }
+}
