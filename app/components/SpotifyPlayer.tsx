@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search, Loader2, ChevronDown, Play, Pause,
-  SkipBack, SkipForward, Volume2, VolumeX, Headphones, Disc3, X
+  SkipBack, SkipForward, Volume2, VolumeX, Headphones, Disc3, X, Music2
 } from "lucide-react";
 import { useMusicStore } from "@/app/store/musicStore";
 
@@ -308,8 +308,7 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
               {/* Header */}
               <div className="mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Headphones className="h-5 w-5 text-violet-400" />
-                  <span className="text-sm font-bold text-white/90">Khám Phá Âm Nhạc</span>
+                  <Music2 className="h-5 w-5 text-violet-400" />
                   <Visualizer isPlaying={isPlaying} mounted={mounted} />
                 </div>
                 <button
