@@ -115,96 +115,49 @@ export default function CustomCursor() {
         style={{ mixBlendMode: "screen" }}
       />
 
-      {/* Core orb */}
+      {/* Miku Arm Cursor */}
       <motion.div
         className="pointer-events-none fixed left-0 top-0 z-[9999] hidden lg:block"
-        style={{ x: smoothX, y: smoothY }}
+        style={{ 
+          x: smoothX, 
+          y: smoothY,
+          translateX: "-10%", // Offset to align finger tip (adjust based on image)
+          translateY: "-5%",
+        }}
       >
-        {/* Outer rotating ring */}
         <motion.div
-          className="absolute -translate-x-1/2 -translate-y-1/2"
           animate={{
-            width: hovering ? 52 : clicking ? 20 : 36,
-            height: hovering ? 52 : clicking ? 20 : 36,
-            rotate: 360,
-            borderColor: hovering
-              ? "rgba(251,191,36,0.9)"
-              : "rgba(167,139,250,0.7)",
+            scale: clicking ? 0.9 : hovering ? 1.15 : 1,
+            rotate: hovering ? -5 : 0,
           }}
-          transition={{
-            width: { type: "spring", stiffness: 300, damping: 20 },
-            height: { type: "spring", stiffness: 300, damping: 20 },
-            rotate: { duration: 2, ease: "linear", repeat: Infinity },
-            borderColor: { duration: 0.2 },
-          }}
-          style={{
-            borderWidth: 2,
-            borderStyle: "dashed",
-            borderRadius: "50%",
-          }}
-        />
+          transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          className="relative h-24 w-24" // Larger size for better visibility
+        >
+          <img
+            src="/cursor-arm.png"
+            alt="Cursor Arm"
+            className="h-full w-full object-contain"
+          />
+        </motion.div>
 
-        {/* Second counter-rotating ring */}
-        <motion.div
-          className="absolute -translate-x-1/2 -translate-y-1/2"
-          animate={{
-            width: hovering ? 34 : 22,
-            height: hovering ? 34 : 22,
-            rotate: -360,
-            borderColor: hovering
-              ? "rgba(251,191,36,0.5)"
-              : "rgba(139,92,246,0.5)",
-          }}
-          transition={{
-            width: { type: "spring", stiffness: 300, damping: 20 },
-            height: { type: "spring", stiffness: 300, damping: 20 },
-            rotate: { duration: 1.2, ease: "linear", repeat: Infinity },
-            borderColor: { duration: 0.2 },
-          }}
-          style={{
-            borderWidth: 1.5,
-            borderStyle: "solid",
-            borderRadius: "50%",
-            opacity: 0.6,
-          }}
-        />
-
-        {/* Inner glowing core */}
-        <motion.div
-          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
-          animate={{
-            width: clicking ? 3 : hovering ? 10 : 6,
-            height: clicking ? 3 : hovering ? 10 : 6,
-            backgroundColor: hovering ? "#fbbf24" : "#c4b5fd",
-            boxShadow: hovering
-              ? "0 0 12px 4px rgba(251,191,36,0.9), 0 0 30px 8px rgba(251,191,36,0.4)"
-              : clicking
-              ? "0 0 4px 2px rgba(196,181,253,0.5)"
-              : "0 0 8px 3px rgba(167,139,250,0.9), 0 0 20px 6px rgba(139,92,246,0.5)",
-          }}
-          transition={{ type: "spring", stiffness: 400, damping: 22 }}
-        />
-
-        {/* Hover burst particles */}
+        {/* Hover burst particles (Optional: keep or remove) */}
         <AnimatePresence>
           {hovering && (
             <>
               {[0, 60, 120, 180, 240, 300].map((deg) => (
                 <motion.div
                   key={deg}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-300"
+                  className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400"
                   initial={{ width: 3, height: 3, x: 0, y: 0, opacity: 1 }}
                   animate={{
-                    x: Math.cos((deg * Math.PI) / 180) * 22,
-                    y: Math.sin((deg * Math.PI) / 180) * 22,
+                    x: Math.cos((deg * Math.PI) / 180) * 30,
+                    y: Math.sin((deg * Math.PI) / 180) * 30,
                     opacity: 0.7,
-                    width: 3,
-                    height: 3,
                   }}
                   exit={{ opacity: 0, x: 0, y: 0 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   style={{
-                    boxShadow: "0 0 6px 2px rgba(251,191,36,0.8)",
+                    boxShadow: "0 0 8px 2px rgba(34,211,238,0.6)",
                   }}
                 />
               ))}
