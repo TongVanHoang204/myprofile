@@ -20,8 +20,8 @@ export async function GET(req: NextRequest) {
     }
 
     // Add music-specific keywords to force YouTube to return songs/OSTs instead of movies or irrelevant videos
-    // We add "audio", "lyrics", "OST", "bài hát" to the query, and exclude common movie terms
-    const musicQuery = `${query} (official audio OR official video OR lyrics OR bài hát OR OST) -phim -tập -movie`;
+    // We exclude common non-music terms like comedy, vlogs, news, gaming, podcasts, and movies.
+    const musicQuery = `${query} (audio OR music OR lyrics OR bài hát OR OST OR remix OR lofi) -phim -tập -movie -hài -vlog -news -tin -tức -game -podcast -shorts -review`;
     
     // YouTube Data API v3 Search
     const YOUTUBE_ENDPOINT = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(musicQuery)}&maxResults=${limit}&type=video&videoCategoryId=10&key=${apiKey}${pageToken ? `&pageToken=${pageToken}` : ""}`;
