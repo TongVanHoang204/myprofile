@@ -28,7 +28,7 @@ type RequestBody = {
   history?: ChatHistoryItem[];
 };
 
-type AiProvider = "gemini" | "ollama";
+type AiProvider = "gemini" | "ollama" | "openrouter";
 
 type GeminiResponse = {
   candidates?: Array<{
@@ -40,10 +40,21 @@ type GeminiResponse = {
   }>;
 };
 
+type OpenRouterResponse = {
+  choices?: Array<{
+    message?: {
+      content?: string | Array<{ text?: string; type?: string }>;
+    };
+  }>;
+};
+
 const MAX_REQUESTS_PER_WINDOW = 12;
 const WINDOW_MS = 10 * 60 * 1000;
 const AI_TIMEOUT_MS = 15_000;
 const DEFAULT_GEMINI_MODEL = "gemini-3-flash-preview";
+const DEFAULT_OPENROUTER_API_URL =
+  "https://openrouter.ai/api/v1/chat/completions";
+const DEFAULT_OPENROUTER_MODEL = "openai/gpt-oss-120b";
 const GEMINI_FALLBACK_MODELS = [
   DEFAULT_GEMINI_MODEL,
   "gemini-2.5-flash",
@@ -61,8 +72,20 @@ function resolveLanguage(language?: "vi" | "en") {
 function resolveProvider(): AiProvider {
   const normalized = process.env.FAQ_AI_PROVIDER?.trim().toLowerCase();
 
+  if (normalized === "openrouter") {
+    return "openrouter";
+  }
+
   if (normalized === "ollama") {
     return "ollama";
+  }
+
+  if (normalized === "gemini") {
+    return "gemini";
+  }
+
+  if (process.env.OPENROUTER_API_KEY) {
+    return "openrouter";
   }
 
   return process.env.GEMINI_API_KEY ? "gemini" : "ollama";
@@ -94,6 +117,24 @@ function extractGeminiText(data: GeminiResponse) {
       .join("\n")
       .trim() || ""
   );
+}
+
+function extractOpenRouterText(data: OpenRouterResponse) {
+  const content = data.choices?.[0]?.message?.content;
+
+  if (typeof content === "string") {
+    return content.trim();
+  }
+
+  if (Array.isArray(content)) {
+    return content
+      .map((part) => part.text?.trim() || "")
+      .filter(Boolean)
+      .join("\n")
+      .trim();
+  }
+
+  return "";
 }
 
 function getGeminiModelCandidates() {
@@ -173,6 +214,76 @@ async function callGemini(prompt: string) {
   }
 
   throw new Error(lastError);
+}
+
+async function callOpenRouter(prompt: string) {
+  const apiKey = process.env.OPENROUTER_API_KEY?.trim();
+
+  if (!apiKey) {
+    throw new Error("OPENROUTER_NOT_CONFIGURED");
+  }
+
+  const apiUrl =
+    process.env.OPENROUTER_API_URL?.trim() || DEFAULT_OPENROUTER_API_URL;
+  const model =
+    process.env.OPENROUTER_MODEL?.trim() || DEFAULT_OPENROUTER_MODEL;
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`,
+    "X-Title": "Tong Van Hoang Portfolio",
+  };
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
+  if (siteUrl) {
+    headers["HTTP-Referer"] = siteUrl;
+  }
+
+  let response: Response;
+
+  try {
+    response = await fetchWithTimeout(
+      apiUrl,
+      {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          model,
+          messages: [
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          max_tokens: 512,
+          temperature: 0.55,
+        }),
+      },
+      AI_TIMEOUT_MS
+    );
+  } catch (error) {
+    console.error("OpenRouter request failed:", error);
+    throw new Error("OPENROUTER_UNREACHABLE");
+  }
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error("OpenRouter upstream error:", errorText);
+    throw new Error(
+      response.status >= 500 || response.status === 429
+        ? "OPENROUTER_UNAVAILABLE"
+        : "OPENROUTER_REQUEST_FAILED"
+    );
+  }
+
+  const data = (await response.json()) as OpenRouterResponse;
+  const answer = extractOpenRouterText(data);
+
+  if (!answer) {
+    console.error("OpenRouter empty response:", data);
+    throw new Error("OPENROUTER_EMPTY_RESPONSE");
+  }
+
+  return { answer, model };
 }
 
 async function callOllama(prompt: string) {
@@ -343,9 +454,11 @@ export async function POST(request: Request) {
     await logFaqQuestion(question, language, intent);
 
     const { answer, model } =
-      provider === "gemini"
-        ? await callGemini(prompt)
-        : await callOllama(prompt);
+      provider === "openrouter"
+        ? await callOpenRouter(prompt)
+        : provider === "gemini"
+          ? await callGemini(prompt)
+          : await callOllama(prompt);
 
     return buildStreamResponse({
       answer,
@@ -362,14 +475,21 @@ export async function POST(request: Request) {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
 
-    if (message === "GEMINI_NOT_CONFIGURED") {
+    if (
+      message === "GEMINI_NOT_CONFIGURED" ||
+      message === "OPENROUTER_NOT_CONFIGURED"
+    ) {
       return NextResponse.json(
         { error: "AI service is not configured yet." },
         { status: 503 }
       );
     }
 
-    if (message.startsWith("GEMINI_") || message.startsWith("OLLAMA_")) {
+    if (
+      message.startsWith("GEMINI_") ||
+      message.startsWith("OLLAMA_") ||
+      message.startsWith("OPENROUTER_")
+    ) {
       return NextResponse.json(
         { error: "AI service is temporarily unavailable. Please try again." },
         { status: 502 }

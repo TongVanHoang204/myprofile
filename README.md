@@ -8,7 +8,7 @@ Portfolio cá nhân được xây dựng bằng Next.js 16, React 19 và Tailwin
 - Trang chủ, giới thiệu, dự án, năng lực, FAQ, CV và liên hệ
 - Avatar và ảnh dự án cá nhân đã được map trực tiếp từ asset thật
 - Loading page dùng video
-- FAQ AI gọi qua API nội bộ, hỗ trợ `Gemini` và fallback `Ollama`
+- FAQ AI gọi qua API nội bộ, hỗ trợ `OpenRouter`, `Gemini` và fallback `Ollama`
 - Form liên hệ gửi mail qua `SMTP` hoặc `Resend`
 - Route công khai đã có kiểm tra same-origin, JSON content-type và rate limit cơ bản
 - Script đóng gói deploy `.zip` không kèm `.env`
@@ -64,6 +64,9 @@ Các biến mẫu nằm trong [`.env.example`](./.env.example).
 Nhóm chính:
 
 - `FAQ_AI_PROVIDER`
+- `OPENROUTER_API_KEY`
+- `OPENROUTER_API_URL`
+- `OPENROUTER_MODEL`
 - `GEMINI_API_KEY`
 - `GEMINI_MODEL`
 - `OLLAMA_BASE_URL`
@@ -146,4 +149,3 @@ Chi tiết thêm xem tại [DEPLOY.md](./DEPLOY.md).
 - Không commit `.env`
 - Không nhét secret vào file `.zip` deploy
 - Nếu key đã từng bị lộ qua chat hoặc log, hãy tạo key mới trước khi deploy production
-

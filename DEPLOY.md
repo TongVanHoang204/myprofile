@@ -27,6 +27,9 @@ The archive will be created in `dist/` and excludes:
 1. Upload and extract the generated `.zip`.
 2. Copy `.env.example` to `.env` on the server.
 3. Fill in the real production secrets on the server:
+   - `OPENROUTER_API_KEY`
+   - `OPENROUTER_API_URL`
+   - `OPENROUTER_MODEL`
    - `GEMINI_API_KEY`
    - `RESEND_API_KEY`
    - SMTP credentials if you use SMTP
