@@ -256,6 +256,10 @@ async function callOpenRouter(prompt: string) {
           ],
           max_tokens: 512,
           temperature: 0.55,
+          reasoning: {
+            effort: "low",
+            exclude: true,
+          },
         }),
       },
       AI_TIMEOUT_MS
