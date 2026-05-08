@@ -106,12 +106,11 @@ export default function ProjectCaseStudyPage({
               transition={{ delay: 0.08 }}
               className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950/60"
             >
-              <div className="relative aspect-[16/10] bg-slate-50 dark:bg-slate-900/40">
-                <Image
+              <div className="relative w-full bg-white dark:bg-slate-900">
+                <img
                   src={project.thumbnail}
                   alt={project.title}
-                  fill
-                  className="object-contain p-2"
+                  className="h-auto w-full block"
                 />
               </div>
             </motion.div>
