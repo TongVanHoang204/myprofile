@@ -15,6 +15,11 @@ function readStoredCooldownData(): CooldownData | null {
     return null;
   }
 
+  // Cleanup legacy storage key if it exists
+  if (window.localStorage.getItem("portfolio-contact-cooldown-until")) {
+    window.localStorage.removeItem("portfolio-contact-cooldown-until");
+  }
+
   try {
     const rawValue = window.localStorage.getItem(CONTACT_COOLDOWN_STORAGE_KEY);
     if (!rawValue) return null;
