@@ -29,7 +29,7 @@ export default function ContactPage() {
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [errorToast, setErrorToast] = useState("");
   const { isCoolingDown, remainingLabel, applyCooldown } =
-    useContactCooldown(language);
+    useContactCooldown(language, formData.email);
 
   const cooldownHint = useMemo(() => {
     if (!isCoolingDown) {
@@ -93,13 +93,13 @@ export default function ContactPage() {
       if (!response.ok) {
         showErrorToast(getContactErrorMessage(payload, dict.contact, language));
         if (payload.retryAfterSeconds) {
-          applyCooldown(payload.retryAfterSeconds);
+          applyCooldown(payload.retryAfterSeconds, trimmedEmail);
         }
         return;
       }
 
       if (payload.cooldownSeconds) {
-        applyCooldown(payload.cooldownSeconds);
+        applyCooldown(payload.cooldownSeconds, trimmedEmail);
       }
       setShowSuccessPopup(true);
       setFormData({ name: "", email: "", message: "", company: "" });
