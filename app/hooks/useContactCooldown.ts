@@ -3,49 +3,44 @@
 import { useEffect, useState } from "react";
 import type { Language } from "@/app/data/dictionaries";
 
-const CONTACT_COOLDOWN_STORAGE_KEY = "portfolio-contact-cooldown-until";
+const CONTACT_COOLDOWN_STORAGE_KEY = "portfolio-contact-cooldown-data";
 
-function readStoredCooldownUntil() {
+type CooldownData = {
+  cooldownUntil: number;
+  email: string;
+};
+
+function readStoredCooldownData(): CooldownData | null {
   if (typeof window === "undefined") {
-    return 0;
+    return null;
   }
 
-  const rawValue = window.localStorage.getItem(CONTACT_COOLDOWN_STORAGE_KEY) || "";
-  const cooldownUntil = Number(rawValue);
-
-  if (!Number.isFinite(cooldownUntil) || cooldownUntil <= Date.now()) {
+  try {
+    const rawValue = window.localStorage.getItem(CONTACT_COOLDOWN_STORAGE_KEY);
+    if (!rawValue) return null;
+    const data = JSON.parse(rawValue) as CooldownData;
+    if (!Number.isFinite(data.cooldownUntil) || data.cooldownUntil <= Date.now()) {
+      window.localStorage.removeItem(CONTACT_COOLDOWN_STORAGE_KEY);
+      return null;
+    }
+    return data;
+  } catch {
     window.localStorage.removeItem(CONTACT_COOLDOWN_STORAGE_KEY);
-    return 0;
+    return null;
   }
-
-  return cooldownUntil;
 }
 
-function readStoredRemainingSeconds() {
-  const cooldownUntil = readStoredCooldownUntil();
-
-  if (!cooldownUntil) {
-    return 0;
-  }
-
-  return Math.max(0, Math.ceil((cooldownUntil - Date.now()) / 1000));
-}
-
-function persistRemainingSeconds(remainingSeconds: number) {
+function persistCooldownData(data: CooldownData | null) {
   if (typeof window === "undefined") {
     return;
   }
 
-  if (remainingSeconds <= 0) {
+  if (!data || data.cooldownUntil <= Date.now()) {
     window.localStorage.removeItem(CONTACT_COOLDOWN_STORAGE_KEY);
     return;
   }
 
-  const cooldownUntil = Date.now() + remainingSeconds * 1000;
-  window.localStorage.setItem(
-    CONTACT_COOLDOWN_STORAGE_KEY,
-    String(cooldownUntil)
-  );
+  window.localStorage.setItem(CONTACT_COOLDOWN_STORAGE_KEY, JSON.stringify(data));
 }
 
 export function formatContactCooldown(seconds: number, language: Language) {
@@ -70,41 +65,56 @@ export function formatContactCooldown(seconds: number, language: Language) {
   return `${Math.max(1, minutes)}m`;
 }
 
-export function useContactCooldown(language: Language) {
-  const [remainingSeconds, setRemainingSeconds] = useState(
-    readStoredRemainingSeconds
-  );
+export function useContactCooldown(language: Language, currentEmail: string) {
+  const [cooldownData, setCooldownData] = useState<CooldownData | null>(readStoredCooldownData);
+  const [remainingSeconds, setRemainingSeconds] = useState(() => {
+    const data = readStoredCooldownData();
+    return data ? Math.max(0, Math.ceil((data.cooldownUntil - Date.now()) / 1000)) : 0;
+  });
 
   useEffect(() => {
-    if (!remainingSeconds) {
-      persistRemainingSeconds(0);
+    if (!cooldownData || remainingSeconds <= 0) {
+      if (cooldownData) persistCooldownData(null);
       return;
     }
 
     const interval = window.setInterval(() => {
-      setRemainingSeconds((current) => {
-        if (current <= 1) {
-          persistRemainingSeconds(0);
-          return 0;
+      setRemainingSeconds(() => {
+        const remaining = Math.max(0, Math.ceil((cooldownData.cooldownUntil - Date.now()) / 1000));
+        if (remaining <= 0) {
+          persistCooldownData(null);
+          setCooldownData(null);
         }
-
-        const next = current - 1;
-        persistRemainingSeconds(next);
-        return next;
+        return remaining;
       });
     }, 1000);
 
     return () => window.clearInterval(interval);
-  }, [remainingSeconds]);
+  }, [cooldownData, remainingSeconds]);
+
+  const normalizedCurrent = currentEmail.trim().toLowerCase();
+  const normalizedCooldown = cooldownData?.email.trim().toLowerCase() || "";
+  const isCoolingDownForCurrentEmail = remainingSeconds > 0 && normalizedCurrent === normalizedCooldown && normalizedCurrent !== "";
 
   return {
-    isCoolingDown: remainingSeconds > 0,
+    isCoolingDown: isCoolingDownForCurrentEmail,
     remainingSeconds,
     remainingLabel: formatContactCooldown(remainingSeconds, language),
-    applyCooldown: (seconds: number) => {
+    applyCooldown: (seconds: number, emailToLock: string) => {
       const cooldown = Math.max(0, Math.ceil(seconds));
+      if (cooldown <= 0) {
+         persistCooldownData(null);
+         setCooldownData(null);
+         setRemainingSeconds(0);
+         return;
+      }
+      const newData = {
+        cooldownUntil: Date.now() + cooldown * 1000,
+        email: emailToLock,
+      };
+      setCooldownData(newData);
       setRemainingSeconds(cooldown);
-      persistRemainingSeconds(cooldown);
+      persistCooldownData(newData);
     },
   };
 }

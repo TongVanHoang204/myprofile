@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
-    const retryAfterSeconds = await getContactCooldownRemaining(parsed.email, ip);
+    const retryAfterSeconds = await getContactCooldownRemaining(parsed.email);
     if (retryAfterSeconds > 0) {
       return NextResponse.json(
         {
@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
       message: parsed.message,
     });
 
-    await activateContactCooldown(parsed.email, ip, CONTACT_COOLDOWN_SECONDS);
+    await activateContactCooldown(parsed.email, CONTACT_COOLDOWN_SECONDS);
 
     return NextResponse.json({
       success: true,

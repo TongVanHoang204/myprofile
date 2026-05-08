@@ -34,7 +34,7 @@ export default function ContactSection() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const { isCoolingDown, remainingLabel, applyCooldown } =
-    useContactCooldown(language);
+    useContactCooldown(language, formState.email);
 
   const cooldownHint = useMemo(() => {
     if (!isCoolingDown) {
@@ -105,13 +105,13 @@ export default function ContactSection() {
       if (!response.ok) {
         setSubmitError(getContactErrorMessage(payload, dict.contact, language));
         if (payload.retryAfterSeconds) {
-          applyCooldown(payload.retryAfterSeconds);
+          applyCooldown(payload.retryAfterSeconds, trimmedEmail);
         }
         return;
       }
 
       if (payload.cooldownSeconds) {
-        applyCooldown(payload.cooldownSeconds);
+        applyCooldown(payload.cooldownSeconds, trimmedEmail);
       }
       setIsSuccess(true);
       setFormState({ name: "", email: "", message: "", company: "" });

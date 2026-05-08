@@ -53,25 +53,15 @@ async function setCooldownSeconds(key: string, seconds: number) {
   }
 }
 
-export async function getContactCooldownRemaining(email: string, ip: string) {
+export async function getContactCooldownRemaining(email: string) {
   const normalizedEmail = email.trim().toLowerCase();
-  const [emailRemaining, ipRemaining] = await Promise.all([
-    getRemainingSeconds(createCooldownKey("email", normalizedEmail)),
-    getRemainingSeconds(createCooldownKey("ip", ip)),
-  ]);
-
-  return Math.max(emailRemaining, ipRemaining);
+  return await getRemainingSeconds(createCooldownKey("email", normalizedEmail));
 }
 
 export async function activateContactCooldown(
   email: string,
-  ip: string,
   seconds: number
 ) {
   const normalizedEmail = email.trim().toLowerCase();
-
-  await Promise.all([
-    setCooldownSeconds(createCooldownKey("email", normalizedEmail), seconds),
-    setCooldownSeconds(createCooldownKey("ip", ip), seconds),
-  ]);
+  await setCooldownSeconds(createCooldownKey("email", normalizedEmail), seconds);
 }
