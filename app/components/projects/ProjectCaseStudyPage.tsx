@@ -104,14 +104,14 @@ export default function ProjectCaseStudyPage({
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08 }}
-              className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-100 dark:border-slate-800 dark:bg-slate-950/60"
+              className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950/60"
             >
-              <div className="relative aspect-[16/10]">
+              <div className="relative aspect-[16/10] bg-slate-50 dark:bg-slate-900/40">
                 <Image
                   src={project.thumbnail}
                   alt={project.title}
                   fill
-                  className="object-cover"
+                  className="object-contain p-2"
                 />
               </div>
             </motion.div>
