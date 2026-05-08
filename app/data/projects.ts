@@ -19,6 +19,7 @@ export type ProjectCaseStudy = {
   result: string;
   outcomes: string[];
   relatedBlogSlugs: string[];
+  liveLink?: string;
 };
 
 export type ProjectsCopy = {
@@ -99,6 +100,7 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
           "Đang được deploy và chạy thực tế trên domain vanhoang.mauweb68.com.",
         ],
         relatedBlogSlugs: ["frontend-foundation", "ai-workflow"],
+        liveLink: "https://vanhoang.mauweb68.com/",
       },
       {
         slug: "nurfia-rest-api",
@@ -162,37 +164,6 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
         ],
         relatedBlogSlugs: ["ai-workflow"],
       },
-      {
-        slug: "nurfia-mobile-app",
-        category: "mobile",
-        title: "Nurfia Mobile App",
-        shortTitle: "Mobile App",
-        eyebrow: "Mobile / Flutter",
-        description:
-          "Ứng dụng Flutter mở rộng hệ thống Nurfia lên mobile, có luồng xem sản phẩm, điều hướng mua sắm và màn AI assistant riêng cho việc hỏi sản phẩm hoặc size.",
-        summary:
-          "Mobile app cho thấy tôi không dừng ở web mà còn hiểu cách đưa cùng hệ thống Nurfia lên một bề mặt sử dụng khác.",
-        thumbnail: "/projects/nurfia-mobile.png",
-        tags: ["Flutter", "Mobile UI", "E-commerce", "AI Chat"],
-        objective:
-          "Đưa cùng một hệ thống Nurfia lên mobile để thể hiện khả năng chuyển đổi sản phẩm từ web sang app mà vẫn giữ được luồng mua sắm và AI assistant.",
-        role: [
-          "Xây giao diện mobile shopping bằng Flutter với product list, navigation và account flow cơ bản.",
-          "Tạo màn AI chat riêng để người dùng hỏi về sản phẩm hoặc cần tư vấn nhanh trên điện thoại.",
-          "Điều chỉnh trải nghiệm để phù hợp hơn với màn hình nhỏ và thao tác touch.",
-        ],
-        stack: ["Flutter", "Dart", "Mobile UI", "API integration"],
-        aiUse:
-          "AI xuất hiện như một mobile shopping assistant riêng, giúp hỏi nhanh về sản phẩm, size hoặc bước tiếp theo trong hành trình mua sắm.",
-        result:
-          "Phần mobile giúp câu chuyện của tôi mạnh hơn khi phỏng vấn, vì nó cho thấy tôi có thể học và mở rộng sản phẩm sang nền tảng khác thay vì chỉ dừng ở web.",
-        outcomes: [
-          "Mở rộng cùng hệ thống Nurfia sang mobile.",
-          "Có AI chat riêng trên điện thoại để thể hiện khả năng tích hợp đa nền tảng.",
-          "Bổ sung năng lực Flutter vào portfolio một cách có ngữ cảnh sản phẩm thật.",
-        ],
-        relatedBlogSlugs: ["ai-workflow", "portfolio-direction"],
-      },
     ],
   },
   en: {
@@ -251,6 +222,7 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
           "Deployed and running live on vanhoang.mauweb68.com.",
         ],
         relatedBlogSlugs: ["frontend-foundation", "ai-workflow"],
+        liveLink: "https://vanhoang.mauweb68.com/",
       },
       {
         slug: "nurfia-rest-api",
@@ -313,37 +285,6 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
           "Strengthens the full-stack story around Nurfia.",
         ],
         relatedBlogSlugs: ["ai-workflow"],
-      },
-      {
-        slug: "nurfia-mobile-app",
-        category: "mobile",
-        title: "Nurfia Mobile App",
-        shortTitle: "Mobile App",
-        eyebrow: "Mobile / Flutter",
-        description:
-          "A Flutter app that brings the same Nurfia system to mobile with product browsing, shopping flow, and a dedicated AI assistant screen for product or sizing questions.",
-        summary:
-          "The mobile app proves that I can extend the Nurfia system to another platform instead of stopping at the web layer.",
-        thumbnail: "/projects/nurfia-mobile.png",
-        tags: ["Flutter", "Mobile UI", "E-commerce", "AI Chat"],
-        objective:
-          "Extend the same Nurfia product system to mobile so I can show I understand how to adapt the shopping flow and AI assistant to a different interaction surface.",
-        role: [
-          "Built the mobile shopping UI in Flutter with listing, navigation, and basic account flow.",
-          "Created a dedicated AI chat screen for product or sizing help on mobile.",
-          "Adjusted the experience for smaller screens and touch-based interaction.",
-        ],
-        stack: ["Flutter", "Dart", "Mobile UI", "API integration"],
-        aiUse:
-          "AI appears as a dedicated mobile shopping assistant for quick product, size, and shopping-flow questions.",
-        result:
-          "The mobile app makes my portfolio stronger in interviews because it shows I can learn and extend the same system to another platform instead of stopping at the web.",
-        outcomes: [
-          "Extends Nurfia to mobile with the same product context.",
-          "Includes a dedicated AI assistant on mobile.",
-          "Adds Flutter experience to the portfolio with real product context.",
-        ],
-        relatedBlogSlugs: ["ai-workflow", "portfolio-direction"],
       },
     ],
   },
