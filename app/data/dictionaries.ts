@@ -34,7 +34,7 @@ export const dictionaries = {
     projects: {
       title: "Dự án từ CV",
       subtitle:
-        "Những phần việc tôi đã trực tiếp xây dựng trong dự án FeShenShop, bám sát nội dung CV.",
+        "Những phần việc tôi đã trực tiếp xây dựng trong hệ thống Nurfia, bám sát nội dung CV.",
       all: "Tất cả",
       filters: {
         all: "Tất cả",
@@ -47,27 +47,27 @@ export const dictionaries = {
       empty_description: "Hãy chọn danh mục khác để xem thêm nội dung.",
       items: [
         {
-          title: "Giao diện web FeShenShop",
+          title: "Giao diện web Nurfia",
           description:
-            "Storefront responsive xây bằng React và TypeScript, có tích hợp AI chat tư vấn mua sắm, visual search từ ảnh tải lên và luồng gợi ý sản phẩm phù hợp với hành vi người dùng.",
-          tags: ["React", "TypeScript", "AI Chat", "Visual Search"],
-          thumbnail: "/projects/feshenshop-web.png",
+            "Storefront responsive xây bằng Next.js và TypeScript, có tích hợp AI chat tư vấn mua sắm, visual search từ ảnh tải lên và luồng gợi ý sản phẩm phù hợp với hành vi người dùng.",
+          tags: ["Next.js", "TypeScript", "AI Chat", "Visual Search"],
+          thumbnail: "/projects/nurfia-web.png",
           category: "website",
         },
         {
-          title: "FeShenShop RESTful API",
+          title: "Nurfia RESTful API",
           description:
-            "Backend Node.js, Express và TypeScript với các route AI cho chat, generate nội dung và visual search; có phân quyền theo role, rate limit, gọi Ollama/Gemini và fallback pHash plus color histogram khi AI vision không sẵn sàng.",
+            "Backend Node.js, Express và TypeScript với các route AI cho chat, generate nội dung và visual search; có phân quyền theo role, rate limit, tích hợp Ollama/Gemini và fallback thuật toán khi AI vision không sẵn sàng.",
           tags: ["Node.js", "Express", "AI Routes", "Ollama"],
-          thumbnail: "/projects/feshenshop-api.png",
+          thumbnail: "/projects/nurfia-api.png",
           category: "backend",
         },
         {
-          title: "Ứng dụng mua sắm FeShenShop",
+          title: "Ứng dụng mua sắm Nurfia",
           description:
-            "Ứng dụng Flutter mở rộng cùng hệ thống FeShenShop lên mobile, có màn AI shopping assistant riêng để hỏi sản phẩm, tư vấn size và kiểm tra đơn hàng trực tiếp trên điện thoại.",
+            "Ứng dụng Flutter mở rộng cùng hệ thống Nurfia lên mobile, có màn AI shopping assistant riêng để hỏi sản phẩm, tư vấn size và kiểm tra đơn hàng trực tiếp trên điện thoại.",
           tags: ["Flutter", "Mobile UI", "AI Chat", "E-commerce"],
-          thumbnail: "/projects/feshenshop-mobile.png",
+          thumbnail: "/projects/nurfia-dashboard.png",
           category: "mobile",
         },
       ],
@@ -103,10 +103,10 @@ export const dictionaries = {
         },
         {
           year: "Dự án cá nhân",
-          title: "Xây dựng hệ thống FeShenShop",
+          title: "Xây dựng hệ thống Nurfia",
           place: "Dự án tự thực hiện",
           description:
-            "Tự triển khai web app, backend API và mobile app cho hệ thống bán hàng thời trang để rèn tư duy full-stack.",
+            "Tự triển khai web app, backend API và mobile app cho hệ thống thương mại điện tử thời trang Nurfia để rèn tư duy full-stack.",
         },
         {
           year: "Năng lực cốt lõi",
@@ -485,7 +485,7 @@ export const dictionaries = {
     projects: {
       title: "Projects From My CV",
       subtitle:
-        "The actual areas I built inside the FeShenShop project, mapped directly from my CV.",
+        "The actual areas I built inside the Nurfia system, mapped directly from my CV.",
       all: "All",
       filters: {
         all: "All",
@@ -498,27 +498,27 @@ export const dictionaries = {
       empty_description: "Try another category to see more work.",
       items: [
         {
-          title: "FeShenShop Web Storefront",
+          title: "Nurfia Web Storefront",
           description:
-            "A responsive React and TypeScript storefront with an AI shopping chat widget, image-based visual search, and personalized product suggestion flows.",
-          tags: ["React", "TypeScript", "AI Chat", "Visual Search"],
-          thumbnail: "/projects/feshenshop-web.png",
+            "A responsive Next.js and TypeScript storefront with an AI shopping chat widget, image-based visual search, and personalized product suggestion flows.",
+          tags: ["Next.js", "TypeScript", "AI Chat", "Visual Search"],
+          thumbnail: "/projects/nurfia-web.png",
           category: "website",
         },
         {
-          title: "FeShenShop RESTful API",
+          title: "Nurfia RESTful API",
           description:
             "A Node.js, Express, and TypeScript backend with AI chat, content generation, and visual-search routes, plus role-based access, rate limiting, Ollama integration, and an algorithmic fallback for image matching.",
           tags: ["Node.js", "Express", "AI Routes", "Ollama"],
-          thumbnail: "/projects/feshenshop-api.png",
+          thumbnail: "/projects/nurfia-api.png",
           category: "backend",
         },
         {
-          title: "FeShenShop Mobile Shopping App",
+          title: "Nurfia Mobile Shopping App",
           description:
-            "A Flutter shopping app that extends the same system to mobile, including a dedicated AI shopping assistant for product discovery, size guidance, and order help.",
+            "A Flutter shopping app that extends the Nurfia system to mobile, including a dedicated AI shopping assistant for product discovery, size guidance, and order help.",
           tags: ["Flutter", "Mobile UI", "AI Chat", "E-commerce"],
-          thumbnail: "/projects/feshenshop-mobile.png",
+          thumbnail: "/projects/nurfia-dashboard.png",
           category: "mobile",
         },
       ],
@@ -554,10 +554,10 @@ export const dictionaries = {
         },
         {
           year: "Personal Project",
-          title: "Built the FeShenShop system",
+          title: "Built the Nurfia system",
           place: "Self-driven practice",
           description:
-            "Created a web app, backend API, and mobile app for a fashion store to strengthen my full-stack fundamentals.",
+            "Created a web app, backend API, and mobile app for the Nurfia fashion e-commerce platform to strengthen my full-stack fundamentals.",
         },
         {
           year: "Core abilities",
