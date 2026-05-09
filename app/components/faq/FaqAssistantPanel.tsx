@@ -10,6 +10,7 @@ import type {
 } from "@/app/lib/faq-ai-types";
 import { buildProtectedHeaders } from "@/app/lib/client-request-security";
 import FaqChatBubble from "@/app/components/faq/FaqChatBubble";
+import Skeleton from "@/app/components/ui/Skeleton";
 
 type ChatMessage = {
   id: string;
@@ -338,7 +339,7 @@ export default function FaqAssistantPanel({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 sm:p-5"
+      className="rounded-[2.5rem] border border-slate-200/50 bg-white/40 p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl dark:border-slate-800/50 dark:bg-slate-900/40 dark:shadow-none sm:p-6"
     >
       <div className="mb-6 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex-1">
@@ -410,9 +411,15 @@ export default function FaqAssistantPanel({
               language={language}
               role={message.role}
               content={
-                message.content
-                  ? renderRichText(message.content)
-                  : content.loadingLabel
+                message.content ? (
+                  renderRichText(message.content)
+                ) : (
+                  <div className="space-y-2 py-1">
+                    <Skeleton className="h-4 w-[90%] rounded-md" />
+                    <Skeleton className="h-4 w-[75%] rounded-md" />
+                    <Skeleton className="h-4 w-[60%] rounded-md" />
+                  </div>
+                )
               }
               isStreaming={message.status === "streaming"}
               intent={message.meta?.intent}

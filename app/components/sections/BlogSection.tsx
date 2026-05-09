@@ -47,7 +47,7 @@ export default function BlogSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="interactive-card rounded-[2rem] border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-6"
+            className="interactive-card rounded-[2.5rem] border border-white/40 bg-white/60 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04),_0_0_0_1px_rgba(255,255,255,0.4)_inset] backdrop-blur-2xl dark:border-white/5 dark:bg-slate-900/60 dark:shadow-[0_8px_30px_rgb(0,0,0,0.2),_0_0_0_1px_rgba(255,255,255,0.05)_inset] sm:p-6"
           >
             <Link
               href={`/blog/${copy.posts[0].slug}`}
@@ -107,7 +107,7 @@ export default function BlogSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: index * 0.08 }}
-                  className="group interactive-card relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white/75 p-4 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-5"
+                  className="group interactive-card relative overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/60 p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04),_0_0_0_1px_rgba(255,255,255,0.4)_inset] backdrop-blur-2xl dark:border-white/5 dark:bg-slate-900/60 dark:shadow-[0_8px_30px_rgb(0,0,0,0.2),_0_0_0_1px_rgba(255,255,255,0.05)_inset] sm:p-5"
                 >
                   <div
                     className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${post.accent}`}

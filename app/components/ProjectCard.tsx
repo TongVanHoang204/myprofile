@@ -62,7 +62,7 @@ export default function ProjectCard({ project }: { project: ProjectCaseStudy }) 
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
-        className="group relative flex min-h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white/50 p-4 shadow-xl backdrop-blur-sm transition-colors hover:border-sky-500/50 dark:border-slate-800 dark:bg-slate-900/40"
+        className="group interactive-card relative flex min-h-full flex-col overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/60 p-4 shadow-[0_8px_30px_rgb(0,0,0,0.04),_0_0_0_1px_rgba(255,255,255,0.4)_inset] backdrop-blur-2xl transition-all hover:border-sky-500/40 hover:shadow-[0_20px_50px_rgba(14,165,233,0.15),_0_0_0_1px_rgba(255,255,255,0.4)_inset] dark:border-white/5 dark:bg-slate-900/60 dark:shadow-[0_8px_30px_rgb(0,0,0,0.2),_0_0_0_1px_rgba(255,255,255,0.05)_inset]"
       >
         <motion.div
           className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
