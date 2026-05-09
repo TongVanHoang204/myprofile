@@ -432,22 +432,22 @@ export default function FaqAssistantPanel({
           }
           void submitQuestion(aiQuestion);
         }}
-        className="relative"
+        className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white transition-all focus-within:border-sky-500 focus-within:ring-4 focus-within:ring-sky-500/5 dark:border-slate-800 dark:bg-slate-950"
       >
         <textarea
           value={aiQuestion}
           onChange={(event) => setAiQuestion(event.target.value)}
           rows={2}
           placeholder={content.placeholder}
-          className="w-full resize-none rounded-[1.5rem] border border-slate-200 bg-white pb-14 pl-5 pr-5 pt-4 text-sm text-slate-800 shadow-sm outline-none transition-all focus:border-sky-500 focus:ring-4 focus:ring-sky-500/5 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-sky-400"
+          className="w-full resize-none border-none bg-transparent px-6 pt-5 text-sm text-slate-800 outline-none placeholder:text-slate-400 dark:text-slate-100 dark:placeholder:text-slate-500"
         />
 
-        <div className="absolute bottom-3 left-4 right-3 flex items-center justify-between">
+        <div className="flex items-center justify-between border-t border-slate-100/50 bg-slate-50/50 px-5 py-3 dark:border-slate-800/50 dark:bg-slate-900/20">
           <div className="flex-1 pr-4">
             {aiError ? (
-              <p className="truncate text-xs font-bold text-red-500">{aiError}</p>
+              <p className="text-xs font-bold text-red-500">{aiError}</p>
             ) : (
-              <p className="truncate text-[0.75rem] font-medium text-slate-500 dark:text-slate-400">
+              <p className="text-[0.7rem] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 {content.helper}
               </p>
             )}
@@ -456,7 +456,7 @@ export default function FaqAssistantPanel({
           <button
             type="submit"
             disabled={aiLoading}
-            className="inline-flex h-9 items-center justify-center gap-2 rounded-xl bg-sky-500 px-4 text-xs font-bold text-white transition-all hover:bg-sky-400 hover:shadow-lg hover:shadow-sky-500/25 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 text-xs font-black uppercase tracking-widest text-white transition-all hover:bg-sky-400 hover:shadow-lg hover:shadow-sky-500/25 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {aiLoading ? (
               <Loader2 className="animate-spin" size={14} />
