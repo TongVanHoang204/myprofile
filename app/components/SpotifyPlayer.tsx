@@ -91,7 +91,7 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const [playingId, setPlayingId] = useState<string | null>(null);
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(true); 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -101,9 +101,22 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
 
   const playerRef = useRef<any>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const isDragging = useRef(false);
 
-  // ── Mount guard ──────────────────────────────────────────────────────────────
-  useEffect(() => { setMounted(true); }, []);
+  // ── Persistence & Mount ──────────────────────────────────────────────────────
+  useEffect(() => {
+    const saved = localStorage.getItem("music-player-minimized");
+    if (saved !== null) {
+      setIsMinimized(JSON.parse(saved));
+    }
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("music-player-minimized", JSON.stringify(isMinimized));
+    }
+  }, [isMinimized, mounted]);
 
   // ── YouTube Search ───────────────────────────────────────────────────────────
   const fetchTracks = useCallback(async (q: string, token: string | null = null, append = false) => {
@@ -256,6 +269,15 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
     <motion.div
       drag
       dragMomentum={false}
+      onDragStart={() => {
+        isDragging.current = true;
+      }}
+      onDragEnd={() => {
+        // Small delay to ensure any subsequent tap event is blocked
+        setTimeout(() => {
+          isDragging.current = false;
+        }, 100);
+      }}
       className="fixed bottom-4 right-4 z-50 cursor-grab active:cursor-grabbing sm:bottom-6 sm:right-6"
     >
       {/* ── Avatar-Style Spinning Border Shell ── */}
@@ -276,8 +298,13 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
           {isMinimized ? (
             /* ── MINIMIZED ──────────────────────────────────────────────────── */
             <div className="flex items-center justify-center">
-              <button
-                onClick={() => setIsMinimized(false)}
+              <motion.button
+                onTap={() => {
+                  if (!isDragging.current) {
+                    setIsMinimized(false);
+                  }
+                }}
+                whileTap={{ scale: 0.95 }}
                 className={`group relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ${
                   currentlyPlaying
                     ? "bg-violet-500/10 text-violet-400 hover:bg-violet-500/20"
@@ -296,7 +323,7 @@ export default function SpotifyPlayer({ variant = "default" }: SpotifyPlayerProp
                     {currentlyPlaying.title}
                   </div>
                 )}
-              </button>
+              </motion.button>
             </div>
           ) : (
             /* ── EXPANDED ───────────────────────────────────────────────────── */

@@ -156,20 +156,6 @@ export default function FaqChatBubble({
               </div>
             )}
 
-            {(provider || model) && (
-              <div className="flex flex-wrap gap-2 text-xs">
-                {provider && (
-                  <span className="rounded-full border border-sky-500/20 bg-sky-500/10 px-3 py-1 font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">
-                    {provider}
-                  </span>
-                )}
-                {model && (
-                  <span className="rounded-full border border-slate-300/70 bg-slate-50 px-3 py-1 font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-950/60 dark:text-slate-300">
-                    {model}
-                  </span>
-                )}
-              </div>
-            )}
           </div>
         ) : (
           <div className="text-sm leading-7 text-white">{content}</div>

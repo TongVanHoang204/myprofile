@@ -340,29 +340,31 @@ export default function FaqAssistantPanel({
       transition={{ delay: 0.2 }}
       className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 sm:p-5"
     >
-      <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div>
-          <div className="mb-2 flex items-center gap-2">
-            <Sparkles className="text-sky-500" size={18} />
-            <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">
+      <div className="mb-6 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex-1">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/10 text-sky-500 shadow-sm shadow-sky-500/10 dark:bg-sky-500/20">
+              <Sparkles size={20} />
+            </div>
+            <h2 className="text-xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100">
               {content.title}
             </h2>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <p className="max-w-2xl text-[0.925rem] leading-relaxed text-slate-600 dark:text-slate-300">
             {content.description}
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 sm:justify-end">
+        <div className="flex shrink-0 items-center gap-1.5 rounded-2xl border border-slate-200/60 bg-slate-50/50 p-1.5 dark:border-slate-700/50 dark:bg-slate-950/40">
           {modeOptions.map((option) => (
             <button
               key={option.id}
               type="button"
               onClick={() => setChatMode(option.id)}
-              className={`min-w-[calc(50%-0.25rem)] rounded-full px-4 py-2 text-sm font-semibold transition-colors sm:min-w-0 ${
+              className={`rounded-xl px-4 py-2 text-[0.85rem] font-bold transition-all duration-300 ${
                 chatMode === option.id
                   ? "bg-sky-500 text-white shadow-lg shadow-sky-500/25"
-                  : "border border-slate-200 bg-slate-50 text-slate-600 hover:border-sky-400 hover:text-sky-500 dark:border-slate-700 dark:bg-slate-950/60 dark:text-slate-300 dark:hover:text-sky-400"
+                  : "text-slate-500 hover:bg-slate-200/50 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-200"
               }`}
             >
               {option.label}
@@ -371,14 +373,14 @@ export default function FaqAssistantPanel({
         </div>
       </div>
 
-      <div className="mb-4 flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0">
+      <div className="mb-6 flex gap-2 overflow-x-auto pb-1 scrollbar-hide sm:flex-wrap sm:overflow-visible sm:pb-0">
         {quickPrompts.map((prompt) => (
           <button
             key={prompt}
             type="button"
             onClick={() => submitQuestion(prompt)}
             disabled={aiLoading}
-            className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-left text-xs font-semibold text-slate-600 transition-colors hover:border-sky-400 hover:text-sky-500 dark:border-slate-700 dark:bg-slate-950/60 dark:text-slate-200 dark:hover:text-sky-400"
+            className="shrink-0 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-left text-xs font-bold text-slate-600 shadow-sm transition-all hover:border-sky-400 hover:bg-sky-50 hover:text-sky-500 dark:border-slate-700/50 dark:bg-slate-950/30 dark:text-slate-300 dark:hover:border-sky-500/50 dark:hover:bg-sky-500/5 dark:hover:text-sky-400"
           >
             {prompt}
           </button>
@@ -387,7 +389,7 @@ export default function FaqAssistantPanel({
 
       <div
         ref={chatLogRef}
-        className="mb-4 max-h-[30rem] min-h-[14rem] space-y-4 overflow-y-auto rounded-[1.75rem] border border-slate-200 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-950/40 sm:max-h-[28rem] sm:min-h-[13rem] sm:p-4"
+        className="mb-6 max-h-[30rem] min-h-[14rem] space-y-6 overflow-y-auto rounded-[2rem] border border-slate-200/80 bg-slate-50/40 p-4 shadow-inner dark:border-slate-800/80 dark:bg-slate-950/20 sm:max-h-[32rem] sm:min-h-[16rem] sm:p-6"
       >
         {messages.length === 0 ? (
           <div className="flex min-h-[11rem] flex-col items-center justify-center rounded-[1.25rem] border border-dashed border-slate-300 bg-white/70 px-5 py-6 text-center dark:border-slate-700 dark:bg-slate-900/40">
@@ -430,34 +432,36 @@ export default function FaqAssistantPanel({
           }
           void submitQuestion(aiQuestion);
         }}
-        className="space-y-3"
+        className="relative"
       >
         <textarea
           value={aiQuestion}
           onChange={(event) => setAiQuestion(event.target.value)}
           rows={2}
           placeholder={content.placeholder}
-          className="w-full resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+          className="w-full resize-none rounded-[1.5rem] border border-slate-200 bg-white pb-14 pl-5 pr-5 pt-4 text-sm text-slate-800 shadow-sm outline-none transition-all focus:border-sky-500 focus:ring-4 focus:ring-sky-500/5 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-sky-400"
         />
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          {aiError ? (
-            <p className="text-sm text-red-500">{aiError}</p>
-          ) : (
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              {content.helper}
-            </p>
-          )}
+        <div className="absolute bottom-3 left-4 right-3 flex items-center justify-between">
+          <div className="flex-1 pr-4">
+            {aiError ? (
+              <p className="truncate text-xs font-bold text-red-500">{aiError}</p>
+            ) : (
+              <p className="truncate text-[0.75rem] font-medium text-slate-500 dark:text-slate-400">
+                {content.helper}
+              </p>
+            )}
+          </div>
 
           <button
             type="submit"
             disabled={aiLoading}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-500 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex h-9 items-center justify-center gap-2 rounded-xl bg-sky-500 px-4 text-xs font-bold text-white transition-all hover:bg-sky-400 hover:shadow-lg hover:shadow-sky-500/25 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {aiLoading ? (
-              <Loader2 className="animate-spin" size={16} />
+              <Loader2 className="animate-spin" size={14} />
             ) : (
-              <Sparkles size={16} />
+              <Sparkles size={14} />
             )}
             {aiLoading ? content.askingButton : content.askButton}
           </button>

@@ -602,43 +602,43 @@ export function getSuggestedQuestions(
   if (intent === "contact") {
     return language === "vi"
       ? [
-          "Làm sao để liên hệ nhanh với bạn?",
-          "Tôi nên gửi nội dung gì qua form liên hệ?",
-          "Tôi có thể xem CV ở đâu?",
-        ]
+        "Làm sao để liên hệ nhanh với bạn?",
+        "Tôi nên gửi nội dung gì qua form liên hệ?",
+        "Tôi có thể xem CV ở đâu?",
+      ]
       : [
-          "What is the fastest way to contact you?",
-          "What should I include in the contact form?",
-          "Where can I download your resume?",
-        ];
+        "What is the fastest way to contact you?",
+        "What should I include in the contact form?",
+        "Where can I download your resume?",
+      ];
   }
 
   if (intent === "education") {
     return language === "vi"
       ? [
-          "Bạn đang học ở đâu?",
-          "Bạn đang thực tập và phát triển theo hướng nào?",
-          "Phần học vấn liên quan gì đến web development?",
-        ]
+        "Bạn đang học ở đâu?",
+        "Bạn đang thực tập và phát triển theo hướng nào?",
+        "Phần học vấn liên quan gì đến web development?",
+      ]
       : [
-          "Where are you studying now?",
-          "What direction are you developing during your internship?",
-          "How does your education connect to web development?",
-        ];
+        "Where are you studying now?",
+        "What direction are you developing during your internship?",
+        "How does your education connect to web development?",
+      ];
   }
 
   if (intent === "project") {
     return language === "vi"
       ? [
-          "Case study nào thể hiện rõ nhất phần frontend của bạn?",
-          "Bạn làm dashboard quản trị ở mức nào?",
-          "Phần mobile app khác gì so với web storefront?",
-        ]
+        "Case study nào thể hiện rõ nhất phần frontend của bạn?",
+        "Bạn làm dashboard quản trị ở mức nào?",
+        "Phần mobile app khác gì so với web storefront?",
+      ]
       : [
-          "Which case study shows your frontend work best?",
-          "How much of the admin dashboard did you build?",
-          "How does the mobile app differ from the web storefront?",
-        ];
+        "Which case study shows your frontend work best?",
+        "How much of the admin dashboard did you build?",
+        "How does the mobile app differ from the web storefront?",
+      ];
   }
 
   return language === "vi" ? viSuggestions[mode] : enSuggestions[mode];
@@ -652,21 +652,21 @@ export function getActionCards(
   const labels =
     language === "vi"
       ? {
-          projects: "Xem case study",
-          contact: "Mở trang liên hệ",
-          downloadCv: "Tải CV PDF",
-          readBlog: "Đọc blog",
-          capabilities: "Xem năng lực",
-          viewCv: "Mở trang CV",
-        }
+        projects: "Xem case study",
+        contact: "Mở trang liên hệ",
+        downloadCv: "Tải CV PDF",
+        readBlog: "Đọc blog",
+        capabilities: "Xem năng lực",
+        viewCv: "Mở trang CV",
+      }
       : {
-          projects: "View case study",
-          contact: "Open contact page",
-          downloadCv: "Download resume",
-          readBlog: "Read blog",
-          capabilities: "View capabilities",
-          viewCv: "Open resume page",
-        };
+        projects: "View case study",
+        contact: "Open contact page",
+        downloadCv: "Download resume",
+        readBlog: "Read blog",
+        capabilities: "View capabilities",
+        viewCv: "Open resume page",
+      };
 
   const baseActions: FaqAiAction[] = [];
   const primaryProjectSource = sources.find((source) => source.kind === "project");
@@ -811,8 +811,8 @@ export function buildPortfolioPrompt(params: {
 
   const trustRule =
     language === "vi"
-      ? "Chỉ sử dụng thông tin có trong portfolio context. Nếu thiếu dữ liệu, hãy nói rõ và gợi ý chuyển sang trang liên hệ."
-      : "Use only the provided portfolio context. If something is missing, say so explicitly and suggest the contact page.";
+      ? "QUAN TRỌNG: TUYỆT ĐỐI CHỈ trả lời các câu hỏi liên quan đến Tống Văn Hoàng, kinh nghiệm, kỹ năng và các dự án trong portfolio (như Nurfia). TỪ CHỐI viết code (HTML, CSS, JS...), TỪ CHỐI giải toán, TỪ CHỐI trả lời các kiến thức chung không liên quan đến portfolio. Nếu người dùng yêu cầu viết code hoặc hỏi ngoài lề, hãy lịch sự từ chối và hướng họ quay lại các chủ đề về kỹ năng hoặc dự án của bạn. Chỉ sử dụng thông tin có trong portfolio context."
+      : "CRITICAL: ONLY answer questions strictly related to Tong Van Hoang, his experience, skills, and portfolio projects (like Nurfia). REFUSE to write any code (HTML, CSS, JS, etc.), REFUSE to solve math problems, and REFUSE to answer general knowledge questions outside the scope of this portfolio. If asked to write code or about unrelated topics, politely decline and steer the conversation back to your skills or projects. Use only the provided portfolio context.";
 
   const sourceText = sources
     .map(
@@ -824,11 +824,11 @@ export function buildPortfolioPrompt(params: {
   const historyText =
     history.length > 0
       ? history
-          .map(
-            (item) =>
-              `${item.role === "user" ? "User" : "Assistant"}: ${item.content}`
-          )
-          .join("\n")
+        .map(
+          (item) =>
+            `${item.role === "user" ? "User" : "Assistant"}: ${item.content}`
+        )
+        .join("\n")
       : language === "vi"
         ? "Không có lịch sử hội thoại trước."
         : "No previous chat history.";
