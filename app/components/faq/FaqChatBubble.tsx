@@ -62,23 +62,31 @@ export default function FaqChatBubble({
   return (
     <div className={`flex ${role === "user" ? "justify-end" : "justify-start"}`}>
       <div
-        className={`max-w-[86%] rounded-[1.5rem] border px-5 py-4 sm:max-w-[74%] xl:max-w-[68%] ${
+        className={`max-w-[86%] rounded-[2rem] px-6 py-4 shadow-sm sm:max-w-[80%] xl:max-w-[75%] ${
           role === "user"
-            ? "border-sky-500/25 bg-sky-500 text-white shadow-lg shadow-sky-500/15"
-            : "border-slate-200 bg-white text-slate-800 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-100"
+            ? "border border-sky-400/30 bg-sky-500 text-white shadow-sky-500/10"
+            : "border border-slate-200 bg-white text-slate-800 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100"
         }`}
       >
-        <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em]">
+        <div className="mb-3 flex items-center gap-2.5">
           {role === "user" ? (
             <>
-              <User2 className="h-3.5 w-3.5" />
-              {language === "vi" ? "Bạn" : "You"}
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20">
+                <User2 size={12} className="text-white" />
+              </div>
+              <span className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-white/90">
+                {language === "vi" ? "Bạn" : "You"}
+              </span>
             </>
           ) : (
             <>
-              <Sparkles className="h-3.5 w-3.5 text-sky-400" />
-              AI
-              <span className="rounded-full border border-slate-300/70 bg-slate-100 px-2 py-0.5 text-[10px] font-bold tracking-[0.18em] text-slate-600 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-300">
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500/10 dark:bg-sky-500/20">
+                <Sparkles size={12} className="text-sky-500" />
+              </div>
+              <span className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                AI
+              </span>
+              <span className="rounded-lg border border-slate-100 bg-slate-50/50 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-slate-500 dark:border-slate-800 dark:bg-slate-950/50 dark:text-slate-400">
                 {getIntentLabel(language, intent)}
               </span>
             </>

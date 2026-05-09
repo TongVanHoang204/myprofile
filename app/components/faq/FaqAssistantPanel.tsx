@@ -392,12 +392,14 @@ export default function FaqAssistantPanel({
         className="mb-6 max-h-[30rem] min-h-[14rem] space-y-6 overflow-y-auto rounded-[2rem] border border-slate-200/80 bg-slate-50/40 p-4 shadow-inner dark:border-slate-800/80 dark:bg-slate-950/20 sm:max-h-[32rem] sm:min-h-[16rem] sm:p-6"
       >
         {messages.length === 0 ? (
-          <div className="flex min-h-[11rem] flex-col items-center justify-center rounded-[1.25rem] border border-dashed border-slate-300 bg-white/70 px-5 py-6 text-center dark:border-slate-700 dark:bg-slate-900/40">
-            <MessageCircle className="mb-3 h-8 w-8 text-sky-400" />
-            <p className="text-base font-bold text-slate-900 dark:text-slate-50">
+          <div className="flex min-h-[14rem] flex-col items-center justify-center p-6 text-center">
+            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-sky-500/10 text-sky-500 dark:bg-sky-500/20">
+              <MessageCircle size={28} />
+            </div>
+            <p className="text-lg font-extrabold text-slate-800 dark:text-slate-100">
               {content.emptyTitle}
             </p>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-300">
+            <p className="mt-2 max-w-sm text-sm leading-relaxed text-slate-500 dark:text-slate-400">
               {content.emptyDescription}
             </p>
           </div>
