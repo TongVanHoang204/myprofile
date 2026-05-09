@@ -80,7 +80,7 @@ export default function ProjectCard({ project }: { project: ProjectCaseStudy }) 
             className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
           <span className="absolute right-3 top-3 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-sky-600 shadow-lg backdrop-blur-md dark:border-slate-800/50 dark:bg-slate-950/60 dark:text-sky-400">
-            {dict.projects.filters[project.category]}
+            {(dict.projects.filters as Record<string, string>)[project.category] ?? project.category}
           </span>
         </div>
 
