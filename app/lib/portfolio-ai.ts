@@ -346,7 +346,7 @@ export function detectAiIntent(question: string): AiIntent {
     matches([
       "project",
       "du an",
-      "feshenshop",
+      "nurfia",
       "dashboard",
       "mobile",
       "api",
@@ -427,7 +427,7 @@ function getIntentBoosts(intent: AiIntent, language: Language) {
     case "stack":
       return ["JavaScript", "TypeScript", "React", "Node.js", "Flutter", "MySQL"];
     case "project":
-      return ["FeShenShop", "dashboard", "mobile", "API", "storefront", "case study"];
+      return ["Nurfia", "dashboard", "mobile", "API", "storefront", "case study"];
     case "ai":
       return ["AI", "Gemini", "visual search", "assistant", "Prompt AI", "RAG"];
     case "experience":
@@ -439,7 +439,7 @@ function getIntentBoosts(intent: AiIntent, language: Language) {
     case "blog":
       return ["blog", "article", "technical", "credibility"];
     default:
-      return ["portfolio", "FeShenShop", "skills"];
+      return ["portfolio", "Nurfia", "skills"];
   }
 }
 
@@ -572,13 +572,13 @@ export function getSuggestedQuestions(
   const viSuggestions: Record<AiAudienceMode, string[]> = {
     recruiter: [
       "Stack chính của bạn là gì?",
-      "Bạn đã tích hợp AI vào FeShenShop như thế nào?",
+      "Bạn đã tích hợp AI vào Nurfia như thế nào?",
       "Bạn phụ trách phần backend nào trực tiếp?",
       "Recruiter nên đọc bài blog nào trước?",
     ],
     client: [
       "Bạn có thể làm website theo stack nào?",
-      "FeShenShop có gì nổi bật về AI?",
+      "Nurfia có gì nổi bật về AI?",
       "Bạn có kinh nghiệm làm mobile app không?",
       "Tôi nên xem trang nào để hiểu nhanh về bạn?",
     ],
@@ -587,13 +587,13 @@ export function getSuggestedQuestions(
   const enSuggestions: Record<AiAudienceMode, string[]> = {
     recruiter: [
       "What is your core stack?",
-      "How did you integrate AI into FeShenShop?",
+      "How did you integrate AI into Nurfia?",
       "What backend work did you handle directly?",
       "Which blog article should a recruiter read first?",
     ],
     client: [
       "What kind of website stack can you build with?",
-      "What AI features did you add to FeShenShop?",
+      "What AI features did you add to Nurfia?",
       "Do you also have mobile app experience?",
       "Which page should I open first to understand your work quickly?",
     ],

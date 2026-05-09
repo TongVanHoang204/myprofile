@@ -153,7 +153,7 @@ export const dictionaries = {
           category: "experience",
           question: "Bạn đã làm dự án nào trong CV?",
           answer:
-            "Dự án chính trong CV là **FeShenShop**, một hệ thống thương mại điện tử thời trang gồm **web app**, **backend API** và **mobile app**.",
+            "Dự án chính trong CV là **Nurfia**, một hệ thống thương mại điện tử thời trang gồm **web app**, **backend API** và **mobile app**.",
         },
         {
           id: "q3",
@@ -174,7 +174,7 @@ export const dictionaries = {
           category: "experience",
           question: "Bạn đã làm phần backend nào?",
           answer:
-            "Trong FeShenShop, tôi xây dựng **RESTful APIs** cho quản lý sản phẩm và người dùng, thiết lập cấu trúc route và cấu hình **CORS** cho backend service.",
+            "Trong Nurfia, tôi xây dựng **RESTful APIs** cho quản lý sản phẩm và người dùng, thiết lập cấu trúc route và cấu hình **CORS** cho backend service.",
         },
         {
           id: "q6",
@@ -296,8 +296,8 @@ export const dictionaries = {
           category: "education",
         },
         {
-          id: "PRJ-FESHEN",
-          title: "FeShenShop - Hệ thống thương mại điện tử thời trang",
+          id: "PRJ-NURFIA",
+          title: "Nurfia - Hệ thống thương mại điện tử thời trang",
           issuer: "Dự án cá nhân",
           desc: "Hệ thống full-stack gồm web application và mobile application cho cửa hàng thời trang.",
           meta: "Dự án",
@@ -408,7 +408,7 @@ export const dictionaries = {
         experience_title: "Dự án cá nhân",
         experience: [
           {
-            title: "FeShenShop",
+            title: "Nurfia",
             company: "Hệ thống thương mại điện tử thời trang",
             time: "Dự án cá nhân",
             desc: [
@@ -595,7 +595,7 @@ export const dictionaries = {
           category: "experience",
           question: "What project is in your CV?",
           answer:
-            "My main CV project is **FeShenShop**, a fashion e-commerce system that includes a **web app**, **backend API**, and **mobile app**.",
+            "My main CV project is **Nurfia**, a fashion e-commerce system that includes a **web app**, **backend API**, and **mobile app**.",
         },
         {
           id: "q3",
@@ -616,7 +616,7 @@ export const dictionaries = {
           category: "experience",
           question: "What backend work have you done?",
           answer:
-            "In FeShenShop, I built **RESTful APIs** for product and user management, set up routing structure, and configured **CORS** for backend services.",
+            "In Nurfia, I built **RESTful APIs** for product and user management, set up routing structure, and configured **CORS** for backend services.",
         },
         {
           id: "q6",
@@ -738,8 +738,8 @@ export const dictionaries = {
           category: "education",
         },
         {
-          id: "PRJ-FESHEN",
-          title: "FeShenShop Fashion E-commerce System",
+          id: "PRJ-NURFIA",
+          title: "Nurfia Fashion E-commerce System",
           issuer: "Personal Project",
           desc: "A full-stack system that includes a web application and a mobile application for a fashion store.",
           meta: "Project",
@@ -850,7 +850,7 @@ export const dictionaries = {
         experience_title: "Personal Project",
         experience: [
           {
-            title: "FeShenShop",
+            title: "Nurfia",
             company: "Fashion E-commerce System",
             time: "Personal Project",
             desc: [

@@ -82,12 +82,12 @@ export default function BentoBioGrid({ lang }: BentoBioGridProps) {
       {/* ── HERO (col-span-3) ── */}
       <motion.div {...fadeUp(0.1)} className="col-span-3">
         <Link
-          href="/projects/feshenshop-web-storefront"
+          href="/projects/nurfia-web-storefront"
           className="group relative flex h-44 overflow-hidden rounded-2xl border border-white/8 bg-black/20 transition hover:border-violet-400/30"
         >
           <Image
-            src="/projects/feshenshop-web.png"
-            alt="FeShenShop"
+            src="/projects/nurfia-web.png"
+            alt="Nurfia"
             fill
             className="object-cover object-top opacity-70 transition duration-500 group-hover:opacity-90 group-hover:scale-[1.03]"
             unoptimized
@@ -102,10 +102,10 @@ export default function BentoBioGrid({ lang }: BentoBioGridProps) {
               {t.featured}
             </p>
             <h3 className="mt-1 text-xl font-black tracking-tight text-white">
-              FeShenShop
+              Nurfia
             </h3>
             <p className="mt-0.5 text-xs text-white/50">
-              React · TypeScript · Node.js · Prisma
+              Next.js · TypeScript · Node.js · Express
             </p>
           </div>
 

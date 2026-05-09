@@ -98,13 +98,13 @@ function getInitialQuickPrompts(language: "vi" | "en", mode: AiAudienceMode) {
     return mode === "recruiter"
       ? [
           "Stack chính của bạn là gì?",
-          "Bạn đã tích hợp AI vào FeShenShop như thế nào?",
+          "Bạn đã tích hợp AI vào Nurfia như thế nào?",
           "Bạn làm phần backend nào trực tiếp?",
           "Trang nào nên xem để hiểu nhanh về bạn?",
         ]
       : [
           "Bạn có thể làm website theo stack nào?",
-          "FeShenShop có tính năng AI gì nổi bật?",
+          "Nurfia có tính năng AI gì nổi bật?",
           "Bạn có làm được mobile app không?",
           "Tôi nên xem project nào đầu tiên?",
         ];
@@ -113,13 +113,13 @@ function getInitialQuickPrompts(language: "vi" | "en", mode: AiAudienceMode) {
   return mode === "recruiter"
     ? [
         "What is your core stack?",
-        "How did you integrate AI into FeShenShop?",
+        "How did you integrate AI into Nurfia?",
         "What backend work did you handle directly?",
         "Which page should I open first to understand your work?",
       ]
     : [
         "What kind of website stack can you build with?",
-        "What AI features did you add to FeShenShop?",
+        "What AI features did you add to Nurfia?",
         "Do you also have mobile app experience?",
         "Which project should I review first?",
       ];
@@ -147,7 +147,7 @@ export default function FaqAssistantPanel({
           recruiterMode: "Recruiter mode",
           clientMode: "Client mode",
           placeholder:
-            "Ví dụ: Bạn đã tích hợp AI vào FeShenShop như thế nào?",
+            "Ví dụ: Bạn đã tích hợp AI vào Nurfia như thế nào?",
           emptyTitle: "Đặt câu hỏi bất kỳ",
           emptyDescription:
             "Ví dụ về stack, backend, AI integration, internship hoặc trang nên xem tiếp theo.",
@@ -167,7 +167,7 @@ export default function FaqAssistantPanel({
             "Use this panel when you want to go deeper into the stack, AI integration, backend work, or direct contributions.",
           recruiterMode: "Recruiter mode",
           clientMode: "Client mode",
-          placeholder: "Example: How did you integrate AI into FeShenShop?",
+          placeholder: "Example: How did you integrate AI into Nurfia?",
           emptyTitle: "Ask anything",
           emptyDescription:
             "Try asking about the stack, backend, AI integration, internship, or what page to view next.",
