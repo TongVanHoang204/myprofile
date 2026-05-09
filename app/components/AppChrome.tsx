@@ -1,7 +1,8 @@
 "use client";
 
 import { Suspense } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import ParticleBackground from "@/app/components/ParticleBackground";
@@ -27,7 +28,18 @@ export default function AppChrome({ children }: AppChromeProps) {
 
       {!isImmersiveRoute ? <Navbar /> : null}
       <main className="w-full flex-1">
-        <AnimatePresence mode="wait">{children}</AnimatePresence>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={usePathname()}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full flex-1"
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
       </main>
       {!isImmersiveRoute ? <Footer /> : null}
       

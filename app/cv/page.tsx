@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import PageWrapper from "@/app/components/PageWrapper";
 import { useLanguage } from "@/app/context/LanguageContext";
 import {
   Briefcase,
@@ -106,7 +105,7 @@ export default function CVPage() {
         ];
 
   return (
-    <PageWrapper>
+    <>
       <div className="mx-auto min-h-screen max-w-7xl px-4 pb-16 pt-20 sm:pb-20 sm:pt-24 md:px-8">
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-12">
           <motion.aside
@@ -357,6 +356,6 @@ export default function CVPage() {
           </motion.section>
         </div>
       </div>
-    </PageWrapper>
+    </>
   );
 }

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import PageWrapper from "@/app/components/PageWrapper";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 const itemVisuals: Record<
@@ -130,7 +129,7 @@ export default function CertificatesPage() {
         );
 
   return (
-    <PageWrapper>
+    <>
       <div className="mx-auto min-h-screen max-w-7xl px-4 pb-16 pt-20 sm:pb-20 sm:pt-24 md:px-8">
         <div className="mb-12 flex flex-col gap-6 sm:gap-8 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
@@ -330,6 +329,6 @@ export default function CertificatesPage() {
           </p>
         </div>
       </div>
-    </PageWrapper>
+    </>
   );
 }
