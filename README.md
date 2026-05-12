@@ -1,151 +1,45 @@
 # Tong Van Hoang Portfolio
 
-Portfolio cá nhân được xây dựng bằng Next.js 16, React 19 và Tailwind CSS 4 để giới thiệu hồ sơ, dự án FeShenShop, CV, kỹ năng, FAQ AI và form liên hệ.
+Website portfolio cá nhân của Tống Văn Hoàng, được xây dựng để giới thiệu hồ sơ, kỹ năng, CV, blog kỹ thuật và các case study dự án trong hệ sinh thái Nurfia.
 
-## Tính năng chính
+## Giới Thiệu
 
-- Giao diện portfolio đa ngôn ngữ `VI / EN`
-- Trang chủ, giới thiệu, dự án, năng lực, FAQ, CV và liên hệ
-- Avatar và ảnh dự án cá nhân đã được map trực tiếp từ asset thật
-- Loading page dùng video
-- FAQ AI gọi qua API nội bộ, hỗ trợ `OpenRouter`, `Gemini` và fallback `Ollama`
-- Form liên hệ gửi mail qua `SMTP` hoặc `Resend`
-- Route công khai đã có kiểm tra same-origin, JSON content-type và rate limit cơ bản
-- Script đóng gói deploy `.zip` không kèm `.env`
+Website này đóng vai trò như một hồ sơ trực tuyến, giúp người xem nắm nhanh:
 
-## Công nghệ sử dụng
+- Hoàng là ai và đang tập trung vào lĩnh vực nào
+- Kỹ năng frontend, backend, mobile, UI/UX và AI integration
+- Các dự án đã trực tiếp xây dựng
+- CV, thông tin liên hệ và những câu hỏi thường gặp
+- Ghi chú/blog kỹ thuật liên quan đến quá trình xây sản phẩm
 
-- Next.js 16
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- Framer Motion
-- Three.js / React Three Fiber / Drei
-- Nodemailer
+## Nội Dung Chính
 
-## Scripts
+### Trang Chủ
 
-```bash
-npm run dev
-npm run lint
-npm run build
-npm run start
-npm run package:deploy
-```
+Giới thiệu ngắn gọn về Hoàng, định hướng phát triển web, các kỹ năng chính và lối dẫn đến dự án, blog, CV và liên hệ.
 
-## Chạy local
+### Dự Án Nurfia
 
-1. Cài dependency:
+Phần dự án tập trung vào hệ thống thương mại điện tử thời trang Nurfia, được tách thành các case study riêng:
 
-```bash
-npm install
-```
+- **Nurfia Web Storefront**: giao diện mua sắm, product listing, product detail, cart, checkout và AI shopping assistant.
+- **Nurfia RESTful API**: backend service layer cho storefront, dashboard, mobile client và các tính năng AI.
+- **Nurfia Admin Dashboard**: khu vực quản trị nội bộ cho doanh thu, đơn hàng, khách hàng, tồn kho, báo cáo và phân quyền.
 
-2. Tạo file môi trường:
+Mỗi case study trình bày rõ mục tiêu, vai trò, stack, cách AI được đưa vào sản phẩm, kết quả và các chi tiết kỹ thuật Hoàng đã trực tiếp thực hiện.
 
-```bash
-copy .env.example .env
-```
+### Blog Kỹ Thuật
 
-3. Điền các biến cần thiết trong `.env`
+Blog ghi lại các ghi chú về cách xây dựng Nurfia, kiến trúc full-stack, RESTful API, AI workflow và hướng phát triển portfolio.
 
-4. Chạy project:
+### Bio Và CV
 
-```bash
-npm run dev
-```
+Phần Bio và CV tóm tắt thông tin cá nhân, quá trình học tập, kỹ năng, kinh nghiệm thực tập và các điểm nổi bật trong hồ sơ.
 
-Mở `http://localhost:3000`.
+### FAQ Và Liên Hệ
 
-## Biến môi trường
+FAQ giúp người xem hỏi nhanh về kỹ năng, dự án và mục tiêu hiện tại. Trang liên hệ cho phép gửi tin nhắn trực tiếp để kết nối với Hoàng.
 
-Các biến mẫu nằm trong [`.env.example`](./.env.example).
+## Mục Tiêu Của Website
 
-Nhóm chính:
-
-- `FAQ_AI_PROVIDER`
-- `OPENROUTER_API_KEY`
-- `OPENROUTER_API_URL`
-- `OPENROUTER_MODEL`
-- `GEMINI_API_KEY`
-- `GEMINI_MODEL`
-- `OLLAMA_BASE_URL`
-- `OLLAMA_MODEL`
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_SECURE`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `SMTP_FROM_EMAIL`
-- `CONTACT_TO_EMAIL`
-- `RESEND_API_KEY`
-- `CONTACT_FROM_EMAIL`
-- `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_OG_IMAGE`
-- `NEXT_PUBLIC_CONTACT_EMAIL`
-- `NEXT_PUBLIC_CONTACT_PHONE`
-- `NEXT_PUBLIC_CONTACT_LOCATION`
-- `NEXT_PUBLIC_GITHUB_URL`
-
-## Cấu trúc chính
-
-```text
-app/
-  api/
-    contact/
-    faq-ai/
-  components/
-  context/
-  data/
-  lib/
-  about/
-  certificates/
-  contact/
-  cv/
-  faq/
-  projects/
-public/
-  documents/
-  profile/
-  projects/
-  videos/
-scripts/
-  create-deploy-zip.ps1
-```
-
-## Deploy an toàn
-
-Để tạo file `.zip` deploy mà không lộ secret local:
-
-```bash
-npm run package:deploy
-```
-
-File zip sẽ nằm trong thư mục `dist/` và không chứa:
-
-- `.env`
-- các file `.env.*` chứa secret
-- `.next`
-- `node_modules`
-- log và build artifact local
-
-Sau khi upload lên server:
-
-1. Giải nén file zip
-2. Copy `.env.example` thành `.env`
-3. Điền key thật trực tiếp trên server
-4. Chạy:
-
-```bash
-npm install
-npm run build
-npm run start
-```
-
-Chi tiết thêm xem tại [DEPLOY.md](./DEPLOY.md).
-
-## Lưu ý bảo mật
-
-- Không commit `.env`
-- Không nhét secret vào file `.zip` deploy
-- Nếu key đã từng bị lộ qua chat hoặc log, hãy tạo key mới trước khi deploy production
+Website được thiết kế để không chỉ là một landing page giới thiệu bản thân, mà là một portfolio có cấu trúc rõ ràng, tập trung vào bằng chứng sản phẩm thật. Nurfia là trọng tâm của website, giúp người xem thấy được cách Hoàng suy nghĩ về frontend, backend, admin workflow, AI integration và việc triển khai một hệ thống web hoàn chỉnh.
