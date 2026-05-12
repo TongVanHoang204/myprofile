@@ -28,6 +28,13 @@ export default function ProjectCaseStudyShowcase() {
       <div className="grid gap-5 xl:grid-cols-2">
         {copy.items.map((project, index) => {
           const href = `/projects/${project.slug}`;
+          const quickScan = project.quickScan?.length
+            ? project.quickScan
+            : [
+                { label: copy.labels.objective, text: project.objective },
+                { label: copy.labels.aiUse, text: project.aiUse },
+                { label: copy.labels.result, text: project.result },
+              ];
 
           return (
             <motion.article
@@ -51,15 +58,23 @@ export default function ProjectCaseStudyShowcase() {
                   </p>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/50">
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                      {copy.labels.objective}
-                    </p>
-                    <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
-                      {project.objective}
-                    </p>
-                  </div>
+                <div className="grid gap-4 lg:grid-cols-3">
+                  {quickScan.map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-[1.5rem] border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/50"
+                    >
+                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                        {item.label}
+                      </p>
+                      <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid gap-4 lg:grid-cols-[0.9fr,1.1fr]">
                   <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/50">
                     <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                       {copy.labels.stack}
@@ -75,39 +90,20 @@ export default function ProjectCaseStudyShowcase() {
                       ))}
                     </div>
                   </div>
-                </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
                   <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/50">
                     <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                      {copy.labels.aiUse}
+                      {copy.labels.role}
                     </p>
-                    <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
-                      {project.aiUse}
-                    </p>
+                    <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
+                      {project.role.slice(0, 2).map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-sky-400" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/50">
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                      {copy.labels.result}
-                    </p>
-                    <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
-                      {project.result}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/50">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                    {copy.labels.role}
-                  </p>
-                  <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
-                    {project.role.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-sky-400" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
                 <Link

@@ -7,10 +7,14 @@ import {
   ArrowLeft,
   ArrowRight,
   BookOpenText,
+  CheckCircle2,
   Cpu,
+  GitBranch,
   Layers3,
+  Route,
   Sparkles,
   Target,
+  Wrench,
 } from "lucide-react";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { blogCopy } from "@/app/data/blog";
@@ -36,6 +40,35 @@ export default function ProjectCaseStudyPage({
     currentIndex < copy.items.length - 1
       ? copy.items[currentIndex + 1]
       : copy.items[0];
+  const sectionIcons = [CheckCircle2, Route, GitBranch, Wrench];
+  const fallbackDetailSections = [
+    {
+      title: language === "vi" ? "Tính năng đã xây" : "Built features",
+      items: project.features,
+      Icon: CheckCircle2,
+    },
+    {
+      title: language === "vi" ? "Luồng người dùng" : "User flow",
+      items: project.userFlow,
+      Icon: Route,
+    },
+    {
+      title: language === "vi" ? "Kiến trúc" : "Architecture",
+      items: project.architecture,
+      Icon: GitBranch,
+    },
+    {
+      title: language === "vi" ? "Thử thách kỹ thuật" : "Technical challenges",
+      items: project.challenges,
+      Icon: Wrench,
+    },
+  ].filter((section) => section.items?.length);
+  const detailSections = project.deepSections?.length
+    ? project.deepSections.map((section, index) => ({
+        ...section,
+        Icon: sectionIcons[index % sectionIcons.length],
+      }))
+    : fallbackDetailSections;
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28">
@@ -210,6 +243,53 @@ export default function ProjectCaseStudyPage({
             </div>
           </div>
         </section>
+
+        {detailSections.length > 0 && (
+          <section className="grid gap-6 lg:grid-cols-2">
+            {detailSections.map(({ title, items, Icon }) => (
+              <div
+                key={title}
+                className="rounded-[2rem] border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-6"
+              >
+                <div className="flex items-center gap-3">
+                  <Icon className="h-5 w-5 text-sky-400" />
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-slate-50">
+                    {title}
+                  </h2>
+                </div>
+                <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
+                  {items?.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-sky-400" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {project.nextSteps?.length ? (
+          <section className="rounded-[2rem] border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-6">
+            <div className="flex items-center gap-3">
+              <ArrowRight className="h-5 w-5 text-sky-400" />
+              <h2 className="text-xl font-bold text-slate-900 dark:text-slate-50">
+                {language === "vi" ? "Hướng phát triển tiếp" : "Next improvements"}
+              </h2>
+            </div>
+            <ul className="mt-4 grid gap-3 text-sm leading-6 text-slate-700 dark:text-slate-200 sm:grid-cols-3">
+              {project.nextSteps.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-[1.25rem] border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/45"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
         <section className="grid gap-6 lg:grid-cols-[0.95fr,1.05fr]">
           <div className="rounded-[2rem] border border-slate-200 bg-white/75 p-5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/65 sm:p-6">
