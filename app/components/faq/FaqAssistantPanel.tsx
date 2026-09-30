@@ -24,6 +24,17 @@ type FaqAssistantPanelProps = {
   language: "vi" | "en";
 };
 
+const COOLDOWN_STORAGE_KEY = "portfolio:faq-ai:retry-at";
+
+function readCooldownDeadline() {
+  try {
+    const value = Number(localStorage.getItem(COOLDOWN_STORAGE_KEY));
+    return Number.isFinite(value) ? Math.min(value, Date.now() + 600_000) : 0;
+  } catch {
+    return 0;
+  }
+}
+
 function renderInlineText(text: string) {
   const segments = text.split(/(\*\*.*?\*\*|`.*?`)/g);
 
@@ -133,11 +144,42 @@ export default function FaqAssistantPanel({
   const [aiQuestion, setAiQuestion] = useState("");
   const [aiError, setAiError] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
+  const cooldownUntilRef = useRef(0);
+  const submittingRef = useRef(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [quickPrompts, setQuickPrompts] = useState<string[]>(() =>
     getInitialQuickPrompts(language, "recruiter")
   );
   const chatLogRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const tick = () => {
+      cooldownUntilRef.current = Math.max(cooldownUntilRef.current, readCooldownDeadline());
+      setCooldownSeconds(Math.max(0, Math.ceil((cooldownUntilRef.current - Date.now()) / 1000)));
+    };
+    tick();
+    const timer = window.setInterval(tick, 1000);
+    window.addEventListener("storage", tick);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("storage", tick);
+    };
+  }, []);
+
+  const applyCooldown = (seconds: number) => {
+    if (!Number.isFinite(seconds) || seconds <= 0) return;
+    const deadline = Date.now() + Math.min(seconds, 600) * 1000;
+    cooldownUntilRef.current = Math.max(deadline, cooldownUntilRef.current, readCooldownDeadline());
+    setCooldownSeconds(Math.ceil((cooldownUntilRef.current - Date.now()) / 1000));
+    try {
+      localStorage.setItem(COOLDOWN_STORAGE_KEY, String(cooldownUntilRef.current));
+    } catch {
+      // The server still enforces the limit when browser storage is unavailable.
+    }
+  };
+
+  const cooldownLabel = `${Math.floor(cooldownSeconds / 60)}:${String(cooldownSeconds % 60).padStart(2, "0")}`;
 
   const content =
     language === "vi"
@@ -161,6 +203,10 @@ export default function FaqAssistantPanel({
           noResponse: "AI không trả về dữ liệu.",
           fetchError: "Không thể lấy câu trả lời AI.",
           networkError: "Lỗi kết nối tới dịch vụ AI.",
+          cooldown: `Bạn có thể gửi câu hỏi tiếp theo sau ${cooldownLabel}.`,
+          waitButton: `Chờ ${cooldownLabel}`,
+          limitHint: "Tối đa 12 lượt/10 phút, cách nhau ít nhất 10 giây.",
+          unavailable: "AI tạm thời không khả dụng. Vui lòng thử lại sau.",
         }
       : {
           title: "Ask the AI for detail",
@@ -181,6 +227,10 @@ export default function FaqAssistantPanel({
           noResponse: "AI returned no response body.",
           fetchError: "Could not get AI answer.",
           networkError: "Failed to connect to AI service.",
+          cooldown: `You can send your next question in ${cooldownLabel}.`,
+          waitButton: `Wait ${cooldownLabel}`,
+          limitHint: "Up to 12 requests per 10 minutes, at least 10 seconds apart.",
+          unavailable: "AI is temporarily unavailable. Please try again later.",
         };
 
   const modeOptions = [
@@ -286,7 +336,9 @@ export default function FaqAssistantPanel({
 
   const submitQuestion = async (rawQuestion: string) => {
     const question = rawQuestion.trim();
-    if (!question || aiLoading) return;
+    if (!question || submittingRef.current ||
+        Math.max(cooldownUntilRef.current, readCooldownDeadline()) > Date.now()) return;
+    submittingRef.current = true;
 
     const userId = `user-${Date.now()}`;
     const assistantId = `assistant-${Date.now() + 1}`;
@@ -314,10 +366,21 @@ export default function FaqAssistantPanel({
         }),
       });
 
+      applyCooldown(Number(response.headers.get("X-RateLimit-Retry-After")));
+
       if (!response.ok) {
         const payload = (await response.json().catch(() => ({}))) as {
           error?: string;
+          code?: string;
+          retryAfterSeconds?: number;
         };
+        if (response.status === 429 || payload.code === "AI_RATE_LIMIT_UNAVAILABLE") {
+          applyCooldown(Number(response.headers.get("Retry-After")) || payload.retryAfterSeconds || 60);
+          setAiQuestion(question);
+          setMessages((current) => current.filter((item) => item.id !== userId && item.id !== assistantId));
+          if (response.status !== 429) setAiError(content.unavailable);
+          return;
+        }
         throw new Error(payload.error || content.fetchError);
       }
 
@@ -330,6 +393,7 @@ export default function FaqAssistantPanel({
         current.filter((item) => item.id !== assistantId)
       );
     } finally {
+      submittingRef.current = false;
       setAiLoading(false);
     }
   };
@@ -380,7 +444,7 @@ export default function FaqAssistantPanel({
             key={prompt}
             type="button"
             onClick={() => submitQuestion(prompt)}
-            disabled={aiLoading}
+            disabled={aiLoading || cooldownSeconds > 0}
             className="shrink-0 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-left text-xs font-bold text-slate-600 shadow-sm transition-all hover:border-sky-400 hover:bg-sky-50 hover:text-sky-500 dark:border-slate-700/50 dark:bg-slate-950/30 dark:text-slate-300 dark:hover:border-sky-500/50 dark:hover:bg-sky-500/5 dark:hover:text-sky-400"
           >
             {prompt}
@@ -447,12 +511,18 @@ export default function FaqAssistantPanel({
           value={aiQuestion}
           onChange={(event) => setAiQuestion(event.target.value)}
           rows={2}
+          maxLength={1000}
           placeholder={content.placeholder}
           className="w-full resize-none border-none bg-transparent px-6 pt-5 text-sm text-slate-800 outline-none placeholder:text-slate-400 dark:text-slate-100 dark:placeholder:text-slate-500"
         />
 
         <div className="flex items-center justify-between border-t border-slate-100/50 bg-slate-50/50 px-5 py-3 dark:border-slate-800/50 dark:bg-slate-900/20">
           <div className="flex-1 pr-4">
+            {cooldownSeconds > 0 && (
+              <p role="status" className="mb-1 text-xs font-semibold text-amber-600 dark:text-amber-400">
+                {content.cooldown}
+              </p>
+            )}
             {aiError ? (
               <p className="text-xs font-bold text-red-500">{aiError}</p>
             ) : (
@@ -460,11 +530,12 @@ export default function FaqAssistantPanel({
                 {content.helper}
               </p>
             )}
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{content.limitHint}</p>
           </div>
 
           <button
             type="submit"
-            disabled={aiLoading}
+            disabled={aiLoading || cooldownSeconds > 0}
             className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-sky-500 px-5 text-xs font-black uppercase tracking-widest text-white transition-all hover:bg-sky-400 hover:shadow-lg hover:shadow-sky-500/25 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {aiLoading ? (
@@ -472,7 +543,7 @@ export default function FaqAssistantPanel({
             ) : (
               <Sparkles size={14} />
             )}
-            {aiLoading ? content.askingButton : content.askButton}
+            {aiLoading ? content.askingButton : cooldownSeconds > 0 ? content.waitButton : content.askButton}
           </button>
         </div>
       </form>

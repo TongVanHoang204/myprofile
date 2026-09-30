@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { logFaqQuestion } from "@/app/lib/faq-ai-analytics";
+import { consumeAiRateLimit, FAQ_AI_LIMIT } from "@/app/lib/faq-ai-rate-limit";
 import type {
   AiAudienceMode,
   ChatHistoryItem,
@@ -13,7 +14,6 @@ import {
   sanitizeHistoryItems,
 } from "@/app/lib/portfolio-ai";
 import {
-  consumeRateLimit,
   getClientIp,
   hasAllowedFetchMetadata,
   hasValidProtectionToken,
@@ -48,8 +48,6 @@ type OpenRouterResponse = {
   }>;
 };
 
-const MAX_REQUESTS_PER_WINDOW = 12;
-const WINDOW_MS = 10 * 60 * 1000;
 const AI_TIMEOUT_MS = 15_000;
 const DEFAULT_GEMINI_MODEL = "gemini-3-flash-preview";
 const DEFAULT_OPENROUTER_API_URL =
@@ -398,6 +396,7 @@ async function buildStreamResponse(params: {
 }
 
 export async function POST(request: Request) {
+  let limitHeaders: Record<string, string> = {};
   try {
     if (
       !isSameOriginRequest(request) ||
@@ -415,15 +414,31 @@ export async function POST(request: Request) {
     }
 
     const ip = getClientIp(request);
-    if (consumeRateLimit(`faq-ai:${ip}`, MAX_REQUESTS_PER_WINDOW, WINDOW_MS)) {
+    let rateLimit;
+    try {
+      rateLimit = await consumeAiRateLimit(ip);
+    } catch {
+      console.error("FAQ AI rate limit storage unavailable");
       return NextResponse.json(
-        { error: "Too many requests. Please try again later." },
-        { status: 429 }
+        { code: "AI_RATE_LIMIT_UNAVAILABLE", error: "AI service is temporarily unavailable.", retryAfterSeconds: 60 },
+        { status: 503, headers: { "Retry-After": "60", "Cache-Control": "no-store" } }
+      );
+    }
+    limitHeaders = {
+      "X-RateLimit-Limit": String(FAQ_AI_LIMIT),
+      "X-RateLimit-Remaining": String(rateLimit.remaining),
+      "X-RateLimit-Retry-After": String(rateLimit.retryAfterSeconds),
+      "Cache-Control": "no-store",
+    };
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { code: "AI_RATE_LIMITED", error: "Too many requests. Please try again later.", retryAfterSeconds: rateLimit.retryAfterSeconds },
+        { status: 429, headers: { ...limitHeaders, "Retry-After": String(rateLimit.retryAfterSeconds) } }
       );
     }
 
     const body = (await request.json()) as RequestBody;
-    const question = body.question?.trim() || "";
+    const question = typeof body?.question === "string" ? body.question.trim() : "";
     const language = resolveLanguage(body.language);
     const mode = resolveMode(body.mode);
     const history = sanitizeHistoryItems(body.history);
@@ -431,14 +446,14 @@ export async function POST(request: Request) {
     if (!question) {
       return NextResponse.json(
         { error: "Vui lòng nhập câu hỏi." },
-        { status: 400 }
+        { status: 400, headers: limitHeaders }
       );
     }
 
     if (question.length > 1000) {
       return NextResponse.json(
         { error: "Câu hỏi quá dài." },
-        { status: 400 }
+        { status: 400, headers: limitHeaders }
       );
     }
 
@@ -464,7 +479,7 @@ export async function POST(request: Request) {
           ? await callGemini(prompt)
           : await callOllama(prompt);
 
-    return buildStreamResponse({
+    const response = await buildStreamResponse({
       answer,
       provider,
       model,
@@ -476,6 +491,8 @@ export async function POST(request: Request) {
         suggestions,
       },
     });
+    for (const [key, value] of Object.entries(limitHeaders)) response.headers.set(key, value);
+    return response;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
 
@@ -485,7 +502,7 @@ export async function POST(request: Request) {
     ) {
       return NextResponse.json(
         { error: "AI service is not configured yet." },
-        { status: 503 }
+        { status: 503, headers: limitHeaders }
       );
     }
 
@@ -496,7 +513,7 @@ export async function POST(request: Request) {
     ) {
       return NextResponse.json(
         { error: "AI service is temporarily unavailable. Please try again." },
-        { status: 502 }
+        { status: 502, headers: limitHeaders }
       );
     }
 
@@ -506,7 +523,7 @@ export async function POST(request: Request) {
         error:
           "Dịch vụ AI tạm thời không khả dụng. Vui lòng thử lại.",
       },
-      { status: 500 }
+      { status: 500, headers: limitHeaders }
     );
   }
 }

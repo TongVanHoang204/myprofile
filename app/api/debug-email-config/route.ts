@@ -42,7 +42,9 @@ export async function GET() {
       oauth2_ready: isOAuth2Ready,
       smtp_ready: isSmtpReady,
       resend_ready: isResendReady,
-      will_send_via: isSmtpReady ? "SMTP (Gmail OAuth2)" : isResendReady ? "Resend" : "NONE - will fail",
+      will_send_via: isSmtpReady
+        ? process.env.SMTP_PASS?.trim() ? "SMTP (password)" : "SMTP (OAuth2)"
+        : isResendReady ? "Resend" : "NONE - will fail",
     },
   });
 }

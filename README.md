@@ -40,6 +40,14 @@ Phần Bio và CV tóm tắt thông tin cá nhân của tôi, quá trình học 
 
 FAQ giúp người xem hỏi nhanh về kỹ năng, dự án và mục tiêu hiện tại của tôi. Trang liên hệ cho phép gửi tin nhắn trực tiếp để kết nối với tôi.
 
+### Giới Hạn Chat AI
+
+API `/api/faq-ai` cho phép tối đa **12 lượt gọi mỗi 10 phút trên mỗi IP**, với khoảng cách **10 giây** giữa các lượt. Bộ đếm bắt đầu từ lượt đầu tiên, tính cả lượt gọi gặp lỗi để hạn chế spam. Các thiết bị dùng chung IP sẽ dùng chung hạn mức.
+
+Khi hết lượt, API trả `429` kèm `Retry-After`. Giao diện VI/EN hiển thị thời gian chờ, khóa nút gửi và câu hỏi gợi ý; thời gian chờ được lưu qua tải lại trang và đồng bộ giữa các tab.
+
+Trên Vercel/production, cấu hình `UPSTASH_REDIS_REST_URL` và `UPSTASH_REDIS_REST_TOKEN` trong Environment Variables rồi redeploy. Redis kiểm tra và cập nhật hạn mức trong một thao tác nguyên tử để các instance dùng chung bộ đếm. Nếu thiếu cấu hình hoặc Redis lỗi, API tạm trả `503` và không gọi model AI. Khi chạy development không có Redis, bộ đếm RAM chỉ dùng cho tiến trình local. Nếu tự host phía sau reverse proxy, proxy phải ghi đè `X-Forwarded-For` bằng IP client đáng tin cậy.
+
 ## Mục Tiêu Của Website
 
 Tôi thiết kế website này để nó không chỉ là một landing page giới thiệu bản thân, mà là một portfolio có cấu trúc rõ ràng, tập trung vào bằng chứng sản phẩm thật. Nurfia là trọng tâm của website, giúp người xem thấy được cách tôi suy nghĩ về frontend, backend, admin workflow, AI integration và việc triển khai một hệ thống web hoàn chỉnh.

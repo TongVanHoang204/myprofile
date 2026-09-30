@@ -48,7 +48,10 @@ function getSmtpCandidate(): ConfigCandidate<SmtpConfig> {
   const host = process.env.SMTP_HOST?.trim() || "";
   const portRaw = process.env.SMTP_PORT?.trim() || "465";
   const user = process.env.SMTP_USER?.trim() || "";
-  const pass = process.env.SMTP_PASS?.trim() || "";
+  const rawPass = process.env.SMTP_PASS?.trim() || "";
+  const pass = host.toLowerCase() === "smtp.gmail.com"
+    ? rawPass.replace(/\s/g, "")
+    : rawPass;
   const to = process.env.CONTACT_TO_EMAIL?.trim() || "";
   const from =
     process.env.SMTP_FROM_EMAIL?.trim() ||
@@ -160,19 +163,15 @@ async function sendViaSmtp(config: SmtpConfig, input: ContactMailInput) {
   const oauthClientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
   const oauthRefreshToken = process.env.GOOGLE_REFRESH_TOKEN?.trim();
 
-  const auth: any = {
-    user: config.user,
-    pass: config.pass,
-  };
-
-  if (oauthClientId && oauthClientSecret && oauthRefreshToken) {
-    auth.type = "OAuth2";
-    auth.clientId = oauthClientId;
-    auth.clientSecret = oauthClientSecret;
-    auth.refreshToken = oauthRefreshToken;
-    // When using OAuth2, 'pass' is not needed, but we keep it in config for backward compatibility
-    delete auth.pass;
-  }
+  const auth = config.pass
+    ? { user: config.user, pass: config.pass }
+    : {
+        type: "OAuth2" as const,
+        user: config.user,
+        clientId: oauthClientId,
+        clientSecret: oauthClientSecret,
+        refreshToken: oauthRefreshToken,
+      };
 
   const transporter = nodemailer.createTransport({
     host: config.host,

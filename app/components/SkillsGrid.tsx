@@ -39,12 +39,12 @@ function SkillItem({ skill }: { skill: string }) {
   }
 
   return (
-    <motion.div
+    <motion.li
       variants={item}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileHover={{ y: -4 }}
-      className="group relative flex min-h-20 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white/70 px-4 py-4 text-center text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition-colors hover:border-sky-500/40 hover:text-sky-600 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-200 dark:hover:text-sky-400"
+      whileHover={{ y: -2 }}
+      className="group relative inline-flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white/70 px-3 py-2 text-center text-xs font-semibold text-slate-700 backdrop-blur-sm transition-colors hover:border-sky-500/40 hover:text-sky-600 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-200 dark:hover:text-sky-400 sm:text-sm"
     >
       <motion.div
         className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -59,7 +59,7 @@ function SkillItem({ skill }: { skill: string }) {
         }}
       />
       <span className="relative z-10">{skill}</span>
-    </motion.div>
+    </motion.li>
   );
 }
 
@@ -68,16 +68,17 @@ export default function SkillsGrid() {
   const skills = dict.about.skills;
 
   return (
-    <motion.div
+    <motion.ul
       variants={container}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true }}
-      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+      aria-label={dict.about.skills_title}
+      className="flex list-none flex-wrap gap-2"
     >
       {skills.map((skill: string) => (
         <SkillItem key={skill} skill={skill} />
       ))}
-    </motion.div>
+    </motion.ul>
   );
 }

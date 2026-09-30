@@ -60,7 +60,7 @@ export default function AboutSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h3 className="mb-6 flex items-center gap-3 text-lg font-bold text-slate-900 dark:text-slate-100 sm:mb-8 sm:text-xl">
+              <h3 className="mb-4 flex items-center gap-3 text-lg font-bold text-slate-900 dark:text-slate-100 sm:text-xl">
                 <span className="h-1 w-8 rounded-full bg-purple-500" />
                 {dict.about.skills_title}
               </h3>
