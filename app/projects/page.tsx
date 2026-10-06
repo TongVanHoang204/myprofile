@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ProjectGrid, { type ProjectFilter } from "@/app/components/ProjectGrid";
+import ProjectGrid, { type ProjectFilter } from "@/app/components/projects/ProjectGrid";
 import ProjectCaseStudyShowcase from "@/app/components/projects/ProjectCaseStudyShowcase";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { projectCopy } from "@/app/data/projects";

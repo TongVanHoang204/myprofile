@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { REQUEST_TOKEN_COOKIE } from "@/app/lib/request-security-config";
+import { REQUEST_TOKEN_COOKIE } from "@/app/lib/security/request-security-config";
 
 const REQUEST_TOKEN_PATTERN = /^[a-f0-9]{32}$/i;
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;

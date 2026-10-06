@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import Typewriter from "typewriter-effect";
-import ProfileAvatar from "@/app/components/ProfileAvatar";
+import ProfileAvatar from "@/app/components/bio/ProfileAvatar";
 import ProjectsSection from "@/app/components/sections/ProjectsSection";
 import BlogSection from "@/app/components/sections/BlogSection";
 import AboutSection from "@/app/components/sections/AboutSection";

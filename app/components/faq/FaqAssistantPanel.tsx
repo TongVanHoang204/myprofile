@@ -7,8 +7,8 @@ import type {
   AiAudienceMode,
   ChatHistoryItem,
   FaqAiMeta,
-} from "@/app/lib/faq-ai-types";
-import { buildProtectedHeaders } from "@/app/lib/client-request-security";
+} from "@/app/lib/faq/faq-ai-types";
+import { buildProtectedHeaders } from "@/app/lib/security/client-request-security";
 import FaqChatBubble from "@/app/components/faq/FaqChatBubble";
 import Skeleton from "@/app/components/ui/Skeleton";
 

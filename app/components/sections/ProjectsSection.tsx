@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import ProjectGrid, { type ProjectFilter } from "@/app/components/ProjectGrid";
+import ProjectGrid, { type ProjectFilter } from "@/app/components/projects/ProjectGrid";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { projectCopy } from "@/app/data/projects";
 

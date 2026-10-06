@@ -3,14 +3,14 @@ import {
   hasAllowedFetchMetadata,
   hasValidProtectionToken,
   isSameOriginRequest,
-} from "@/app/lib/request-security";
-import { hasOwnerSession } from "@/app/lib/owner-analytics";
-import { getUniqueVisitorCount } from "@/app/lib/visitor-analytics-store";
+} from "@/app/lib/security/request-security";
+import { hasOwnerSession } from "@/app/lib/analytics/owner-analytics";
+import { getUniqueVisitorCount } from "@/app/lib/analytics/visitor-analytics-store";
 import {
   getTopContentClicks,
   getTopFaqQuestionStats,
   getTopPageViews,
-} from "@/app/lib/private-analytics-store";
+} from "@/app/lib/analytics/private-analytics-store";
 
 export async function GET(request: NextRequest) {
   try {

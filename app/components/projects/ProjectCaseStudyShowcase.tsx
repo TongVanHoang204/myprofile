@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { projectCopy } from "@/app/data/projects";
-import { trackContentClick } from "@/app/lib/client-portfolio-analytics";
+import { trackContentClick } from "@/app/lib/analytics/client-portfolio-analytics";
 
 export default function ProjectCaseStudyShowcase() {
   const { language } = useLanguage();

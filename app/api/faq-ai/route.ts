@@ -1,25 +1,25 @@
 import { NextResponse } from "next/server";
-import { logFaqQuestion } from "@/app/lib/faq-ai-analytics";
-import { AiRateLimitConfigError, consumeAiRateLimit, FAQ_AI_LIMIT } from "@/app/lib/faq-ai-rate-limit";
+import { logFaqQuestion } from "@/app/lib/faq/faq-ai-analytics";
+import { AiRateLimitConfigError, consumeAiRateLimit, FAQ_AI_LIMIT } from "@/app/lib/faq/faq-ai-rate-limit";
 import type {
   AiAudienceMode,
   ChatHistoryItem,
   FaqAiMeta,
-} from "@/app/lib/faq-ai-types";
+} from "@/app/lib/faq/faq-ai-types";
 import {
   buildPortfolioPrompt,
   getActionCards,
   getPortfolioContext,
   getSuggestedQuestions,
   sanitizeHistoryItems,
-} from "@/app/lib/portfolio-ai";
+} from "@/app/lib/faq/portfolio-ai";
 import {
   getClientIp,
   hasAllowedFetchMetadata,
   hasValidProtectionToken,
   isJsonRequest,
   isSameOriginRequest,
-} from "@/app/lib/request-security";
+} from "@/app/lib/security/request-security";
 
 type RequestBody = {
   question?: string;

@@ -6,23 +6,23 @@ import {
   hasValidProtectionToken,
   isJsonRequest,
   isSameOriginRequest,
-} from "@/app/lib/request-security";
+} from "@/app/lib/security/request-security";
 import {
   createVisitorId,
   getVisitorId,
   hasOwnerSession,
   isBotRequest,
-} from "@/app/lib/owner-analytics";
+} from "@/app/lib/analytics/owner-analytics";
 import {
   OWNER_ANALYTICS_COOKIE,
   VISITOR_ANALYTICS_COOKIE,
   VISITOR_ANALYTICS_COOKIE_MAX_AGE,
-} from "@/app/lib/visitor-analytics-config";
+} from "@/app/lib/analytics/visitor-analytics-config";
 import {
   addUniqueVisitor,
   getUniqueVisitorCount,
-} from "@/app/lib/visitor-analytics-store";
-import { logPageView } from "@/app/lib/private-analytics-store";
+} from "@/app/lib/analytics/visitor-analytics-store";
+import { logPageView } from "@/app/lib/analytics/private-analytics-store";
 
 const MAX_REQUESTS_PER_WINDOW = 90;
 const WINDOW_MS = 10 * 60 * 1000;

@@ -6,7 +6,7 @@ import { ArrowRight, Clock3, Sparkles } from "lucide-react";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { blogCopy } from "@/app/data/blog";
 import { getProjectBySlug } from "@/app/data/projects";
-import { trackContentClick } from "@/app/lib/client-portfolio-analytics";
+import { trackContentClick } from "@/app/lib/analytics/client-portfolio-analytics";
 
 export default function BlogSection() {
   const { language } = useLanguage();

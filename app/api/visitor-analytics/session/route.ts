@@ -6,18 +6,18 @@ import {
   hasValidProtectionToken,
   isJsonRequest,
   isSameOriginRequest,
-} from "@/app/lib/request-security";
+} from "@/app/lib/security/request-security";
 import {
   createOwnerSessionValue,
   getVisitorId,
   isOwnerAnalyticsConfigured,
   matchesOwnerAccessKey,
-} from "@/app/lib/owner-analytics";
+} from "@/app/lib/analytics/owner-analytics";
 import {
   OWNER_ANALYTICS_COOKIE,
   OWNER_ANALYTICS_SESSION_MAX_AGE,
-} from "@/app/lib/visitor-analytics-config";
-import { removeUniqueVisitor } from "@/app/lib/visitor-analytics-store";
+} from "@/app/lib/analytics/visitor-analytics-config";
+import { removeUniqueVisitor } from "@/app/lib/analytics/visitor-analytics-store";
 
 const MAX_REQUESTS_PER_WINDOW = 8;
 const WINDOW_MS = 10 * 60 * 1000;

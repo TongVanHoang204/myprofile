@@ -19,7 +19,7 @@ import {
 import { useLanguage } from "@/app/context/LanguageContext";
 import { blogCopy } from "@/app/data/blog";
 import { getProjectBySlug, projectCopy } from "@/app/data/projects";
-import { trackContentClick } from "@/app/lib/client-portfolio-analytics";
+import { trackContentClick } from "@/app/lib/analytics/client-portfolio-analytics";
 
 type ProjectCaseStudyPageProps = {
   slug: string;

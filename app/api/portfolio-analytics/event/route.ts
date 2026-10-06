@@ -6,12 +6,12 @@ import {
   hasValidProtectionToken,
   isJsonRequest,
   isSameOriginRequest,
-} from "@/app/lib/request-security";
+} from "@/app/lib/security/request-security";
 import {
   hasOwnerSession,
   isBotRequest,
-} from "@/app/lib/owner-analytics";
-import { logContentClick } from "@/app/lib/private-analytics-store";
+} from "@/app/lib/analytics/owner-analytics";
+import { logContentClick } from "@/app/lib/analytics/private-analytics-store";
 
 const MAX_REQUESTS_PER_WINDOW = 120;
 const WINDOW_MS = 10 * 60 * 1000;

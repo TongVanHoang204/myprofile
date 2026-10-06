@@ -17,7 +17,7 @@ import {
 import { useLanguage } from "@/app/context/LanguageContext";
 import { contactInfo } from "@/app/data/contact";
 import { useMusicStore } from "@/app/store/musicStore";
-import BentoBioGrid from "@/app/components/BentoBioGrid";
+import BentoBioGrid from "@/app/components/bio/BentoBioGrid";
 import { useEffect, useRef, useState, useCallback } from "react";
 
 // ── Copy ─────────────────────────────────────────────────────────────────────

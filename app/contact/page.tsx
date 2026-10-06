@@ -4,9 +4,9 @@ import { FormEvent, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { contactInfo, socialLinks } from "@/app/data/contact";
 import { useLanguage } from "@/app/context/LanguageContext";
-import { getContactErrorMessage } from "@/app/lib/contact-form-feedback";
-import ContactSuccessPopup from "@/app/components/ContactSuccessPopup";
-import { buildProtectedHeaders } from "@/app/lib/client-request-security";
+import { getContactErrorMessage } from "@/app/lib/contact/contact-form-feedback";
+import ContactSuccessPopup from "@/app/components/contact/ContactSuccessPopup";
+import { buildProtectedHeaders } from "@/app/lib/security/client-request-security";
 import { useContactCooldown } from "@/app/hooks/useContactCooldown";
 
 type ContactForm = {

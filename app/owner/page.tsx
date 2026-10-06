@@ -3,15 +3,15 @@
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { ArrowRight, Loader2, ShieldCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { buildProtectedHeaders } from "@/app/lib/client-request-security";
-import { emitOwnerAnalyticsChanged } from "@/app/components/VisitorAnalyticsWidget";
+import { buildProtectedHeaders } from "@/app/lib/security/client-request-security";
+import { emitOwnerAnalyticsChanged } from "@/app/components/analytics/VisitorAnalyticsWidget";
 import { useLanguage } from "@/app/context/LanguageContext";
-import OwnerAnalyticsDashboard from "@/app/components/owner/OwnerAnalyticsDashboard";
+import OwnerAnalyticsDashboard from "@/app/components/analytics/OwnerAnalyticsDashboard";
 import type {
   ContentClickStat,
   FaqQuestionStat,
   PageViewStat,
-} from "@/app/lib/private-analytics-store";
+} from "@/app/lib/analytics/private-analytics-store";
 
 type OwnerAnalyticsSummary = {
   uniqueVisitors: number;

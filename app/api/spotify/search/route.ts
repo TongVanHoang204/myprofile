@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAccessToken } from "@/app/lib/spotify";
+import { getAccessToken } from "@/app/lib/spotify/spotify";
 
 export const dynamic = "force-dynamic";
 

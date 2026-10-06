@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
-import { AiRateLimitConfigError, createAiRateLimiter, FAQ_AI_LIMIT } from "../app/lib/faq-ai-rate-limit.ts";
+import { AiRateLimitConfigError, createAiRateLimiter, FAQ_AI_LIMIT } from "../app/lib/faq/faq-ai-rate-limit.ts";
 
 function localLimiter() {
   let time = 1_000_000;
@@ -68,11 +68,12 @@ test("Redis failures never fall back to instance memory", async () => {
 test("Redis receives a hashed IP and its server decision is preserved", async () => {
   const consume = createAiRateLimiter({
     production: true,
+    now: () => 1_000_000,
     store: { eval: async (script, keys, args) => {
-      assert.match(script, /redis.call\('TIME'\)/);
+      assert.match(script, /tonumber\(ARGV\[4\]\)/);
       assert.match(keys[0], /^portfolio:faq-ai:limit:v1:[a-f0-9]{64}$/);
       assert.ok(!keys[0].includes("192.0.2.1"));
-      assert.deepEqual(args, [12, 600_000, 10_000]);
+      assert.deepEqual(args, [12, 600_000, 10_000, 1_000_000]);
       return [0, 0, 42];
     } },
   });

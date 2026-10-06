@@ -1,8 +1,8 @@
 "use client";
 
-import TextReveal from "@/app/components/TextReveal";
-import Timeline from "@/app/components/Timeline";
-import SkillsGrid from "@/app/components/SkillsGrid";
+import TextReveal from "@/app/components/effects/TextReveal";
+import Timeline from "@/app/components/bio/Timeline";
+import SkillsGrid from "@/app/components/bio/SkillsGrid";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/app/context/LanguageContext";
 

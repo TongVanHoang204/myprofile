@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   ContactMailConfigError,
   sendContactMail,
-} from "@/app/lib/contact-mailer";
+} from "@/app/lib/contact/contact-mailer";
 import {
   consumeRateLimit,
   getClientIp,
@@ -10,11 +10,11 @@ import {
   hasValidProtectionToken,
   isJsonRequest,
   isSameOriginRequest,
-} from "@/app/lib/request-security";
+} from "@/app/lib/security/request-security";
 import {
   activateContactCooldown,
   getContactCooldownRemaining,
-} from "@/app/lib/contact-cooldown-store";
+} from "@/app/lib/contact/contact-cooldown-store";
 
 const MAX_REQUESTS_PER_WINDOW = 4;
 const WINDOW_MS = 10 * 60 * 1000;

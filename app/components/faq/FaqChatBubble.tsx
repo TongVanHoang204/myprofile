@@ -7,7 +7,7 @@ import type {
   AiIntent,
   FaqAiAction,
   FaqAiSource,
-} from "@/app/lib/faq-ai-types";
+} from "@/app/lib/faq/faq-ai-types";
 
 type ChatBubbleProps = {
   language: "vi" | "en";
@@ -45,7 +45,7 @@ function getIntentLabel(language: "vi" | "en", intent?: AiIntent) {
           general: "Overview",
         };
 
-  return labels[intent || "general"];
+  return labels[(intent || "general") as keyof typeof labels] || labels.general;
 }
 
 export default function FaqChatBubble({

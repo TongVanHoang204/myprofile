@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./components/ThemeProvider";
+import { ThemeProvider } from "@/app/components/providers/ThemeProvider";
 import { LanguageProvider } from "@/app/context/LanguageContext";
 import { contactInfo, socialLinks } from "@/app/data/contact";
-import AppChrome from "@/app/components/AppChrome";
+import AppChrome from "@/app/components/layout/AppChrome";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",

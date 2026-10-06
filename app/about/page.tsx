@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Timeline from "@/app/components/Timeline";
-import SkillsGrid from "@/app/components/SkillsGrid";
+import Timeline from "@/app/components/bio/Timeline";
+import SkillsGrid from "@/app/components/bio/SkillsGrid";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 export default function AboutPage() {
