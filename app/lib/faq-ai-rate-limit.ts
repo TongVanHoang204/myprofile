@@ -6,6 +6,13 @@ const WINDOW_MS = 10 * 60 * 1000;
 const COOLDOWN_MS = 10 * 1000;
 const MAX_MEMORY_BUCKETS = 10_000;
 
+export class AiRateLimitConfigError extends Error {
+  constructor() {
+    super("AI rate limit storage is not configured: set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.");
+    this.name = "AiRateLimitConfigError";
+  }
+}
+
 export type AiRateLimitResult = {
   allowed: boolean;
   remaining: number;
@@ -70,7 +77,7 @@ export function createAiRateLimiter({
       return { allowed: result[0] === 1, remaining: result[1], retryAfterSeconds: result[2] };
     }
 
-    if (production) throw new Error("AI rate limit storage is not configured");
+    if (production) throw new AiRateLimitConfigError();
 
     const time = now();
     for (const [entryKey, entry] of buckets) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { logFaqQuestion } from "@/app/lib/faq-ai-analytics";
-import { consumeAiRateLimit, FAQ_AI_LIMIT } from "@/app/lib/faq-ai-rate-limit";
+import { AiRateLimitConfigError, consumeAiRateLimit, FAQ_AI_LIMIT } from "@/app/lib/faq-ai-rate-limit";
 import type {
   AiAudienceMode,
   ChatHistoryItem,
@@ -417,7 +417,14 @@ export async function POST(request: Request) {
     let rateLimit;
     try {
       rateLimit = await consumeAiRateLimit(ip);
-    } catch {
+    } catch (error) {
+      if (error instanceof AiRateLimitConfigError) {
+        console.error("FAQ AI configuration error:", error.message);
+        return NextResponse.json(
+          { code: "AI_RATE_LIMIT_NOT_CONFIGURED", error: "AI service is not configured yet." },
+          { status: 503, headers: { "Cache-Control": "no-store" } }
+        );
+      }
       console.error("FAQ AI rate limit storage unavailable");
       return NextResponse.json(
         { code: "AI_RATE_LIMIT_UNAVAILABLE", error: "AI service is temporarily unavailable.", retryAfterSeconds: 60 },

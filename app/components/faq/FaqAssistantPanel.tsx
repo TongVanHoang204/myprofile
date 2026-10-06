@@ -207,6 +207,7 @@ export default function FaqAssistantPanel({
           waitButton: `Chờ ${cooldownLabel}`,
           limitHint: "Tối đa 12 lượt/10 phút, cách nhau ít nhất 10 giây.",
           unavailable: "AI tạm thời không khả dụng. Vui lòng thử lại sau.",
+          notConfigured: "Trợ lý AI chưa sẵn sàng. Bạn có thể xem các câu hỏi thường gặp hoặc gửi tin nhắn qua trang Liên hệ.",
         }
       : {
           title: "Ask the AI for detail",
@@ -231,6 +232,7 @@ export default function FaqAssistantPanel({
           waitButton: `Wait ${cooldownLabel}`,
           limitHint: "Up to 12 requests per 10 minutes, at least 10 seconds apart.",
           unavailable: "AI is temporarily unavailable. Please try again later.",
+          notConfigured: "The AI assistant is not ready yet. You can browse the FAQs or send a message through the Contact page.",
         };
 
   const modeOptions = [
@@ -374,6 +376,12 @@ export default function FaqAssistantPanel({
           code?: string;
           retryAfterSeconds?: number;
         };
+        if (payload.code === "AI_RATE_LIMIT_NOT_CONFIGURED") {
+          setAiError(content.notConfigured);
+          setAiQuestion(question);
+          setMessages((current) => current.filter((item) => item.id !== userId && item.id !== assistantId));
+          return;
+        }
         if (response.status === 429 || payload.code === "AI_RATE_LIMIT_UNAVAILABLE") {
           applyCooldown(Number(response.headers.get("Retry-After")) || payload.retryAfterSeconds || 60);
           setAiQuestion(question);

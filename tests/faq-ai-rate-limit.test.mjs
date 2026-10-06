@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { runInNewContext } from "node:vm";
 import ts from "typescript";
-import { createAiRateLimiter, FAQ_AI_LIMIT } from "../app/lib/faq-ai-rate-limit.ts";
+import { AiRateLimitConfigError, createAiRateLimiter, FAQ_AI_LIMIT } from "../app/lib/faq-ai-rate-limit.ts";
 
 function localLimiter() {
   let time = 1_000_000;
@@ -98,7 +98,7 @@ function loadRoute(consume, protectionAllowed = true) {
     console: { error: () => {} },
     require: (name) => {
       if (name === "next/server") return require(name);
-      if (name.endsWith("faq-ai-rate-limit")) return { consumeAiRateLimit: consume, FAQ_AI_LIMIT };
+      if (name.endsWith("faq-ai-rate-limit")) return { AiRateLimitConfigError, consumeAiRateLimit: consume, FAQ_AI_LIMIT };
       if (name.endsWith("request-security")) return {
         isSameOriginRequest: () => protectionAllowed,
         hasAllowedFetchMetadata: () => true,
@@ -133,6 +133,18 @@ test("API storage failure returns a retryable 503 without invoking AI", async ()
   assert.equal(response.status, 503);
   assert.equal(response.headers.get("Retry-After"), "60");
   assert.equal((await response.json()).code, "AI_RATE_LIMIT_UNAVAILABLE");
+});
+
+test("missing production Redis returns a configuration error without a misleading retry countdown", async () => {
+  const post = loadRoute(createAiRateLimiter({ store: null, production: true }));
+  const response = await post(new Request("http://localhost/api/faq-ai", { method: "POST" }));
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.get("Retry-After"), null);
+  assert.equal(response.headers.get("Cache-Control"), "no-store");
+  const payload = await response.json();
+  assert.equal(payload.code, "AI_RATE_LIMIT_NOT_CONFIGURED");
+  assert.equal(payload.retryAfterSeconds, undefined);
+  assert.ok(!JSON.stringify(payload).includes("UPSTASH"));
 });
 
 test("API origin protection runs before consuming quota", async () => {
