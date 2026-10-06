@@ -20,9 +20,10 @@ export type AiRateLimitResult = {
 };
 
 // Check and consume in one Redis operation so parallel instances cannot bypass it.
+// NOTE: Timestamp is passed via ARGV[4] instead of redis.call('TIME') because
+// Upstash Redis blocks non-deterministic commands inside Lua scripts.
 export const AI_RATE_LIMIT_SCRIPT = `
-local time = redis.call('TIME')
-local now = tonumber(time[1]) * 1000 + math.floor(tonumber(time[2]) / 1000)
+local now = tonumber(ARGV[4])
 local limit = tonumber(ARGV[1])
 local window = tonumber(ARGV[2])
 local cooldown = tonumber(ARGV[3])
@@ -68,10 +69,10 @@ export function createAiRateLimiter({
 
     if (store) {
       // Propagate storage failures: never silently switch to per-instance limits.
-      const result = await store.eval(AI_RATE_LIMIT_SCRIPT, [key], [FAQ_AI_LIMIT, WINDOW_MS, COOLDOWN_MS]);
+      const result = await store.eval(AI_RATE_LIMIT_SCRIPT, [key], [FAQ_AI_LIMIT, WINDOW_MS, COOLDOWN_MS, Date.now()]);
       if (!Array.isArray(result) || result.length !== 3 ||
-          !result.every((value) => typeof value === "number" && Number.isFinite(value)) ||
-          ![0, 1].includes(result[0]) || result[1] < 0 || result[2] <= 0) {
+        !result.every((value) => typeof value === "number" && Number.isFinite(value)) ||
+        ![0, 1].includes(result[0]) || result[1] < 0 || result[2] <= 0) {
         throw new Error("Invalid AI rate limit result");
       }
       return { allowed: result[0] === 1, remaining: result[1], retryAfterSeconds: result[2] };

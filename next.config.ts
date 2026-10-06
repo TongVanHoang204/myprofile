@@ -33,7 +33,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  // Fix for "Next.js inferred your workspace root... but it may not be correct"
+
   poweredByHeader: false,
   turbopack: {
     root: process.cwd(),
