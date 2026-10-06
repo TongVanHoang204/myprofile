@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 
 const itemVisuals: Record<
   string,

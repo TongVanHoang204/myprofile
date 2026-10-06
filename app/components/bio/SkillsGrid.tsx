@@ -6,7 +6,7 @@ import {
   useMotionTemplate,
   useMotionValue,
 } from "framer-motion";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 
 const container = {
   hidden: { opacity: 0 },

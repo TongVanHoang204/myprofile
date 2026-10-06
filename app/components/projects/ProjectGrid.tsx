@@ -1,7 +1,7 @@
 "use client";
 
 import ProjectCard from "@/app/components/projects/ProjectCard";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import {
   projectCopy,
   type ProjectCaseStudy,

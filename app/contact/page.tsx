@@ -3,7 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { contactInfo, socialLinks } from "@/app/data/contact";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { getContactErrorMessage } from "@/app/lib/contact/contact-form-feedback";
 import ContactSuccessPopup from "@/app/components/contact/ContactSuccessPopup";
 import { buildProtectedHeaders } from "@/app/lib/security/client-request-security";

@@ -16,7 +16,7 @@ import {
   Target,
   Wrench,
 } from "lucide-react";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { blogCopy } from "@/app/data/blog";
 import { getProjectBySlug, projectCopy } from "@/app/data/projects";
 import { trackContentClick } from "@/app/lib/analytics/client-portfolio-analytics";

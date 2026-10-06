@@ -7,7 +7,7 @@ import {
   MessageSquareMore,
   Sparkles,
 } from "lucide-react";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { blogCopy } from "@/app/data/blog";
 import { projectCopy } from "@/app/data/projects";
 import type {

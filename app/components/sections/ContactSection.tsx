@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { contactInfo, socialLinks } from "@/app/data/contact";
 import { getContactErrorMessage } from "@/app/lib/contact/contact-form-feedback";
 import ContactSuccessPopup from "@/app/components/contact/ContactSuccessPopup";

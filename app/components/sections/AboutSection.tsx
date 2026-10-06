@@ -4,7 +4,7 @@ import TextReveal from "@/app/components/effects/TextReveal";
 import Timeline from "@/app/components/bio/Timeline";
 import SkillsGrid from "@/app/components/bio/SkillsGrid";
 import { motion } from "framer-motion";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 
 export default function AboutSection() {
   const { dict } = useLanguage();

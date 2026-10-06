@@ -7,7 +7,7 @@ import ProjectsSection from "@/app/components/sections/ProjectsSection";
 import BlogSection from "@/app/components/sections/BlogSection";
 import AboutSection from "@/app/components/sections/AboutSection";
 import ContactSection from "@/app/components/sections/ContactSection";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 
 export default function HomePage() {
   const { dict } = useLanguage();

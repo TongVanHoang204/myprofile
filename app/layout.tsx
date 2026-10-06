@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/app/components/providers/ThemeProvider";
-import { LanguageProvider } from "@/app/context/LanguageContext";
+import { LanguageProvider } from "@/app/components/providers/LanguageProvider";
 import { contactInfo, socialLinks } from "@/app/data/contact";
 import AppChrome from "@/app/components/layout/AppChrome";
 

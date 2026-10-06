@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 import { MouseEvent } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import type { ProjectCaseStudy } from "@/app/data/projects";
 import { trackContentClick } from "@/app/lib/analytics/client-portfolio-analytics";
 

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Eye, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { buildProtectedHeaders } from "@/app/lib/security/client-request-security";
 
 type VisitorAnalyticsResponse = {

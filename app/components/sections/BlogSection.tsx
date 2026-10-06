@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock3, Sparkles } from "lucide-react";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { blogCopy } from "@/app/data/blog";
 import { getProjectBySlug } from "@/app/data/projects";
 import { trackContentClick } from "@/app/lib/analytics/client-portfolio-analytics";

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ProjectGrid, { type ProjectFilter } from "@/app/components/projects/ProjectGrid";
 import ProjectCaseStudyShowcase from "@/app/components/projects/ProjectCaseStudyShowcase";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { projectCopy } from "@/app/data/projects";
 
 export default function ProjectsPage() {

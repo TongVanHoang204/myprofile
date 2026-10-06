@@ -213,7 +213,7 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
           "Tách nhóm route AI riêng cho chat, generate nội dung và visual search.",
           "Thiết lập guard, rate limit, quyền truy cập và fallback để AI không phá vỡ backend chính.",
         ],
-        stack: ["Node.js", "Express", "TypeScript", "MySQL", "Ollama", "Gemini"],
+        stack: ["Node.js", "Express", "TypeScript", "MySQL"],
         aiUse:
           "AI được đặt trong một service layer riêng cho shopping assistant, generate nội dung quản trị và visual search, có đường lui bằng thuật toán khi AI vision không sẵn sàng.",
         result:
@@ -572,7 +572,7 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
           "Separated AI routes for chat, content generation, and visual search.",
           "Added guards, rate limiting, and fallback paths so AI features do not weaken the backend design.",
         ],
-        stack: ["Node.js", "Express", "TypeScript", "MySQL", "Ollama", "Gemini"],
+        stack: ["Node.js", "Express", "TypeScript", "MySQL"],
         aiUse:
           "AI lives inside a dedicated service layer for the shopping assistant, admin-side generation, and visual search, with an algorithmic fallback when vision AI is unavailable.",
         result:

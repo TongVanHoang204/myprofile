@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import ScrollReveal from "@/app/components/effects/ScrollReveal";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 
 export default function Timeline() {
   const { dict } = useLanguage();

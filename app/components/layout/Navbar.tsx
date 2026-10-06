@@ -7,7 +7,7 @@ import clsx from "clsx";
 import ThemeToggle from "@/app/components/providers/ThemeToggle";
 import LanguageToggle from "@/app/components/providers/LanguageToggle";
 import { usePathname, useRouter } from "next/navigation";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 
 const HOME_SECTIONS = ["home", "projects", "blog", "about", "contact"] as const;
 type HomeSectionId = (typeof HOME_SECTIONS)[number];

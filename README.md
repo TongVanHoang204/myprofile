@@ -2,6 +2,23 @@
 
 Đây là website portfolio cá nhân của tôi, được xây dựng để giới thiệu hồ sơ, kỹ năng, CV, blog kỹ thuật và các case study dự án trong hệ sinh thái Nurfia.
 
+## Phát triển và chỉnh sửa
+
+Xem [hướng dẫn cấu trúc dự án và tìm file cần sửa](docs/project-structure.md).
+
+- `app/data/`: nội dung, bản dịch, dự án và blog.
+- `app/components/`: giao diện được chia theo chức năng.
+- `app/lib/`: logic xử lý được chia theo chức năng.
+- `app/api/`: các endpoint; `public/`: ảnh, video và CV.
+- `scripts/`, `tests/`, `docs/`: công cụ hỗ trợ, kiểm thử và tài liệu.
+
+```sh
+npm ci
+npm run dev
+```
+
+Kiểm tra thay đổi bằng `npm run lint` (TypeScript), `npm test` và `npm run build`.
+
 ## Giới Thiệu
 
 Website này đóng vai trò như một hồ sơ trực tuyến, giúp người xem nắm nhanh:

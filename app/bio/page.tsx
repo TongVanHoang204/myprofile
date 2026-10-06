@@ -14,7 +14,7 @@ import {
   Pause,
   Play,
 } from "lucide-react";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { contactInfo } from "@/app/data/contact";
 import { useMusicStore } from "@/app/store/musicStore";
 import BentoBioGrid from "@/app/components/bio/BentoBioGrid";

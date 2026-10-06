@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Timeline from "@/app/components/bio/Timeline";
 import SkillsGrid from "@/app/components/bio/SkillsGrid";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 
 export default function AboutPage() {
   const { dict } = useLanguage();

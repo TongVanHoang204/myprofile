@@ -5,7 +5,7 @@ import { ArrowRight, Loader2, ShieldCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { buildProtectedHeaders } from "@/app/lib/security/client-request-security";
 import { emitOwnerAnalyticsChanged } from "@/app/components/analytics/VisitorAnalyticsWidget";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import OwnerAnalyticsDashboard from "@/app/components/analytics/OwnerAnalyticsDashboard";
 import type {
   ContentClickStat,

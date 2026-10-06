@@ -1,7 +1,7 @@
 "use client";
 
 import VisitorAnalyticsWidget from "@/app/components/analytics/VisitorAnalyticsWidget";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { socialLinks } from "@/app/data/contact";
 
 export default function Footer() {

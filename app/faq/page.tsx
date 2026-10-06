@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import FaqAssistantPanel from "@/app/components/faq/FaqAssistantPanel";
-import { useLanguage } from "@/app/context/LanguageContext";
+import { useLanguage } from "@/app/components/providers/LanguageProvider";
 
 type FAQItem = {
   id: string;
