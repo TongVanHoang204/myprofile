@@ -20,6 +20,7 @@ export type ProjectCaseStudy = {
   outcomes: string[];
   relatedBlogSlugs: string[];
   liveLink?: string;
+  liveLinkLabel?: string;
   quickScan?: {
     label: string;
     text: string;
@@ -199,6 +200,8 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
         title: "Nurfia RESTful API",
         shortTitle: "RESTful API",
         eyebrow: "Backend / Service Layer",
+        liveLink: "https://web-nurfia.onrender.com/api-docs/",
+        liveLinkLabel: "Xem tài liệu API",
         description:
           "Backend Node.js, Express và TypeScript cho Nurfia với CRUD, route cấu trúc rõ ràng, nhóm route AI riêng, phân quyền, rate limit và fallback cho visual search.",
         summary:
@@ -557,6 +560,8 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
         title: "Nurfia RESTful API",
         shortTitle: "RESTful API",
         eyebrow: "Backend / Service Layer",
+        liveLink: "https://web-nurfia.onrender.com/api-docs/",
+        liveLinkLabel: "View API Docs",
         description:
           "A Node.js, Express, and TypeScript backend with CRUD, clear routing, a dedicated AI route group, access control, rate limiting, and fallback logic for visual search.",
         summary:

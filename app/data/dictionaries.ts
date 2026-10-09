@@ -21,18 +21,16 @@ export const dictionaries = {
       available: "Hiện đang thực tập",
       roles: [
         "UI/UX",
-        "Frontend",
         "Backend",
         "AI Integration",
-        "Full-Stack",
         "Minecraft Plugin Dev"
       ],
-      highlights: ["UI/UX", "Frontend", "Backend", "AI", "Plugin Dev"],
+      highlights: ["UI/UX", "Backend", "AI", "Plugin Dev"],
     },
     projects: {
-      title: "Dự án từ CV",
+      title: "Dự án của tôi",
       subtitle:
-        "Những phần việc tôi đã trực tiếp xây dựng trong hệ thống Nurfia, bám sát nội dung CV.",
+        "Những phần việc tôi đã trực tiếp xây dựng trong hệ thống Nurfia.",
       all: "Tất cả",
       filters: {
         all: "Tất cả",
@@ -63,7 +61,7 @@ export const dictionaries = {
     },
     about: {
       title: "Về bản thân",
-      subtitle: "Tóm tắt học vấn, định hướng và kỹ năng thực hành từ CV.",
+      subtitle: "Tóm tắt học vấn, định hướng và kỹ năng thực hành.",
       summary:
         "Tôi là sinh viên yêu thích phát triển web và chủ động học qua dự án thực tế. Trong quá trình học và đi thực tập, tôi đã thực hành frontend, backend, UI/UX, tích hợp AI và sử dụng Git/GitHub để quản lý mã nguồn theo quy trình rõ ràng hơn.",
       timeline_title: "Hành trình",

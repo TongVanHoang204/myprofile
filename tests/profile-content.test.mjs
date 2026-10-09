@@ -41,3 +41,12 @@ test("blog and AI suggestions no longer promote mobile apps", () => {
     assert.doesNotMatch(readFileSync(new URL(file, import.meta.url), "utf8"), /mobile (?:app|client)|flutter|SKILL-MOBILE/i);
   }
 });
+
+test("the REST API case study links to API documentation in both languages", () => {
+  const { projectCopy } = loadData("../app/data/projects.ts");
+  for (const language of ["vi", "en"]) {
+    const project = projectCopy[language].items.find(item => item.slug === "nurfia-rest-api");
+    assert.equal(project.liveLink, "https://web-nurfia.onrender.com/api-docs/");
+    assert.equal(project.liveLinkLabel, language === "vi" ? "Xem tài liệu API" : "View API Docs");
+  }
+});

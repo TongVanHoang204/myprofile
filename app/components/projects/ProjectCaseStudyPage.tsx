@@ -114,7 +114,7 @@ export default function ProjectCaseStudyPage({
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-6 py-2.5 text-sm font-bold text-slate-950 transition-all hover:bg-sky-400 hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
                     >
-                      <span>{language === "vi" ? "Xem thực tế" : "View Live Site"}</span>
+                      <span>{project.liveLinkLabel ?? (language === "vi" ? "Xem thực tế" : "View Live Site")}</span>
                       <ArrowRight className="h-4 w-4" />
                     </a>
                   </div>
