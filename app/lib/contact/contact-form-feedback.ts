@@ -8,6 +8,38 @@ type ContactFeedbackDictionary = {
 const GENERIC_CONFIG_ERROR = "Email service is not configured yet.";
 const TEMPORARY_UNAVAILABLE = "Email service is temporarily unavailable.";
 
+type ContactResponse =
+  | { ok: true; cooldownSeconds: number }
+  | { ok: false; error?: string; retryAfterSeconds?: number };
+
+function positiveSeconds(value: unknown): number | undefined {
+  return typeof value === "number" && Number.isFinite(value) && value > 0
+    ? Math.ceil(value)
+    : undefined;
+}
+
+export async function parseContactResponse(response: Response): Promise<ContactResponse> {
+  const payload: unknown = await response.json().catch(() => null);
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return { ok: false };
+  }
+
+  const data = payload as Record<string, unknown>;
+  const cooldownSeconds = positiveSeconds(data.cooldownSeconds);
+  // The anti-spam decoy returns success without a cooldown, but does not send mail.
+  if (response.ok && data.success === true && cooldownSeconds !== undefined) {
+    return { ok: true, cooldownSeconds };
+  }
+
+  return {
+    ok: false,
+    error: typeof data.error === "string" ? data.error : undefined,
+    retryAfterSeconds: response.status === 429
+      ? positiveSeconds(data.retryAfterSeconds)
+      : undefined,
+  };
+}
+
 function getCooldownMessage(language: Language, retryAfterSeconds: number) {
   const hours = Math.floor(retryAfterSeconds / 3600);
   const minutes = Math.ceil((retryAfterSeconds % 3600) / 60);

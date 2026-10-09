@@ -3,50 +3,11 @@
 import { useEffect, useState } from "react";
 import type { Language } from "@/app/data/dictionaries";
 
-const CONTACT_COOLDOWN_STORAGE_KEY = "portfolio-contact-cooldown-data";
-
-type CooldownData = {
-  cooldownUntil: number;
-  email: string;
-};
-
-function readStoredCooldownData(): CooldownData | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  // Cleanup legacy storage key if it exists
-  if (window.localStorage.getItem("portfolio-contact-cooldown-until")) {
-    window.localStorage.removeItem("portfolio-contact-cooldown-until");
-  }
-
-  try {
-    const rawValue = window.localStorage.getItem(CONTACT_COOLDOWN_STORAGE_KEY);
-    if (!rawValue) return null;
-    const data = JSON.parse(rawValue) as CooldownData;
-    if (!Number.isFinite(data.cooldownUntil) || data.cooldownUntil <= Date.now()) {
-      window.localStorage.removeItem(CONTACT_COOLDOWN_STORAGE_KEY);
-      return null;
-    }
-    return data;
-  } catch {
-    window.localStorage.removeItem(CONTACT_COOLDOWN_STORAGE_KEY);
-    return null;
-  }
-}
-
-function persistCooldownData(data: CooldownData | null) {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  if (!data || data.cooldownUntil <= Date.now()) {
-    window.localStorage.removeItem(CONTACT_COOLDOWN_STORAGE_KEY);
-    return;
-  }
-
-  window.localStorage.setItem(CONTACT_COOLDOWN_STORAGE_KEY, JSON.stringify(data));
-}
+import {
+  type CooldownData,
+  persistCooldownData,
+  readStoredCooldownData,
+} from "@/app/lib/contact/contact-cooldown-storage";
 
 export function formatContactCooldown(seconds: number, language: Language) {
   const roundedSeconds = Math.max(0, Math.ceil(seconds));

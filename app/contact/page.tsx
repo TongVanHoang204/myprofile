@@ -4,7 +4,10 @@ import { FormEvent, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { contactInfo, socialLinks } from "@/app/data/contact";
 import { useLanguage } from "@/app/components/providers/LanguageProvider";
-import { getContactErrorMessage } from "@/app/lib/contact/contact-form-feedback";
+import {
+  getContactErrorMessage,
+  parseContactResponse,
+} from "@/app/lib/contact/contact-form-feedback";
 import ContactSuccessPopup from "@/app/components/contact/ContactSuccessPopup";
 import { buildProtectedHeaders } from "@/app/lib/security/client-request-security";
 import { useContactCooldown } from "@/app/hooks/useContactCooldown";
@@ -48,6 +51,7 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
     const trimmedName = formData.name.trim();
     const trimmedEmail = formData.email.trim();
@@ -84,13 +88,9 @@ export default function ContactPage() {
         }),
       });
 
-      const payload = (await response.json().catch(() => ({}))) as {
-        error?: string;
-        retryAfterSeconds?: number;
-        cooldownSeconds?: number;
-      };
+      const payload = await parseContactResponse(response);
 
-      if (!response.ok) {
+      if (!payload.ok) {
         showErrorToast(getContactErrorMessage(payload, dict.contact, language));
         if (payload.retryAfterSeconds) {
           applyCooldown(payload.retryAfterSeconds, trimmedEmail);
@@ -253,18 +253,20 @@ export default function ContactPage() {
             {dict.contact.send_btn}
           </h2>
 
-          <label htmlFor="company" className="sr-only">
+          <label htmlFor="company" hidden>
             Company
           </label>
           <input
             id="company"
             type="text"
             name="company"
+            hidden
+            aria-hidden="true"
             value={formData.company}
             onChange={(e) =>
               setFormData({ ...formData, company: e.target.value })
             }
-            className="sr-only"
+            className="hidden"
             tabIndex={-1}
             autoComplete="off"
           />

@@ -5,7 +5,10 @@ import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { contactInfo, socialLinks } from "@/app/data/contact";
-import { getContactErrorMessage } from "@/app/lib/contact/contact-form-feedback";
+import {
+  getContactErrorMessage,
+  parseContactResponse,
+} from "@/app/lib/contact/contact-form-feedback";
 import ContactSuccessPopup from "@/app/components/contact/ContactSuccessPopup";
 import { buildProtectedHeaders } from "@/app/lib/security/client-request-security";
 import { useContactCooldown } from "@/app/hooks/useContactCooldown";
@@ -63,6 +66,7 @@ export default function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
     const trimmedName = formState.name.trim();
     const trimmedEmail = formState.email.trim();
@@ -96,13 +100,9 @@ export default function ContactSection() {
         }),
       });
 
-      const payload = (await response.json().catch(() => ({}))) as {
-        error?: string;
-        retryAfterSeconds?: number;
-        cooldownSeconds?: number;
-      };
+      const payload = await parseContactResponse(response);
 
-      if (!response.ok) {
+      if (!payload.ok) {
         setSubmitError(getContactErrorMessage(payload, dict.contact, language));
         if (payload.retryAfterSeconds) {
           applyCooldown(payload.retryAfterSeconds, trimmedEmail);
@@ -116,12 +116,16 @@ export default function ContactSection() {
       setIsSuccess(true);
       setFormState({ name: "", email: "", message: "", company: "" });
 
-      confetti({
-        particleCount: 120,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ["#0ea5e9", "#a855f7", "#ec4899"],
-      });
+      try {
+        confetti({
+          particleCount: 120,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ["#0ea5e9", "#a855f7", "#ec4899"],
+        })?.catch(() => {});
+      } catch {
+        // An optional animation must not turn a successful send into an error.
+      }
 
     } catch {
       setSubmitError(dict.contact.network_error);
@@ -253,9 +257,11 @@ export default function ContactSection() {
               <input
                 type="text"
                 name="company"
+                hidden
+                aria-hidden="true"
                 value={formState.company}
                 onChange={handleChange}
-                className="sr-only"
+                className="hidden"
                 tabIndex={-1}
                 autoComplete="off"
               />

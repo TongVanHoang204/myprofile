@@ -228,7 +228,17 @@ async function sendViaResend(config: ResendConfig, input: ContactMailInput) {
 export async function sendContactMail(input: ContactMailInput) {
   const smtpCandidate = getSmtpCandidate();
   if (smtpCandidate.config) {
-    await sendViaSmtp(smtpCandidate.config, input);
+    try {
+      await sendViaSmtp(smtpCandidate.config, input);
+    } catch (error) {
+      if (typeof error === "object" && error !== null && "code" in error && error.code === "EAUTH") {
+        // Keep provider responses and credentials out of logs and public errors.
+        throw new ContactMailConfigError(
+          "SMTP authentication failed. Check SMTP_USER and SMTP_PASS (Gmail App Password), or the configured OAuth credentials."
+        );
+      }
+      throw error;
+    }
     return;
   }
 

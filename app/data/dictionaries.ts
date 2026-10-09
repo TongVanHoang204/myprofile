@@ -120,7 +120,7 @@ export const dictionaries = {
       send_error: "Gửi tin nhắn thất bại.",
       network_error: "Không thể gửi tin nhắn. Vui lòng thử lại.",
       config_error:
-        "Biểu mẫu liên hệ chưa hoàn tất cấu hình email. Hãy thêm biến môi trường còn thiếu.",
+        "Dịch vụ gửi thư hiện chưa khả dụng. Bạn có thể liên hệ trực tiếp qua địa chỉ email bên cạnh.",
       success_title: "Gửi thành công",
       success_msg: "Cảm ơn bạn. Tôi sẽ phản hồi sớm nhất có thể.",
       info_title: "Thông tin liên hệ",
@@ -559,7 +559,7 @@ export const dictionaries = {
       send_error: "Could not send your message.",
       network_error: "Unable to send your message. Please try again.",
       config_error:
-        "The contact form email setup is incomplete. Add the missing environment variables.",
+        "The email service is currently unavailable. Please contact me directly using the email address shown here.",
       success_title: "Sent successfully",
       success_msg: "Thank you. I will get back to you as soon as possible.",
       info_title: "Contact info",
