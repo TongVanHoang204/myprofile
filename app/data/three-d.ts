@@ -76,7 +76,7 @@ export const threeDCopy: Record<
     featured: {
       label: "Cách tôi làm",
       description:
-        "Nurfia là nơi tôi nối storefront, REST API, dashboard, mobile app và AI features thành một câu chuyện sản phẩm thống nhất thay vì nhiều demo rời rạc.",
+        "Nurfia là nơi tôi nối storefront, REST API, dashboard và AI features thành một câu chuyện sản phẩm thống nhất thay vì nhiều demo rời rạc.",
       cta: "Xem dự án",
     },
     philosophy: {
@@ -137,7 +137,7 @@ export const threeDCopy: Record<
     featured: {
       label: "How I Build",
       description:
-        "Nurfia is where I connected storefront, REST API, dashboard, mobile app, and AI features into one product story instead of treating each stack layer as a separate demo.",
+        "Nurfia is where I connected storefront, REST API, dashboard, and AI features into one product story instead of treating each stack layer as a separate demo.",
       cta: "View projects",
     },
     philosophy: {

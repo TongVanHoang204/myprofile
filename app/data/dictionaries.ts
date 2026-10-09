@@ -6,7 +6,6 @@ export const dictionaries = {
       home: "Trang chủ",
       projects: "Dự án",
       about: "Giới thiệu",
-      threeD: "BIO",
       certificates: "Năng lực",
       faq: "FAQ",
       cv: "CV",
@@ -16,7 +15,7 @@ export const dictionaries = {
       greeting: "XIN CHÀO, TÔI LÀ",
       role_prefix: "Kỹ năng",
       description:
-        "Sinh viên ngành Công nghệ thông tin / Kỹ thuật phần mềm tại HUTECH, tập trung vào phát triển web. Tôi đã chủ động xây dựng dự án cá nhân full-stack để rèn kỹ năng frontend, backend, mobile, UI/UX, AI integration và quy trình làm việc với Git, đồng thời hiện đang thực tập và tiếp tục phát triển sản phẩm thực tế.",
+        "Sinh viên ngành Công nghệ thông tin / Kỹ thuật phần mềm tại HUTECH, tập trung vào phát triển web. Tôi đã chủ động xây dựng dự án cá nhân full-stack để rèn kỹ năng frontend, backend, UI/UX, AI integration và quy trình làm việc với Git, đồng thời hiện đang thực tập và tiếp tục phát triển sản phẩm thực tế.",
       view_projects: "Xem dự án",
       contact: "Liên hệ",
       available: "Hiện đang thực tập",
@@ -24,12 +23,11 @@ export const dictionaries = {
         "UI/UX",
         "Frontend",
         "Backend",
-        "Mobile App",
         "AI Integration",
         "Full-Stack",
         "Minecraft Plugin Dev"
       ],
-      highlights: ["UI/UX", "Frontend", "Backend", "Mobile", "AI", "Plugin Dev"],
+      highlights: ["UI/UX", "Frontend", "Backend", "AI", "Plugin Dev"],
     },
     projects: {
       title: "Dự án từ CV",
@@ -67,7 +65,7 @@ export const dictionaries = {
       title: "Về bản thân",
       subtitle: "Tóm tắt học vấn, định hướng và kỹ năng thực hành từ CV.",
       summary:
-        "Tôi là sinh viên yêu thích phát triển web và chủ động học qua dự án thực tế. Trong quá trình học và đi thực tập, tôi đã thực hành frontend, backend, mobile, UI/UX, tích hợp AI và sử dụng Git/GitHub để quản lý mã nguồn theo quy trình rõ ràng hơn.",
+        "Tôi là sinh viên yêu thích phát triển web và chủ động học qua dự án thực tế. Trong quá trình học và đi thực tập, tôi đã thực hành frontend, backend, UI/UX, tích hợp AI và sử dụng Git/GitHub để quản lý mã nguồn theo quy trình rõ ràng hơn.",
       timeline_title: "Hành trình",
       skills_title: "Kỹ năng thực hành",
       skills: [
@@ -94,7 +92,7 @@ export const dictionaries = {
           title: "Xây dựng hệ thống Nurfia",
           place: "Dự án tự thực hiện",
           description:
-            "Tự triển khai web app, backend API và mobile app cho hệ thống thương mại điện tử thời trang Nurfia để rèn tư duy full-stack.",
+            "Tự triển khai web app và backend API cho hệ thống thương mại điện tử thời trang Nurfia để rèn tư duy full-stack.",
         },
         {
           year: "Năng lực cốt lõi",
@@ -143,14 +141,14 @@ export const dictionaries = {
           category: "tech",
           question: "Stack chính của bạn là gì?",
           answer:
-            "Tôi đang thực hành với **JavaScript**, **TypeScript**, **React**, **Node.js**, **Express**, **Flutter**, **MySQL** và **Prompt AI**. Ngoài ra tôi cũng quen với **Git/GitHub**, **REST API** và **MVC Architecture**.",
+            "Tôi đang thực hành với **JavaScript**, **TypeScript**, **React**, **Node.js**, **Express**, **MySQL** và **Prompt AI**. Ngoài ra tôi cũng quen với **Git/GitHub**, **REST API** và **MVC Architecture**.",
         },
         {
           id: "q2",
           category: "experience",
           question: "Bạn đã làm dự án nào trong CV?",
           answer:
-            "Dự án chính trong CV là **Nurfia**, một hệ thống thương mại điện tử thời trang gồm **web app**, **backend API** và **mobile app**.",
+            "Dự án chính trong CV là **Nurfia**, một hệ thống thương mại điện tử thời trang gồm **web app** và **backend API**.",
         },
         {
           id: "q3",
@@ -264,7 +262,7 @@ export const dictionaries = {
       },
     },
     footer: {
-      text: "Portfolio được xây dựng từ nội dung CV và dự án thực tế của Tống Văn Hoàng.",
+      text: "© 2023 Tống Văn Hoàng. Tất cả quyền được bảo lưu.",
     },
     certificates: {
       tag: "Hồ sơ năng lực",
@@ -296,7 +294,7 @@ export const dictionaries = {
           id: "PRJ-NURFIA",
           title: "Nurfia - Hệ thống thương mại điện tử thời trang",
           issuer: "Dự án cá nhân",
-          desc: "Hệ thống full-stack gồm web application và mobile application cho cửa hàng thời trang.",
+          desc: "Hệ thống full-stack gồm web application và backend API cho cửa hàng thời trang.",
           meta: "Dự án",
           category: "project",
         },
@@ -313,14 +311,6 @@ export const dictionaries = {
           title: "Giao diện web responsive với React",
           issuer: "React + TypeScript",
           desc: "Phát triển giao diện website responsive cho trải nghiệm mua sắm trên nhiều kích thước màn hình.",
-          meta: "Kỹ năng",
-          category: "skill",
-        },
-        {
-          id: "SKILL-MOBILE",
-          title: "Ứng dụng mua sắm di động cơ bản",
-          issuer: "Flutter",
-          desc: "Thực hành mở rộng hệ thống thương mại điện tử sang mobile bằng ứng dụng mua sắm cơ bản.",
           meta: "Kỹ năng",
           category: "skill",
         },
@@ -361,7 +351,6 @@ export const dictionaries = {
         "React",
         "Node.js",
         "Express",
-        "Flutter",
         "MySQL",
         "Prompt AI",
         "Git",
@@ -371,7 +360,6 @@ export const dictionaries = {
       strengths: [
         "Xây dựng RESTful API cơ bản cho người dùng và sản phẩm",
         "Thiết kế giao diện web responsive bằng React",
-        "Phát triển ứng dụng di động cơ bản bằng Flutter",
         "Quản lý mã nguồn bằng Git và GitHub",
       ],
       quick_info_title: "Thông tin nhanh",
@@ -391,7 +379,7 @@ export const dictionaries = {
       main_content: {
         about_title: "Giới thiệu",
         about_content:
-          "Tôi là sinh viên yêu thích phát triển web. Tôi xây dựng dự án cá nhân để rèn luyện kỹ năng, thực hành các chức năng ở cả frontend, backend, mobile và AI integration. Tôi cũng sử dụng Git để quản lý mã nguồn. Hiện tại, tôi đang thực tập và tiếp tục cải thiện khả năng giải quyết các bài toán thực tế trong sản phẩm.",
+          "Tôi là sinh viên yêu thích phát triển web. Tôi xây dựng dự án cá nhân để rèn luyện kỹ năng, thực hành các chức năng ở cả frontend, backend và AI integration. Tôi cũng sử dụng Git để quản lý mã nguồn. Hiện tại, tôi đang thực tập và tiếp tục cải thiện khả năng giải quyết các bài toán thực tế trong sản phẩm.",
         education_title: "Học vấn",
         education: [
           {
@@ -409,12 +397,11 @@ export const dictionaries = {
             company: "Hệ thống thương mại điện tử thời trang",
             time: "Dự án cá nhân",
             desc: [
-              "Hệ thống full-stack gồm một ứng dụng web và một ứng dụng di động cho cửa hàng thời trang.",
-              "Công nghệ sử dụng: React, TypeScript, Node.js, Express, Flutter, MySQL.",
+              "Hệ thống full-stack gồm một ứng dụng web và backend API cho cửa hàng thời trang.",
+              "Công nghệ sử dụng: React, TypeScript, Node.js, Express, MySQL.",
               "Xây dựng RESTful API cho quản lý sản phẩm và người dùng.",
               "Thiết lập cấu trúc route và cấu hình CORS cho dịch vụ backend.",
               "Phát triển giao diện web responsive bằng React.",
-              "Xây dựng ứng dụng mua sắm cơ bản bằng Flutter.",
               "Quản lý mã nguồn bằng Git và GitHub.",
             ],
           },
@@ -427,7 +414,7 @@ export const dictionaries = {
           },
           {
             label: "Framework / Thư viện",
-            items: ["React", "Node.js", "Express", "Flutter"],
+            items: ["React", "Node.js", "Express"],
           },
           {
             label: "Cơ sở dữ liệu",
@@ -446,7 +433,6 @@ export const dictionaries = {
       home: "Home",
       projects: "Projects",
       about: "About",
-      threeD: "BIO",
       certificates: "Capabilities",
       faq: "FAQ",
       cv: "Resume",
@@ -456,7 +442,7 @@ export const dictionaries = {
       greeting: "HELLO, I AM",
       role_prefix: "Skills",
       description:
-        "An Information Technology / Software Engineering student at HUTECH focused on Web Development. I have been building a personal full-stack project that covers frontend, backend, mobile, UI/UX, AI integration, and Git workflow, and I am currently interning while continuing to ship real product work.",
+        "An Information Technology / Software Engineering student at HUTECH focused on Web Development. I have been building a personal full-stack project that covers frontend, backend, UI/UX, AI integration, and Git workflow, and I am currently interning while continuing to ship real product work.",
       view_projects: "View projects",
       contact: "Contact me",
       available: "Currently interning",
@@ -464,11 +450,10 @@ export const dictionaries = {
         "UI/UX",
         "Frontend",
         "Backend",
-        "Mobile App",
         "AI Integration",
         "Full-stack",
       ],
-      highlights: ["UI/UX", "Frontend", "Backend", "Mobile", "AI"],
+      highlights: ["UI/UX", "Frontend", "Backend", "AI"],
     },
     projects: {
       title: "Projects From My CV",
@@ -506,7 +491,7 @@ export const dictionaries = {
       title: "About Me",
       subtitle: "Education, direction, and hands-on skills taken from my CV.",
       summary:
-        "I enjoy learning Web Development by building real projects. Through project work and my current internship, I have practiced frontend, backend, mobile, UI/UX, AI integration, and Git/GitHub workflow in a more structured way.",
+        "I enjoy learning Web Development by building real projects. Through project work and my current internship, I have practiced frontend, backend, UI/UX, AI integration, and Git/GitHub workflow in a more structured way.",
       timeline_title: "Journey",
       skills_title: "Hands-on skills",
       skills: [
@@ -533,7 +518,7 @@ export const dictionaries = {
           title: "Built the Nurfia system",
           place: "Self-driven practice",
           description:
-            "Created a web app, backend API, and mobile app for the Nurfia fashion e-commerce platform to strengthen my full-stack fundamentals.",
+            "Created a web app and backend API for the Nurfia fashion e-commerce platform to strengthen my full-stack fundamentals.",
         },
         {
           year: "Core abilities",
@@ -582,14 +567,14 @@ export const dictionaries = {
           category: "tech",
           question: "What is your main stack?",
           answer:
-            "I am practicing with **JavaScript**, **TypeScript**, **React**, **Node.js**, **Express**, **Flutter**, **MySQL**, and **Prompt AI**. I am also comfortable with **Git/GitHub**, **REST APIs**, and **MVC Architecture**.",
+            "I am practicing with **JavaScript**, **TypeScript**, **React**, **Node.js**, **Express**, **MySQL**, and **Prompt AI**. I am also comfortable with **Git/GitHub**, **REST APIs**, and **MVC Architecture**.",
         },
         {
           id: "q2",
           category: "experience",
           question: "What project is in your CV?",
           answer:
-            "My main CV project is **Nurfia**, a fashion e-commerce system that includes a **web app**, **backend API**, and **mobile app**.",
+            "My main CV project is **Nurfia**, a fashion e-commerce system that includes a **web app** and **backend API**.",
         },
         {
           id: "q3",
@@ -703,7 +688,7 @@ export const dictionaries = {
       },
     },
     footer: {
-      text: "This portfolio is built from the real CV and project work of Tong Van Hoang.",
+      text: "© 2023 Tong Van Hoang. All rights reserved.",
     },
     certificates: {
       tag: "Capability Profile",
@@ -735,7 +720,7 @@ export const dictionaries = {
           id: "PRJ-NURFIA",
           title: "Nurfia Fashion E-commerce System",
           issuer: "Personal Project",
-          desc: "A full-stack system that includes a web application and a mobile application for a fashion store.",
+          desc: "A full-stack system that includes a web application and a backend API for a fashion store.",
           meta: "Project",
           category: "project",
         },
@@ -752,14 +737,6 @@ export const dictionaries = {
           title: "Responsive Web UI with React",
           issuer: "React + TypeScript",
           desc: "Built responsive website interfaces to support shopping experiences across screen sizes.",
-          meta: "Skill",
-          category: "skill",
-        },
-        {
-          id: "SKILL-MOBILE",
-          title: "Basic Mobile Shopping App",
-          issuer: "Flutter",
-          desc: "Practiced extending the same e-commerce system to mobile through a basic shopping app.",
           meta: "Skill",
           category: "skill",
         },
@@ -800,7 +777,6 @@ export const dictionaries = {
         "React",
         "Node.js",
         "Express",
-        "Flutter",
         "MySQL",
         "Prompt AI",
         "Git",
@@ -810,7 +786,6 @@ export const dictionaries = {
       strengths: [
         "Built basic RESTful APIs for product and user management",
         "Created responsive website interfaces with React",
-        "Developed a basic shopping app with Flutter",
         "Managed source code using Git and GitHub",
       ],
       quick_info_title: "Quick info",
@@ -830,7 +805,7 @@ export const dictionaries = {
       main_content: {
         about_title: "Profile",
         about_content:
-          "I am a student passionate about Web Development. I have built personal projects to practice my skills across frontend, backend, mobile, and AI integration. I also use Git to manage source code. Right now, I am interning and continuing to improve how I solve real product problems in practice.",
+          "I am a student passionate about Web Development. I have built personal projects to practice my skills across frontend, backend, and AI integration. I also use Git to manage source code. Right now, I am interning and continuing to improve how I solve real product problems in practice.",
         education_title: "Education",
         education: [
           {
@@ -848,12 +823,11 @@ export const dictionaries = {
             company: "Fashion E-commerce System",
             time: "Personal Project",
             desc: [
-              "Full-stack system including a web application and a mobile application for a fashion store.",
-              "Tech Stack: React, TypeScript, Node.js, Express, Flutter, MySQL.",
+              "Full-stack system including a web application and a backend API for a fashion store.",
+              "Tech Stack: React, TypeScript, Node.js, Express, MySQL.",
               "Developed RESTful APIs for product and user management.",
               "Implemented routing structure and configured CORS for backend services.",
               "Built responsive user interfaces for the website using React.",
-              "Developed a basic mobile shopping application using Flutter.",
               "Managed source code using Git and GitHub.",
             ],
           },
@@ -866,7 +840,7 @@ export const dictionaries = {
           },
           {
             label: "Frameworks / Libraries",
-            items: ["React", "Node.js", "Express", "Flutter"],
+            items: ["React", "Node.js", "Express"],
           },
           {
             label: "Database",

@@ -174,7 +174,7 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         ],
         credibilityPoints: [
           "Tư duy ứng dụng AI vào giải quyết bài toán nghiệp vụ thay vì chạy theo xu hướng.",
-          "Khả năng triển khai AI trên nhiều bề mặt: Storefront, Dashboard và Mobile.",
+          "Khả năng triển khai AI trên nhiều bề mặt: Storefront và Dashboard.",
           "Hiểu rõ về prompt engineering và quản lý chi phí/hiệu suất khi dùng AI API.",
         ],
         systems: ["Visual Search", "AI Insights", "Auto Content Generation"],
@@ -341,7 +341,7 @@ export const blogCopy: Record<Language, BlogPageCopy> = {
         ],
         credibilityPoints: [
           "Mindset of applying AI to solve business problems rather than just following trends.",
-          "Ability to deploy AI across multiple surfaces: Storefront, Dashboard, and Mobile.",
+          "Ability to deploy AI across multiple surfaces: Storefront and Dashboard.",
           "Clear understanding of prompt engineering and managing cost/performance of AI APIs.",
         ],
         systems: ["Visual Search", "AI Insights", "Auto Content Generation"],

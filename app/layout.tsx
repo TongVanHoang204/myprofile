@@ -21,7 +21,7 @@ const ogImage =
 const ogImageUrl = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`;
 const personName = "Tống Văn Hoàng";
 const siteDescription =
-  "Portfolio của Tống Văn Hoàng, sinh viên HUTECH định hướng Web Developer Intern với React, Node.js, Express, Flutter và Git workflow.";
+  "Portfolio của Tống Văn Hoàng, sinh viên HUTECH định hướng Web Developer Intern với React, Node.js, Express và Git workflow.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -42,7 +42,6 @@ export const metadata: Metadata = {
     "React",
     "Node.js",
     "Express",
-    "Flutter",
     "GitHub",
     "HUTECH",
   ],

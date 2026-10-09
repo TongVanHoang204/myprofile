@@ -1,6 +1,6 @@
 import type { Language } from "@/app/data/dictionaries";
 
-export type ProjectFilter = "all" | "website" | "backend" | "mobile";
+export type ProjectFilter = "all" | "website" | "backend";
 
 export type ProjectCaseStudy = {
   slug: string;
@@ -61,7 +61,7 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
     eyebrow: "Nurfia – Fashion eCommerce",
     title: "Case study dự án",
     subtitle:
-      "Nurfia là hệ thống thương mại điện tử thời trang tôi trực tiếp xây dựng: web storefront, RESTful API, dashboard quản trị và mobile app — triển khai tại vanhoang.mauweb68.com.",
+      "Nurfia là hệ thống thương mại điện tử thời trang tôi trực tiếp xây dựng: web storefront, RESTful API, dashboard quản trị — triển khai tại vanhoang.mauweb68.com.",
     caseStudyEyebrow: "Case study",
     caseStudyTitle: "Đọc nhanh từng phần tôi đã trực tiếp làm",
     caseStudySubtitle:
@@ -71,7 +71,6 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
       all: "Tất cả",
       website: "Trang web",
       backend: "Backend",
-      mobile: "Mobile App",
     },
     labels: {
       objective: "Mục tiêu",
@@ -203,11 +202,11 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
         description:
           "Backend Node.js, Express và TypeScript cho Nurfia với CRUD, route cấu trúc rõ ràng, nhóm route AI riêng, phân quyền, rate limit và fallback cho visual search.",
         summary:
-          "Backend này không chỉ là CRUD mà là service layer đủ sạch để web storefront, dashboard và mobile cùng dùng.",
+          "Backend này không chỉ là CRUD mà là service layer đủ sạch để web storefront và dashboard cùng dùng.",
         thumbnail: "/projects/nurfia-api.png",
         tags: ["Node.js", "Express", "TypeScript", "REST API", "AI Routes"],
         objective:
-          "Xây API có cấu trúc rõ ràng để phục vụ web storefront Nurfia, dashboard quản trị, mobile app và cả những tính năng AI mà không làm kiến trúc bị rối.",
+          "Xây API có cấu trúc rõ ràng để phục vụ web storefront Nurfia, dashboard quản trị và cả những tính năng AI mà không làm kiến trúc bị rối.",
         role: [
           "Thiết kế route và tổ chức backend cho sản phẩm, người dùng và các luồng thương mại điện tử cơ bản.",
           "Tách nhóm route AI riêng cho chat, generate nội dung và visual search.",
@@ -221,13 +220,13 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
         outcomes: [
           "Tách route AI khỏi CRUD để dễ mở rộng.",
           "Có fallback cho visual search thay vì phụ thuộc hoàn toàn vào model.",
-          "Cùng một backend phục vụ web, dashboard và mobile.",
+          "Cùng một backend phục vụ web và dashboard.",
         ],
         relatedBlogSlugs: ["backend-notes", "ai-workflow"],
         quickScan: [
           {
             label: "Điểm nhìn chính",
-            text: "Service layer đứng sau toàn bộ hệ sinh thái Nurfia, phục vụ storefront, admin dashboard, mobile client và AI features.",
+            text: "Service layer đứng sau toàn bộ hệ sinh thái Nurfia, phục vụ storefront, admin dashboard và AI features.",
           },
           {
             label: "Luồng quan trọng",
@@ -255,11 +254,11 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
           "Express 5 + TypeScript làm API layer, Prisma làm data access layer cho MySQL schema.",
           "server.ts gom middleware bảo mật, Swagger, static uploads, API routes, not-found handler và Socket.IO server.",
           "Middleware stack gồm helmet, CORS theo allowed origins, cookie parser, body parser, CSRF cho unsafe methods và error handler chung.",
-          "Route/controller tách theo domain để storefront, dashboard và mobile có thể dùng chung service layer.",
+          "Route/controller tách theo domain để storefront và dashboard có thể dùng chung service layer.",
           "AI route có Zod validation, rate limit, optional auth, timeout khi gọi model và kiểm tra product tag trả về phải thuộc database.",
         ],
         challenges: [
-          "Giữ API đủ rộng cho storefront, dashboard và mobile nhưng không trộn toàn bộ logic vào một controller lớn.",
+          "Giữ API đủ rộng cho storefront và dashboard nhưng không trộn toàn bộ logic vào một controller lớn.",
           "Product filter phải xử lý category con, brand slug/name, attribute màu/size và pagination mà vẫn giữ response nhất quán.",
           "Admin cần phân quyền chi tiết hơn chỉ ADMIN/CUSTOMER, nên backend có role STAFF/MANAGER và permission theo module.",
           "AI route cần bảo vệ khỏi prompt injection, output format nguy hiểm và hallucinated product card.",
@@ -420,7 +419,7 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
     eyebrow: "Nurfia – Fashion eCommerce",
     title: "Project case studies",
     subtitle:
-      "Nurfia is a full fashion eCommerce system I built directly: web storefront, RESTful API, admin dashboard, and mobile app — live at vanhoang.mauweb68.com.",
+      "Nurfia is a full fashion eCommerce system I built directly: web storefront, RESTful API, and admin dashboard — live at vanhoang.mauweb68.com.",
     caseStudyEyebrow: "Case study",
     caseStudyTitle: "A fast way to scan what I actually built",
     caseStudySubtitle:
@@ -430,7 +429,6 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
       all: "All",
       website: "Website",
       backend: "Backend",
-      mobile: "Mobile App",
     },
     labels: {
       objective: "Goal",
@@ -562,11 +560,11 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
         description:
           "A Node.js, Express, and TypeScript backend with CRUD, clear routing, a dedicated AI route group, access control, rate limiting, and fallback logic for visual search.",
         summary:
-          "This backend is more than CRUD. It is the service layer shared by the Nurfia web app, dashboard, and mobile client.",
+          "This backend is more than CRUD. It is the service layer shared by the Nurfia web app and dashboard.",
         thumbnail: "/projects/nurfia-api.png",
         tags: ["Node.js", "Express", "TypeScript", "REST API", "AI Routes"],
         objective:
-          "Build an API structure that can serve the Nurfia web storefront, admin dashboard, mobile app, and AI features without turning the system into a mess.",
+          "Build an API structure that can serve the Nurfia web storefront, admin dashboard, and AI features without turning the system into a mess.",
         role: [
           "Designed the routing structure for products, users, and core commerce flows.",
           "Separated AI routes for chat, content generation, and visual search.",
@@ -580,13 +578,13 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
         outcomes: [
           "AI routes are separated from CRUD for maintainability.",
           "Visual search has a fallback instead of relying only on the model.",
-          "One backend serves the Nurfia web, dashboard, and mobile clients.",
+          "One backend serves the Nurfia web and dashboard.",
         ],
         relatedBlogSlugs: ["backend-notes", "ai-workflow"],
         quickScan: [
           {
             label: "Main lens",
-            text: "The service layer behind the Nurfia ecosystem, serving the storefront, admin dashboard, mobile client, and AI features.",
+            text: "The service layer behind the Nurfia ecosystem, serving the storefront, admin dashboard, and AI features.",
           },
           {
             label: "Critical flow",
@@ -614,11 +612,11 @@ export const projectCopy: Record<Language, ProjectsCopy> = {
           "Express 5 + TypeScript provides the API layer, with Prisma as the data access layer for the MySQL schema.",
           "server.ts composes security middleware, Swagger, static uploads, API routes, the API not-found handler, and Socket.IO.",
           "The middleware stack includes Helmet, origin-based CORS, cookie parsing, body parsing, CSRF for unsafe methods, and a shared error handler.",
-          "Routes and controllers are split by domain so the storefront, dashboard, and mobile client can share the same service surface.",
+          "Routes and controllers are split by domain so the storefront and dashboard can share the same service surface.",
           "The AI route uses Zod validation, rate limiting, optional auth, model-call timeout, and validates returned product tags against database product IDs.",
         ],
         challenges: [
-          "Keeping the API broad enough for storefront, dashboard, and mobile without collapsing all business logic into one large controller.",
+          "Keeping the API broad enough for storefront and dashboard without collapsing all business logic into one large controller.",
           "Product filtering has to handle child categories, brand slug/name matching, color/size attributes, and pagination while keeping response shape consistent.",
           "Admin access needed more than a simple ADMIN/CUSTOMER split, so the backend supports STAFF/MANAGER roles and module-level permissions.",
           "The AI route needs protection against prompt injection, unsafe output formats, and hallucinated product cards.",

@@ -16,7 +16,6 @@ export default function ProjectsPage() {
     { value: "all", label: copy.filters.all },
     { value: "website", label: copy.filters.website },
     { value: "backend", label: copy.filters.backend },
-    { value: "mobile", label: copy.filters.mobile },
   ];
 
   return (

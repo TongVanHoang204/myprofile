@@ -336,7 +336,6 @@ export function detectAiIntent(question: string): AiIntent {
       "java",
       "php",
       "mysql",
-      "flutter",
     ])
   ) {
     return "stack";
@@ -348,7 +347,6 @@ export function detectAiIntent(question: string): AiIntent {
       "du an",
       "nurfia",
       "dashboard",
-      "mobile",
       "api",
       "storefront",
       "case study",
@@ -425,9 +423,9 @@ function getIntentBoosts(intent: AiIntent, language: Language) {
 
   switch (intent) {
     case "stack":
-      return ["JavaScript", "TypeScript", "React", "Node.js", "Flutter", "MySQL"];
+      return ["JavaScript", "TypeScript", "React", "Node.js", "MySQL"];
     case "project":
-      return ["Nurfia", "dashboard", "mobile", "API", "storefront", "case study"];
+      return ["Nurfia", "dashboard", "API", "storefront", "case study"];
     case "ai":
       return ["AI", "Gemini", "visual search", "assistant", "Prompt AI", "RAG"];
     case "experience":
@@ -579,7 +577,7 @@ export function getSuggestedQuestions(
     client: [
       "Bạn có thể làm website theo stack nào?",
       "Nurfia có gì nổi bật về AI?",
-      "Bạn có kinh nghiệm làm mobile app không?",
+      "Bạn thiết kế giao diện web như thế nào?",
       "Tôi nên xem trang nào để hiểu nhanh về bạn?",
     ],
   };
@@ -594,7 +592,7 @@ export function getSuggestedQuestions(
     client: [
       "What kind of website stack can you build with?",
       "What AI features did you add to Nurfia?",
-      "Do you also have mobile app experience?",
+      "How do you design web interfaces?",
       "Which page should I open first to understand your work quickly?",
     ],
   };
@@ -632,12 +630,12 @@ export function getSuggestedQuestions(
       ? [
         "Case study nào thể hiện rõ nhất phần frontend của bạn?",
         "Bạn làm dashboard quản trị ở mức nào?",
-        "Phần mobile app khác gì so với web storefront?",
+        "Backend API kết nối với web storefront như thế nào?",
       ]
       : [
         "Which case study shows your frontend work best?",
         "How much of the admin dashboard did you build?",
-        "How does the mobile app differ from the web storefront?",
+        "How does the backend API connect to the web storefront?",
       ];
   }
 

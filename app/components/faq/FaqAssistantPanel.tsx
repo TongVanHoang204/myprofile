@@ -117,7 +117,7 @@ function getInitialQuickPrompts(language: "vi" | "en", mode: AiAudienceMode) {
       : [
           "Bạn có thể làm website theo stack nào?",
           "Nurfia có tính năng AI gì nổi bật?",
-          "Bạn có làm được mobile app không?",
+          "Bạn thiết kế giao diện web như thế nào?",
           "Tôi nên xem project nào đầu tiên?",
         ];
   }
@@ -132,7 +132,7 @@ function getInitialQuickPrompts(language: "vi" | "en", mode: AiAudienceMode) {
     : [
         "What kind of website stack can you build with?",
         "What AI features did you add to Nurfia?",
-        "Do you also have mobile app experience?",
+        "How do you design web interfaces?",
         "Which project should I review first?",
       ];
 }

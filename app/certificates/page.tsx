@@ -63,20 +63,6 @@ const itemVisuals: Record<
       </svg>
     ),
   },
-  "SKILL-MOBILE": {
-    logoColor:
-      "bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-300",
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.8}
-          d="M12 18h.01M8 4h8a1 1 0 011 1v14a1 1 0 01-1 1H8a1 1 0 01-1-1V5a1 1 0 011-1z"
-        />
-      </svg>
-    ),
-  },
   "SKILL-GIT": {
     logoColor:
       "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-200",

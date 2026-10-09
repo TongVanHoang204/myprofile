@@ -24,7 +24,7 @@ Kiểm tra thay đổi bằng `npm run lint` (TypeScript), `npm test` và `npm r
 Website này đóng vai trò như một hồ sơ trực tuyến, giúp người xem nắm nhanh:
 
 - Tôi là ai và đang tập trung vào lĩnh vực nào
-- Kỹ năng frontend, backend, mobile, UI/UX và AI integration của tôi
+- Kỹ năng frontend, backend, UI/UX và AI integration của tôi
 - Các dự án tôi đã trực tiếp xây dựng
 - CV, thông tin liên hệ và những câu hỏi thường gặp
 - Ghi chú/blog kỹ thuật liên quan đến quá trình tôi xây sản phẩm
@@ -40,7 +40,7 @@ Giới thiệu ngắn gọn về tôi, định hướng phát triển web, các 
 Phần dự án tập trung vào hệ thống thương mại điện tử thời trang Nurfia mà tôi đã xây dựng, được tách thành các case study riêng:
 
 - **Nurfia Web Storefront**: giao diện mua sắm, product listing, product detail, cart, checkout và AI shopping assistant.
-- **Nurfia RESTful API**: backend service layer cho storefront, dashboard, mobile client và các tính năng AI.
+- **Nurfia RESTful API**: backend service layer cho storefront, dashboard và các tính năng AI.
 - **Nurfia Admin Dashboard**: khu vực quản trị nội bộ cho doanh thu, đơn hàng, khách hàng, tồn kho, báo cáo và phân quyền.
 
 Mỗi case study trình bày rõ mục tiêu, vai trò của tôi, stack, cách tôi đưa AI vào sản phẩm, kết quả và các chi tiết kỹ thuật tôi đã trực tiếp thực hiện.
@@ -49,9 +49,9 @@ Mỗi case study trình bày rõ mục tiêu, vai trò của tôi, stack, cách 
 
 Blog ghi lại các ghi chú của tôi về cách xây dựng Nurfia, kiến trúc full-stack, RESTful API, AI workflow và hướng phát triển portfolio.
 
-### Bio Và CV
+### CV
 
-Phần Bio và CV tóm tắt thông tin cá nhân của tôi, quá trình học tập, kỹ năng, kinh nghiệm thực tập và các điểm nổi bật trong hồ sơ.
+Trang CV tóm tắt thông tin cá nhân của tôi, quá trình học tập, kỹ năng, kinh nghiệm thực tập và các điểm nổi bật trong hồ sơ.
 
 ### FAQ Và Liên Hệ
 
