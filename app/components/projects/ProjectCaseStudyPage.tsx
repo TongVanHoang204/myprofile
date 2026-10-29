@@ -20,6 +20,7 @@ import { useLanguage } from "@/app/components/providers/LanguageProvider";
 import { blogCopy } from "@/app/data/blog";
 import { getProjectBySlug, projectCopy } from "@/app/data/projects";
 import { trackContentClick } from "@/app/lib/analytics/client-portfolio-analytics";
+import ProjectGallery from "@/app/components/projects/ProjectGallery";
 
 type ProjectCaseStudyPageProps = {
   slug: string;
@@ -243,6 +244,21 @@ export default function ProjectCaseStudyPage({
             </div>
           </div>
         </section>
+
+        {project.gallery?.length ? (
+          <ProjectGallery
+            title={language === "vi" ? "Ảnh chụp thực tế" : "Live screenshots"}
+            hint={
+              language === "vi"
+                ? "Chụp từ hệ thống đang chạy · bấm để phóng to"
+                : "Captured from the live system · click to enlarge"
+            }
+            closeLabel={language === "vi" ? "Đóng" : "Close"}
+            previousLabel={language === "vi" ? "Ảnh trước" : "Previous image"}
+            nextLabel={language === "vi" ? "Ảnh sau" : "Next image"}
+            items={project.gallery}
+          />
+        ) : null}
 
         {detailSections.length > 0 && (
           <section className="grid gap-6 lg:grid-cols-2">

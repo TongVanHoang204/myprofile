@@ -44,16 +44,16 @@ export const dictionaries = {
         {
           title: "Giao diện web Nurfia",
           description:
-            "Storefront responsive xây bằng Next.js và TypeScript, có tích hợp AI chat tư vấn mua sắm, visual search từ ảnh tải lên và luồng gợi ý sản phẩm phù hợp với hành vi người dùng.",
-          tags: ["Next.js", "TypeScript", "AI Chat", "Visual Search"],
-          thumbnail: "/projects/nurfia-web.png",
+            "Storefront thời trang song ngữ Việt/Anh xây bằng React 19, TypeScript và Vite: shop có filter, chọn biến thể theo tồn kho, checkout với coupon, phí ship theo khu vực và 4 phương thức thanh toán (COD, chuyển khoản, MoMo, Stripe), kèm AI chat gợi ý sản phẩm thật từ database.",
+          tags: ["React", "TypeScript", "Vite", "AI Chat"],
+          thumbnail: "/projects/nurfia-web/01-home.jpg",
           category: "website",
         },
         {
           title: "Nurfia RESTful API",
           description:
-            "Backend Node.js, Express và TypeScript với các route AI cho chat, generate nội dung và visual search; có phân quyền theo role, rate limit, tích hợp Ollama/Gemini và fallback thuật toán khi AI vision không sẵn sàng.",
-          tags: ["Node.js", "Express", "AI Routes", "Ollama"],
+            "Backend Node.js, Express 5 và TypeScript dùng Prisma + PostgreSQL: đặt hàng trong transaction, thanh toán MoMo/Stripe có xác minh chữ ký, JWT có thể thu hồi, phân quyền 15 module, rate limit, CSRF và route AI (Gemini qua OpenRouter) cho chat và viết nội dung admin.",
+          tags: ["Node.js", "Express", "Prisma", "PostgreSQL"],
           thumbnail: "/projects/nurfia-api.png",
           category: "backend",
         },
@@ -396,7 +396,7 @@ export const dictionaries = {
             time: "Dự án cá nhân",
             desc: [
               "Hệ thống full-stack gồm một ứng dụng web và backend API cho cửa hàng thời trang.",
-              "Công nghệ sử dụng: React, TypeScript, Node.js, Express, MySQL.",
+              "Công nghệ sử dụng: React, TypeScript, Node.js, Express, Prisma, PostgreSQL.",
               "Xây dựng RESTful API cho quản lý sản phẩm và người dùng.",
               "Thiết lập cấu trúc route và cấu hình CORS cho dịch vụ backend.",
               "Phát triển giao diện web responsive bằng React.",
@@ -416,7 +416,7 @@ export const dictionaries = {
           },
           {
             label: "Cơ sở dữ liệu",
-            items: ["MySQL"],
+            items: ["MySQL", "PostgreSQL"],
           },
           {
             label: "Khái niệm & Công cụ",
@@ -470,16 +470,16 @@ export const dictionaries = {
         {
           title: "Nurfia Web Storefront",
           description:
-            "A responsive Next.js and TypeScript storefront with an AI shopping chat widget, image-based visual search, and personalized product suggestion flows.",
-          tags: ["Next.js", "TypeScript", "AI Chat", "Visual Search"],
-          thumbnail: "/projects/nurfia-web.png",
+            "A bilingual (Vietnamese/English) fashion storefront built with React 19, TypeScript, and Vite: filterable shop, stock-aware variants, checkout with coupons, region-based shipping, and four payment methods (COD, bank transfer, MoMo, Stripe), plus an AI chat that recommends real products from the database.",
+          tags: ["React", "TypeScript", "Vite", "AI Chat"],
+          thumbnail: "/projects/nurfia-web/01-home.jpg",
           category: "website",
         },
         {
           title: "Nurfia RESTful API",
           description:
-            "A Node.js, Express, and TypeScript backend with AI chat, content generation, and visual-search routes, plus role-based access, rate limiting, Ollama integration, and an algorithmic fallback for image matching.",
-          tags: ["Node.js", "Express", "AI Routes", "Ollama"],
+            "A Node.js, Express 5, and TypeScript backend using Prisma + PostgreSQL: transactional ordering, signature-verified MoMo/Stripe payments, revocable JWT, 15 module permissions, rate limiting, CSRF, and AI routes (Gemini via OpenRouter) for chat and admin content writing.",
+          tags: ["Node.js", "Express", "Prisma", "PostgreSQL"],
           thumbnail: "/projects/nurfia-api.png",
           category: "backend",
         },
@@ -822,7 +822,7 @@ export const dictionaries = {
             time: "Personal Project",
             desc: [
               "Full-stack system including a web application and a backend API for a fashion store.",
-              "Tech Stack: React, TypeScript, Node.js, Express, MySQL.",
+              "Tech Stack: React, TypeScript, Node.js, Express, Prisma, PostgreSQL.",
               "Developed RESTful APIs for product and user management.",
               "Implemented routing structure and configured CORS for backend services.",
               "Built responsive user interfaces for the website using React.",
@@ -842,7 +842,7 @@ export const dictionaries = {
           },
           {
             label: "Database",
-            items: ["MySQL"],
+            items: ["MySQL", "PostgreSQL"],
           },
           {
             label: "Concepts & Tools",

@@ -423,11 +423,11 @@ function getIntentBoosts(intent: AiIntent, language: Language) {
 
   switch (intent) {
     case "stack":
-      return ["JavaScript", "TypeScript", "React", "Node.js", "MySQL"];
+      return ["JavaScript", "TypeScript", "React", "Node.js", "MySQL", "PostgreSQL"];
     case "project":
       return ["Nurfia", "dashboard", "API", "storefront", "case study"];
     case "ai":
-      return ["AI", "Gemini", "visual search", "assistant", "Prompt AI", "RAG"];
+      return ["AI", "Gemini", "OpenRouter", "assistant", "Prompt AI", "RAG"];
     case "experience":
       return ["intern", "thực tập", "workflow", "project"];
     case "education":
